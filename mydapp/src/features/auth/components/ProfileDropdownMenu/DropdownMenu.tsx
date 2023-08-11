@@ -9,12 +9,10 @@ import {
   MenuDivider,
   HStack,
   VStack,
-  Link,
 } from '@chakra-ui/react';
-import { FaExternalLinkAlt } from '@react-icons/all-files/fa/FaExternalLinkAlt';
 import { IoIosLogOut } from '@react-icons/all-files/io/IoIosLogOut';
 import { CgProfile } from "@react-icons/all-files/cg/CgProfile";
-import { MdDashboard } from '@react-icons/all-files/md/MdDashboard';
+import { BiMedal } from "@react-icons/all-files/bi/BiMedal";
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
@@ -23,17 +21,19 @@ import { Link as RouterLink } from 'react-router-dom';
 import { Identicon } from './Identicon';
 
 export interface DropdownMenuProps {
-  address: string;
   username: string;
+  profileLink: string;
+  myTokensLink: string;
   onDisconnectClicked: () => void;
 }
 
 export const DropdownMenu: React.FC<DropdownMenuProps> = ({
-  address,
   username,
+  profileLink,
+  myTokensLink,
   onDisconnectClicked,
 }) => {
-  const { t } = useTranslation('FeatureWallet');
+  const { t } = useTranslation('FeatureProfile');
 
   return (
     <Menu placement="bottom-end">
@@ -48,16 +48,9 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
         ml={2}
       >
         <HStack>
-          {currentNetwork ? (
-            <NetworkLogo
-              networkId={currentNetwork?.chainId}
-              networkName={currentNetwork?.chainName}
-            />
-          ) : null}
           <Text color="white" fontSize="md" fontWeight="medium" mr="2">
             {username}
           </Text>
-          <Identicon size={24} account={address} />
         </HStack>
       </MenuButton>
       <MenuList alignItems="center" m={0}>
@@ -67,10 +60,10 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
           </Box>
         </VStack>
         <MenuDivider />
-        <MenuItem icon={<CgProfile />} as={RouterLink} to={userPageLink}>
+        <MenuItem icon={<CgProfile />} as={RouterLink} to={profileLink}>
           {t('Profile')}
         </MenuItem>
-        <MenuItem icon={<CgProfile />} as={RouterLink} to={userPageLink}>
+        <MenuItem icon={<BiMedal />} as={RouterLink} to={myTokensLink}>
           {t('My Tokens')}
         </MenuItem>
         <MenuDivider />
