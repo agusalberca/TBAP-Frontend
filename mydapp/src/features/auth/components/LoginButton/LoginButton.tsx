@@ -1,46 +1,22 @@
-import { Spinner, useDisclosure } from '@chakra-ui/react';
-import React, { useEffect } from 'react';
+import { Button as ChakraButton } from '@chakra-ui/react';
+import { AiOutlineUser } from '@react-icons/all-files/ai/AiOutlineUser';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { Link as RouterLink } from 'react-router-dom';
 
-import useTypedSelector from '../../../../hooks/useTypedSelector';
-import { useActions } from '../../hooks/useActions';
-import { LoadingStatusType } from '../../models/types/LoadingStatus';
-import { WalletState } from '../../models/types/WalletState';
-
-import { Button } from './Button/Button';
-
-const ConnectionModal = React.lazy(() =>
-  import(
-    /* webpackChunkName: "../ConnectionModal" */ '../ConnectionModal/ConnectionModal'
-  ).then(module => ({
-    default: module.ConnectionModal,
-  }))
-);
 
 export const LoginButton: React.FC = () => {
-  const actions = useActions();
-  const { onOpen, onClose, isOpen } = useDisclosure();
-  const loadingState = useTypedSelector(state => state.wallet.state.loading);
-  const walletState = useTypedSelector(state => state.wallet.state.state);
-
-  useEffect(() => {
-    walletState !== undefined &&
-    walletState !== WalletState.NOT_INITIALIZED &&
-    walletState !== WalletState.AUTHENTICATED
-      ? onOpen()
-      : onClose();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [walletState]);
+  const { t } = useTranslation('FeatureWallet');
   return (
-    <>
-      <Button
-        isLoading={loadingState === LoadingStatusType.PENDING}
-        onClick={actions.connectWallet}
-      />
-      {isOpen ? (
-        <React.Suspense fallback={<Spinner size="xs" />}>
-          <ConnectionModal onDisconnect={onClose} />
-        </React.Suspense>
-      ) : null}
-    </>
+    <ChakraButton
+      ml={2}
+      variant="solid"
+      colorScheme="yellow"
+      leftIcon={<AiOutlineUser />}
+      as={RouterLink} to={'/login'}
+      role="button"
+    >
+      {t('Login')}
+    </ChakraButton>
   );
 };
