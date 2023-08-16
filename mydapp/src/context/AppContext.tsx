@@ -90,6 +90,17 @@ const AppContextProvider = ({ children }) => {
   }, [])
 
 
+  const checkToken = async () => {
+    const savedToken = localStorage.getItem('token')
+
+    if (savedToken) {
+      setToken(savedToken)
+    } else {
+      setToken('')
+    }
+  }
+
+
 
   const values: AppContextInterface = {
     firstCharge,

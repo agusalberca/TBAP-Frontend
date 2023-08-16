@@ -8,7 +8,6 @@ import { login } from '../../api/auth'
 import AuthCard from '../../components/AuthCard'
 import Input from '../../components/Input'
 import LoadingDots from '../../components/LoadingDots'
-// import SolarusBanner from '../../components/SolarusBanner'
 
 const Login = () => {
   const { token, setToken } = useAppContext()
@@ -53,7 +52,7 @@ const Login = () => {
   return (
     <>
       <Helmet>
-        <title>Solarus: Login</title>
+        <title>TBAP: Login</title>
       </Helmet>
 
       <section className="d-flex flex-column justify-content-center align-items-center gap-5">
