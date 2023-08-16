@@ -19,6 +19,12 @@ const UserPage = React.lazy(() =>
   }))
 );
 
+const ClaimTokensPage = React.lazy(() =>
+  import(/* webpackChunkName: "ClaimTokensPage" */ './ClaimTokens/ClaimTokens').then(module => ({
+    default: module.ClaimTokensPage,
+  }))
+);
+
 // ADD YOUR PAGE IMPORTS HERE
 
 export const usePages = () => {
@@ -47,15 +53,16 @@ export const usePages = () => {
   };
 
   // ADD YOUR PAGE ROUTES HERE
-  const CoursesPage: PageType = {
+  const Courses: PageType = {
     path: 'courses',
     menuLabel: t('Courses', { ns: 'Menu' }),
     isShownInMainMenu: true,
     isShownInSecondaryMenu: true,
     isProtected: false,
   }
-  const ClaimTokensPage: PageType = {
-    path: '/tokens/claim',
+  const ClaimTokens: PageType = {
+    path: 'tokens/claim',
+    element: <ClaimTokensPage />,
     menuLabel: t('Claim Tokens', { ns: 'Menu' }),
     isShownInMainMenu: true,
     isShownInSecondaryMenu: true,
@@ -63,8 +70,8 @@ export const usePages = () => {
   }
   // do not forget add your page routes into this array
   const Pages: PageType[] = [
-    CoursesPage,
-    ClaimTokensPage
+    Courses,
+    ClaimTokens
   ];
 
   // DO NOT CHANGE THE REST
