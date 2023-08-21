@@ -24,9 +24,9 @@ interface AppContextInterface {
   refreshUser: () => void;
   userIsLoading: boolean;
 
-  isCentralAdmin: boolean;
-  isOrganizationAdmin: boolean;
-  isRegionAdmin: boolean;
+  // isCentralAdmin: boolean;
+  // isOrganizationAdmin: boolean;
+  // isRegionAdmin: boolean;
   
 }
 

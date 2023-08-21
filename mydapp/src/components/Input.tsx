@@ -74,7 +74,6 @@ const Input = ({
   initialValue = '',
   containerProps: { className: containerClassName, ...containerRestProps } = {},
 }: Props) => {
-  const { toggleShowNewClientModal } = useAppContext()
   const listRef = useRef(null)
   const inputRef = useRef(null)
   const [showPassword, setShowPassword] = useState(false)
@@ -305,7 +304,6 @@ const Input = ({
           <button
             className="Input__Client-Button text-6"
             type="button"
-            onClick={toggleShowNewClientModal}
           >
             <FontAwesomeIcon
               icon={faPlus}

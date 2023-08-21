@@ -72,7 +72,8 @@ const Routes: React.FC = () => {
 
   const routeRootWithLang: RouteObject = {
     path: `/:${i18nConfig.urlParam}`,
-    children: [Home, UserWithLang, ...PagesWithLang, NotFound],
+    // children: [Home, UserWithLang, ...PagesWithLang, NotFound],
+    children: [Home, UserWithLang],
   };
 
   const routeRoot: RouteObject = {
