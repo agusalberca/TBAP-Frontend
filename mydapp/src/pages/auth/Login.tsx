@@ -9,6 +9,7 @@ import AuthCard from '../../components/AuthCard'
 import Input from '../../components/Input'
 import LoadingDots from '../../components/LoadingDots'
 
+
 const Login = () => {
   const { token, setToken } = useAppContext()
   const navigate = useNavigate()

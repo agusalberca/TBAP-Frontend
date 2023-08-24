@@ -7,6 +7,8 @@ import { useWalletAuthentication } from '../features/wallet/hooks/useWalletAuthe
 
 import { MenuType, PageType } from './types';
 
+import Login from "../pages/auth/Login"
+
 const HomePage = React.lazy(() =>
   import(/* webpackChunkName: "HomePage" */ './Home/Home').then(module => ({
     default: module.HomePage,
@@ -68,10 +70,21 @@ export const usePages = () => {
     isShownInSecondaryMenu: true,
     isProtected: false,
   }
+
+  const LoginView: PageType = {
+    path: 'login',
+    element: <Login />,
+    menuLabel: t('Login', { ns: 'Menu' }),
+    isShownInMainMenu: false,
+    isShownInSecondaryMenu: false,
+    isProtected: false,
+  };
+
   // do not forget add your page routes into this array
   const Pages: PageType[] = [
     Courses,
-    ClaimTokens
+    ClaimTokens,
+    LoginView
   ];
 
   // DO NOT CHANGE THE REST

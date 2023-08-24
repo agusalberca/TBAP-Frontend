@@ -5,6 +5,9 @@ import './features/i18n/i18n';
 import { theme } from './features/ui/components/Layout/Theme/theme';
 import { Router } from './pages/Router';
 import store from './store/store';
+import AppContextProvider from './context/AppContext';
+import { QueryClient, QueryClientProvider } from 'react-query'
+
 
 log.setDefaultLevel('silent');
 
@@ -28,12 +31,25 @@ const ChakraProvider = React.lazy(() =>
   )
 );
 
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      keepPreviousData: false
+    },
+  },
+})
+
 export const App: React.FC = () => {
   return (
-    <Provider store={store}>
-      <ChakraProvider theme={theme}>
-        <Router />
-      </ChakraProvider>
-    </Provider>
+    <QueryClientProvider client={queryClient}>
+      <Provider store={store}>
+        <ChakraProvider theme={theme}>
+          <AppContextProvider> {/* Add the AuthContextProvider */}
+            <Router />
+          </AppContextProvider>
+        </ChakraProvider>
+      </Provider>
+    </QueryClientProvider>
   );
 };
+
