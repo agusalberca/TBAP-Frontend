@@ -1,24 +1,28 @@
-import { useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { Helmet } from 'react-helmet'
-import { useFormik } from 'formik'
-import * as Yup from 'yup'
-import useAppContext from '../../hooks/useAppContext'
-import { login } from '../../api/auth'
-import AuthCard from '../../components/AuthCard'
-import Input from '../../components/Input'
-import LoadingDots from '../../components/LoadingDots'
-
+import { useEffect } from 'react';
+import { Form, Link, useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import useAppContext from '../../hooks/useAppContext';
+import { login } from '../../api/auth';
+import AuthCard from '../../components/AuthCard';
+import LoadingDots from '../../components/LoadingDots';
+import {
+  FormControl,
+  FormErrorMessage,
+  FormLabel,
+  Input,
+} from '@chakra-ui/react';
 
 const Login = () => {
-  const { token, setToken } = useAppContext()
-  const navigate = useNavigate()
+  const { token, setToken } = useAppContext();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (token) {
-      navigate('')
+      navigate('');
     }
-  }, [token])
+  }, [token]);
 
   const formik = useFormik({
     initialValues: {
@@ -30,25 +34,25 @@ const Login = () => {
       email: Yup.string().email('Invalid email').required('Required'),
       password: Yup.string().required('Required'),
     }),
-    onSubmit: async (values) => {
-      const response = await login(values)
+    onSubmit: async values => {
+      const response = await login(values);
 
       if (response.non_field_errors)
         formik.setErrors({
           email: response.non_field_errors[0],
           password: response.non_field_errors[0],
-        })
+        });
       else if (response.key) {
-        setToken(response.key)
+        setToken(response.key);
         if (response.error == 'You must change your password first.') {
-          localStorage.setItem('must-change-password', values.password)
-          navigate('/change-password')
+          localStorage.setItem('must-change-password', values.password);
+          navigate('/change-password');
         } else {
-          navigate('/')
+          navigate('/');
         }
       }
     },
-  })
+  });
 
   return (
     <>
@@ -65,26 +69,31 @@ const Login = () => {
             password provided by us.
           </p>
 
-          <Input
-            label="Email"
-            name="email"
-            type="email"
-            placeholder="someone@gmail.com"
-            value={formik.values.email}
-            onChange={formik.handleChange}
-            error={formik.errors.email}
-            autoComplete="email"
-          />
-          <Input
-            label="Password"
-            type="password"
-            name="password"
-            placeholder="********"
-            value={formik.values.password}
-            onChange={formik.handleChange}
-            error={formik.errors.password}
-            autoComplete="current-password"
-          />
+          <FormControl isInvalid={!!formik.errors.email}>
+            <FormLabel>Email</FormLabel>
+            <Input
+              name="email"
+              type="email"
+              placeholder="someone@gmail.com"
+              value={formik.values.email}
+              onChange={formik.handleChange}
+              autoComplete="email"
+            />
+            <FormErrorMessage>{formik.errors.email}</FormErrorMessage>
+          </FormControl>
+
+          <FormControl isInvalid={!!formik.errors.password}>
+            <FormLabel>Password</FormLabel>
+            <Input
+              type="password"
+              name="password"
+              placeholder="********"
+              value={formik.values.password}
+              onChange={formik.handleChange}
+              autoComplete="current-password"
+            />
+            <FormErrorMessage>{formik.errors.password}</FormErrorMessage>
+          </FormControl>
 
           <span className="text-5 mt-3">
             Forgot your password?{' '}
@@ -110,7 +119,7 @@ const Login = () => {
         </AuthCard>
       </section>
     </>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

@@ -7,7 +7,8 @@ import { useWalletAuthentication } from '../features/wallet/hooks/useWalletAuthe
 
 import { MenuType, PageType } from './types';
 
-import Login from "../pages/auth/Login"
+import Login from '../pages/auth/Login';
+import ForgotPassword from './auth/ForgotPassword';
 
 const HomePage = React.lazy(() =>
   import(/* webpackChunkName: "HomePage" */ './Home/Home').then(module => ({
@@ -22,7 +23,9 @@ const UserPage = React.lazy(() =>
 );
 
 const ClaimTokensPage = React.lazy(() =>
-  import(/* webpackChunkName: "ClaimTokensPage" */ './ClaimTokens/ClaimTokens').then(module => ({
+  import(
+    /* webpackChunkName: "ClaimTokensPage" */ './ClaimTokens/ClaimTokens'
+  ).then(module => ({
     default: module.ClaimTokensPage,
   }))
 );
@@ -36,7 +39,7 @@ export const usePages = () => {
   // if you do not have control/access on hosting(html server) config, use hashRouter
   // keep in mind that if you do not use hashRouter,
   // you should redirect all requests to index.html in your server config
-  const isHashRouter = true;
+  const isHashRouter = false;
 
   // Home Route
   const Home: PageType = {
@@ -61,7 +64,7 @@ export const usePages = () => {
     isShownInMainMenu: true,
     isShownInSecondaryMenu: true,
     isProtected: false,
-  }
+  };
   const ClaimTokens: PageType = {
     path: 'tokens/claim',
     element: <ClaimTokensPage />,
@@ -69,7 +72,7 @@ export const usePages = () => {
     isShownInMainMenu: true,
     isShownInSecondaryMenu: true,
     isProtected: false,
-  }
+  };
 
   const LoginView: PageType = {
     path: 'login',
@@ -80,12 +83,18 @@ export const usePages = () => {
     isProtected: false,
   };
 
+  const ForgotPasswordView: PageType = {
+    path: 'forgot-password',
+    element: <ForgotPassword />,
+    menuLabel: t('Forgot Password', { ns: 'Menu' }),
+    isShownInMainMenu: false,
+    isShownInSecondaryMenu: false,
+    isProtected: false,
+  };
+
+
   // do not forget add your page routes into this array
-  const Pages: PageType[] = [
-    Courses,
-    ClaimTokens,
-    LoginView
-  ];
+  const Pages: PageType[] = [Courses, ClaimTokens, LoginView, ForgotPasswordView];
 
   // DO NOT CHANGE THE REST
   const homeMenuItem: MenuType = {
