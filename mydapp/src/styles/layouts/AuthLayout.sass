@@ -1,0 +1,29 @@
+.Auth
+  display: grid
+  grid-template-columns: 1fr 1fr
+  transition: grid-template-columns 300ms
+  &__Logo
+    grid-column: 1/2
+    overflow: hidden
+  &__Content
+    grid-column: 2/3
+    // opacity: 0
+
+.Auth__Content.enter
+  opacity: 0
+.Auth__Content.enter-active
+  opacity: 1
+  transition: opacity 300ms
+.Auth__Content.enter-done
+  opacity: 1
+.Auth__Content.exit
+  opacity: 1
+.Auth__Content.exit-active
+  opacity: 0
+  transition: opacity 300ms
+
+@media (max-width: 991px)
+  .Auth
+    grid-template-columns: 0 1fr
+    &__Card-Container
+      width: 94%

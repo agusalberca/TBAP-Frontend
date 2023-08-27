@@ -1,0 +1,25 @@
+.HotWaterDemand
+  &__Percentages-Grid
+    width: 100%
+    display: grid
+    gap: 0.5rem
+    .measure
+      display: none
+    &.Hours
+      grid-template-columns: repeat(6, 1fr) auto
+      &_Extra
+        grid-column: 7/8
+        grid-row: 1/5
+        align-items: flex-end
+        gap: 0.5rem
+
+@media (max-width: 1365px)
+  .HotWaterDemand
+    &__Percentages-Grid
+      .measure
+        display: block
+      &.Hours
+        grid-template-columns: repeat(4, 1fr) auto
+        &_Extra
+          grid-column: 5/6
+          grid-row: 1/7

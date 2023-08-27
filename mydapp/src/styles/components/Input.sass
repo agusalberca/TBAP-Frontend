@@ -1,0 +1,385 @@
+.Input
+  width: 100%
+  height: 34px
+  border: unset
+  border: 1px solid $lines
+  border-radius: 5px
+  padding: 6px 12px
+  background: unset
+  color: $input_text
+  font-weight: 400
+  transition: border .2s
+  display: flex
+  justify-content: flex-start
+  align-items: center
+  .PhoneInputInput
+    color: $input_text
+    &::placeholder
+      color: $secondary_text
+      opacity: .5
+  .PhoneInputCountrySelect select option
+    background-color: red
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button
+    display: none
+  &::placeholder
+    color: $secondary_text
+    opacity: .5
+    font-weight: 400
+  &:focus
+    ~ .Input__Detail
+      height: 3px
+      opacity: 1
+    ~ .Input__Icon
+      color: $lightblue
+    ~ .Input__Tip
+      color: $lightblue
+    &::placeholder
+      color: unset
+      opacity: 0
+  &--With-Icon
+    @extend .Input
+    padding: 6px 6px 6px 48px
+  &--Small
+    @extend .Input
+    max-width: 260px
+    height: 34px
+    padding: 6px 2px
+    text-align: center
+    &::placeholder
+      color: $secondary_text
+      opacity: .5
+      font-weight: 400
+    &:focus
+      ~ .Input__Detail
+        height: 3px
+        opacity: 1
+      ~ .Input__Icon
+        color: $lightblue
+      ~ .Input__Tip
+        color: $lightblue
+  &--Disabled
+    @extend .Input
+    background-color: $disabled
+    color: $disabled_text
+    cursor: not-allowed
+    &-Small
+      @extend .Input--Disabled
+      height: 34px
+      padding: 6px 3px
+      text-align: center
+  // &__All-Container
+  //   width: 100%
+  //   max-width: 260px
+  //   display: flex
+  //   flex-direction: column
+  //   align-items: flex-start
+  //   position: relative
+  &__Label
+    color: $input_black
+  &__Detail
+    content: ''
+    width: 100%
+    height: 0
+    border-radius: 0 0 10px 10px
+    background: $lightblue
+    position: absolute
+    bottom: 0
+    left: 0
+    opacity: 0
+    transition: height .2s, opacity .2s
+  &__Placeholder
+    color: $secondary_text
+    opacity: .5
+    font-weight: 400
+  &__Icon
+    position: absolute
+    left: 14px
+    font-size: 20px
+    top: calc(50% - 10px)
+    transition: color .2s
+    color: $secondary_text
+    &-Disabled
+      @extend .Input__Icon
+      left: 10px
+  &__Password-Icon
+    height: 34px
+    width: 30px
+    padding: 4px
+    font-size: 18px
+    position: absolute
+    right: 6px
+    top: calc(50% - 15px)
+    cursor: pointer
+    color: $primary_text
+    display: flex
+    justify-content: center
+    align-items: center
+    img
+      width: 100%
+      height: 100%
+      object-fit: contain
+  &__Edi_Icon
+    display: flex
+    justify-content: center
+    align-items: center
+    position: absolute
+    right: 8px
+    top: calc(50% - 8px)
+    cursor: pointer
+    img
+      width: 100%
+      height: 100%
+      object-fit: contain
+  &__List-Container
+    width: 100%
+    height: 34px
+    border: unset
+    border: 1px solid $lines
+    border-radius: 5px
+    padding: 6px 36px 6px 12px
+    background: unset
+    color: $input_text
+    font-weight: 400
+    display: flex
+    justify-content: flex-start
+    align-items: center
+    cursor: pointer
+    position: relative
+    &--Disabled
+      @extend .Input__List-Container
+      cursor: not-allowed !important
+      background-color: $disabled
+      color: $disabled_text
+      .Input__List-Icon
+        cursor: not-allowed !important
+    &.Selected
+      border-color: $lightblue
+  &__List-Icon
+    position: absolute
+    right: 6px
+    font-size: 20px
+    top: calc(50% - 10px)
+    cursor: pointer
+    transition: transform .2s
+    &--Active
+      @extend .Input__List-Icon
+      transform: rotateX(180deg)
+  &__List
+    display: flex
+    flex-direction: column
+    justify-content: flex-start
+    align-items: flex-start
+    position: absolute
+    top: calc(100% + 0.25rem)
+    left: 0
+    right: 0
+    z-index: 10
+    width: 100%
+    max-height: 24px * 4
+    border: 1px solid $lines
+    border-radius: 5px
+    background: $background
+    transition: color .2s
+    overflow: hidden auto
+    &::-webkit-scrollbar
+      width: 10px
+      &-thumb
+        border: 2px solid transparent
+        border-radius: 5px
+        background-clip: content-box
+        background-color: $lightblue
+    &-Button
+      width: 32px
+      height: 34px
+      display: flex
+      justify-content: center
+      align-items: center
+      font-size: 20px
+      position: absolute
+      bottom: 0
+      right: 0
+      cursor: pointer
+      transition: transform .2s
+      img
+        width: 20px
+        height: 20px
+        transition: transform .2s
+      &--Active
+        @extend .Input__List-Button
+        img
+          transform: rotateX(180deg)
+    &-Item
+      width: 100%
+      padding: 6px 14px
+      font-size: 12px
+      color: $input_text
+      text-align: left
+      cursor: pointer
+      transition: background-color .2s, color .2s
+      &:hover
+        background-color: $pills
+        color: $lightblue
+    &-Item--Active
+      @extend .Input__List-Item
+      color: $lightblue
+  &__Tip
+    padding-top: 2px
+    color: $input_text
+    font-weight: 400
+    font-size: 12px
+    text-align: left
+    transition: color .2s
+  &__Error
+    width: fit-content
+    height: 0
+    border-radius: 10px
+    padding: 0 10px
+    background-color: $error
+    color: transparent
+    font-weight: 400
+    display: flex
+    align-items: center
+    transition: height .2s, color .2s
+    animation: height-size .2s ease-in-out forwards, error-appear .2s ease-in-out .2s forwards
+    &--Small
+      @extend .Input__Error
+      height: 0
+      padding: 0 6px
+      font-size: .7rem
+      align-self: flex-start
+      animation: height-size-small .2s ease-in-out forwards, error-appear .2s ease-in-out .2s forwards
+  &__Warning
+    @extend .Input__Error
+    background: $warning
+    &--Small
+      @extend .Input__Error--Small
+      background: $warning
+  &__Edit
+    @extend .Input__Error
+    background: $edit
+    &--Edit
+      @extend .Input__Error--Small
+      background: $edit
+  &__Error-Icon-Container
+    width: 0
+    height: 18px
+    border-radius: 10px
+    padding: 0 8px
+    background: $error
+    display: flex
+    justify-content: center
+    align-items: center
+    justify-self: flex-start
+    animation: width-size .2s ease-in-out forwards
+    &--Small
+      @extend .Input__Error-Icon-Container
+      height: 12px
+      padding: 0 6px
+      position: absolute
+      left: 0
+      animation: width-size-small .2s ease-in-out forwards
+  &__Warning-Icon-Container
+    @extend .Input__Error-Icon-Container
+    background: $warning
+    &--Small
+      @extend .Input__Error-Icon-Container--Small
+      background: $warning
+  &__Error-Icon
+    width: 0
+    height: 12px
+    object-fit: contain
+    opacity: 0
+    animation: icon-width-size .2s ease-in-out forwards, icon-appear .2s ease-in-out .2s forwards
+    &--Small
+      @extend .Input__Error-Icon
+      height: 8px
+      animation: icon-width-size-small .2s ease-in-out forwards, icon-appear .2s ease-in-out .2s forwards
+  &__Warning-Icon
+    @extend .Input__Error-Icon
+    &--Small
+      @extend .Input__Error-Icon--Small
+  &__Button
+    flex-shrink: 0
+    min-width: 80px
+    padding: 2px 8px
+    border-radius: 10px
+    background: $hover
+    color: $primary
+    &:hover
+      color: $primary_dark
+      background: $hover_dark
+  &__Button-Icon
+    width: 12px
+    height: 12px
+  &__Edit-Dot
+    width: 6px
+    height: 6px
+    color: $lightblue
+
+input[type="date"]
+  font-size: 14px
+
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-calendar-picker-indicator
+  display: none
+  -webkit-appearance: none
+
+@keyframes width-size
+  0%
+    width: 0
+  100%
+    width: 28px
+
+@keyframes height-size
+  0%
+    height: 0
+  100%
+    height: 100%
+
+@keyframes width-size-small
+  0%
+    width: 0
+  100%
+    width: 18px
+
+@keyframes height-size-small
+  0%
+    height: 0
+  100%
+    height: 14px
+
+@keyframes error-appear
+  0%
+    color: transparent
+  100%
+    color: $primary_text
+
+@keyframes icon-width-size
+  0%
+    width: 0
+  100%
+    width: 12px
+
+@keyframes icon-width-size-small
+  0%
+    width: 0
+  100%
+    width: 8px
+
+@keyframes icon-appear
+  0%
+    opacity: 0
+  100%
+    opacity: 1
+
+@media (max-width: 768px)
+  .Input
+    height: 40px
+    &__Icon
+      font-size: 18px
+      top: calc(50% - 9px)
+
+@media (max-width: 370px)
+  input[type="date"]
+    padding-left: 28px

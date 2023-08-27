@@ -1,0 +1,50 @@
+.LoadingDots
+  max-width: 0px
+  margin-left: 0
+  opacity: 0
+  &__1
+    animation: dot1 1s cubic-bezier(0.83, 0, 0.17, 1) infinite
+  &__2
+    animation: dot2 1s 0.2s cubic-bezier(0.83, 0, 0.17, 1) infinite
+  &__3
+    animation: dot3 1s 0.4s cubic-bezier(0.83, 0, 0.17, 1) infinite
+
+@keyframes dot1
+  50%
+    d: path("M6.25 8.66669C6.25 7.97633 5.69036 7.41669 5 7.41669C4.30964 7.41669 3.75 7.97633 3.75 8.66669C3.75 9.35704 4.30964 9.91669 5 9.91669C5.69036 9.91669 6.25 9.35704 6.25 8.66669Z")
+
+@keyframes dot2
+  50%
+    d: path("M11.25 8.66669C11.25 7.97633 10.6904 7.41669 10 7.41669C9.30964 7.41669 8.75 7.97633 8.75 8.66669C8.75 9.35704 9.30964 9.91669 10 9.91669C10.6904 9.91669 11.25 9.35704 11.25 8.66669Z")
+
+@keyframes dot3
+  50%
+    d: path("M16.25 8.66669C16.25 7.97633 15.6904 7.41669 15 7.41669C14.3096 7.41669 13.75 7.97633 13.75 8.66669C13.75 9.35704 14.3096 9.91669 15 9.91669C15.6904 9.91669 16.25 9.35704 16.25 8.66669Z")
+
+.LoadingDots.enter
+  max-width: 0
+  margin-left: 0
+  opacity: 0
+.LoadingDots.enter-active
+  max-width: 20px
+  margin-left: 6px
+  opacity: 1
+  transition: max-width 200ms, margin-left 200ms, opacity 200ms 100ms
+.LoadingDots.enter-done
+  max-width: 20px
+  margin-left: 6px
+  opacity: 1
+.LoadingDots.exit
+  max-width: 20px
+  margin-left: 6px
+  opacity: 1
+.LoadingDots.exit-active
+  max-width: 0
+  margin-left: 0
+  opacity: 0
+  transition: max-width 200ms 100ms, margin-left 200ms 100ms, opacity 200ms
+
+@media (max-width: 768px)
+  .LoadingDots
+    width: 18px
+    height: 18px

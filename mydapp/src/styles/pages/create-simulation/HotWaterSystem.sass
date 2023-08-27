@@ -1,0 +1,12 @@
+.HotWaterSystem
+  &__Grid
+    width: 100%
+    height: fit-content
+    display: grid
+    grid-template-columns: 1fr auto 2fr
+    gap: 40px
+    &--Inputs
+      @extend .HotWaterSystem__Grid
+      display: grid
+      grid-template-columns: 1fr 1fr
+      gap: 8px

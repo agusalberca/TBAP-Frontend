@@ -1,0 +1,123 @@
+.flex
+  display: flex
+.flex-col
+  flex-direction: column
+.justify-start
+  justify-content: flex-start
+.justify-end
+  justify-content: flex-end
+.justify-center
+  justify-content: center
+.justify-between
+  justify-content: space-between
+.justify-around
+  justify-content: space-around
+.justify-evenly
+  justify-content: space-evenly
+.items-start
+  align-items: flex-start
+.items-end
+  align-items: flex-end
+.items-center
+  align-items: center
+.items-baseline
+  align-items: baseline
+.items-stretch
+  align-items: stretch
+.grow
+  flex-grow: 1
+.grow-0
+  flex-grow: 0
+
+.grid
+  display: grid
+.grid-cols-1
+  grid-template-columns: repeat(1, minmax(0, 1fr))
+.grid-cols-2
+  grid-template-columns: repeat(2, minmax(0, 1fr))
+.grid-cols-3
+  grid-template-columns: repeat(3, minmax(0, 1fr))
+.grid-flow-col
+  grid-auto-flow: column
+.justify-self-start
+  justify-self: start
+.justify-self-end
+  justify-self: end
+.justify-self-center
+  justify-self: center
+.justify-self-stretch
+  justify-self: stretch
+.self-start
+  align-self: flex-start
+.self-end
+  align-self: flex-end
+.self-center
+  align-self: center
+.self-stretch
+  align-self: stretch
+.gap-x-4
+  column-gap: 1rem
+.gap-y-4
+  row-gap: 1rem
+.gap-x-8
+  column-gap: 2rem
+.gap-y-8
+  row-gap: 2rem
+
+.pa-1
+  padding: 0.25rem
+.pr-1
+  padding-right: 0.25rem
+.pr-4
+  padding-right: 1rem
+.pl-1
+  padding-left: 0.25rem
+.pl-4
+  padding-left: 1rem
+
+.h-screen
+  height: 100vh
+.h-Max
+  height: max-content !important
+
+.min-w-max
+  min-width: max-content
+.max-w-max
+  max-width: max-content
+
+.opacity-50
+  opacity: 0.5
+
+.rounded-full
+  border-radius: 9999px
+
+.-rotate-90
+  transform: rotate(-90deg)
+.rotate-90
+  transform: rotate(90deg)
+.rotate_180
+  transform: rotate(180deg)
+
+.cursor-default
+  cursor: default
+.cursor-pointer
+  cursor: pointer
+
+.overflow-auto
+  overflow: auto
+.overflow-hidden
+  overflow: hidden
+.overflow-y-auto
+  overflow-y: auto
+.overflow-y-hidden
+  overflow-y: hidden
+.overflow-x-auto
+  overflow-x: auto
+.overflow-x-hidden
+  overflow-x: hidden
+
+@media (max-width: 767px)
+  .md:grid-cols-1
+    grid-template-columns: repeat(1, minmax(0, 1fr))
+  .md:grid-cols-2
+    grid-template-columns: repeat(2, minmax(0, 1fr))

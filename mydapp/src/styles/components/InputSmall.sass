@@ -1,0 +1,91 @@
+.InputSmall
+  width: 100%
+  height: 30px
+  border: unset
+  border: 1px solid $lines
+  border-radius: 5px
+  padding: 6px 12px
+  background: unset
+  color: $input_text
+  font-weight: 400
+  transition: border .2s
+  display: flex
+  justify-content: center
+  align-items: center
+  &::placeholder
+    color: $secondary_text
+    opacity: .5
+    font-weight: 400
+  &:focus
+    ~ .InputSmall__Detail
+      height: 3px
+      opacity: 1
+    &::placeholder
+      color: unset
+      opacity: 0
+  &--Disabled
+    @extend .InputSmall
+    background-color: $disabled
+    color: $disabled_text
+    cursor: not-allowed
+  // &__All-Container
+  //   max-width: 260px
+  &__Container
+    position: relative
+    width: 100%
+    max-width: 260px
+    &.min-w
+      min-width: 80px
+  &__All_Container
+    width: 100%
+    max-width: 260px
+  &__Label
+    color: $input_black
+  &__Detail
+    content: ''
+    width: 100%
+    height: 0
+    border-radius: 0 0 5px 5px
+    background: $lightblue
+    position: absolute
+    bottom: 0
+    left: 0
+    opacity: 0
+    transition: height .2s, opacity .2s
+  &__Error
+    position: absolute
+    left: 0
+    top: 102%
+    color: $incomplete
+    font-weight: 400
+    font-size: 12px
+    &-Icon
+      display: none
+  &__rightLabel
+    position: absolute
+    top: 50%
+    right: 7px
+    transform: translateY(-50%)
+
+input[type="date"]
+  font-size: 14px
+
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-calendar-picker-indicator
+  display: none
+  -webkit-appearance: none
+
+@media (max-width: 991px)
+  .InputSmall
+    height: 40px
+    &__Container
+      max-width: 380px
+    &__All_Container
+      max-width: 380px
+    &__Icon
+      font-size: 18px
+      top: calc(50% - 9px)
+
+@media (max-width: 370px)
+  input[type="date"]
+    padding-left: 28px

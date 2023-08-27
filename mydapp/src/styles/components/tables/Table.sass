@@ -1,0 +1,134 @@
+.Table
+  width: 100%
+  max-height: 80vh
+  position: relative
+  overflow: auto
+  border-radius: 10px
+  border: 2px solid $lines
+  &::-webkit-scrollbar
+    width: 10px
+    height: 10px
+    &-thumb
+      border: 1px solid transparent
+      border-radius: 10px
+      background-clip: content-box
+      background-color: $secondary_text
+      &:hover
+        cursor: pointer
+    &-track
+      background-color: $bg_primary
+      &:horizontal
+        border-bottom-left-radius: 10px
+      &:vertical
+        border-top-right-radius: 10px
+    &-corner
+      background-color: $bg_primary
+  &__Header
+    display: grid
+    justify-items: flex-start
+    position: sticky
+    top: 0
+    left: 0
+    z-index: 10
+    width: 100%
+    min-width: fit-content
+    height: fit-content
+    min-height: 40px
+    background: $bg_primary
+    color: $primary
+    font-weight: bold
+    &_Title
+      color: $primary
+    &_Item
+      display: flex
+      justify-content: flex-start
+      align-items: center
+      gap: 8px
+      width: 100%
+      height: 100%
+      padding: 8px
+      user-select: none
+      color: $primary
+      &:disabled
+        cursor: default
+      &.Center
+        justify-content: center
+    &_Icon
+      color: $primary
+  &__Content
+    width: 100%
+    min-width: fit-content
+    display: flex
+    flex-direction: column
+    justify-content: flex-start
+    align-items: flex-start
+    &_Empty
+      display: flex
+      justify-content: center
+      align-items: center
+      width: 100%
+      height: 31px
+  &__Pages
+    display: flex
+    justify-content: center
+    align-items: center
+    gap: 5px
+    width: 100%
+    padding-top: 7px
+    padding-top: 7px
+    margin-top: auto
+    color: $primary_text
+    &_Text
+      display: flex
+      justify-content: center
+      align-items: center
+      gap: 15px
+    &_Arrow
+      display: flex
+      justify-content: center
+      align-items: center
+      width: 38px
+      height: 38px
+      padding: 10px
+      border-radius: 19px
+      color: $primary_text
+      background-color: transparent
+      opacity: 1
+      transition: opacity 200ms, background-color 200ms
+      &:hover
+        background-color: $hover
+      &:disabled
+        opacity: 0
+        cursor: default
+
+.Table.Special
+  border: none
+  .Table__Header
+    padding-left: 8px
+    padding-right: 8px
+    border-radius: 10px
+  .Table__Header_Item
+    padding: 10px 8px
+  .Table__Content
+    padding-top: 16px
+  .TableItem
+    height: 62px
+    padding: 16px 8px
+    border-radius: 10px
+    background-color: $pills
+    &:hover
+      background-color: $pills_dark
+  .TableItem + .TableItem
+    margin-top: 8px
+    border-top: none
+
+@media (max-width: 767px)
+  .Table
+    border-radius: 0
+    border: none
+    &.Special
+      .TableItem
+        height: auto
+        padding: 8px 0 0 0
+    &__Content
+      gap: 8px

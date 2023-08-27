@@ -1,0 +1,71 @@
+.Header
+  display: flex
+  justify-content: space-between
+  align-items: center
+  position: absolute
+  top: 0
+  left: 0
+  z-index: 99998
+  width: 100%
+  height: 46px
+  padding: 4px 20px
+  border-bottom: 1px solid transparent
+  &__Logo
+    display: none
+  &__Button-Menu
+    width: fit-content
+    height: 100%
+    border: 1px solid transparent
+    border-bottom: unset
+    border-radius: 10px 10px 0 0
+    padding: 0 10px
+    display: flex
+    align-items: center
+    gap: 12px
+    color: $primary_text
+    position: relative
+    cursor: pointer
+    &:hover
+      opacity: .8
+    &--Active
+      @extend .Header__Button-Menu
+      border: 1px solid $lines
+      border-bottom: unset
+  &__Menu
+    width: calc(100% + 2px)
+    height: fit-content
+    border-radius: 0 0 10px 10px
+    padding: 0 10px 10px
+    background-color: $background
+    border: 1px solid $lines
+    border-top: unset
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: flex-start
+    gap: 10px
+    position: absolute
+    top: 100%
+    right: -1px
+    z-index: -1
+    &-Detail
+      width: 100%
+      height: 2px
+      background-color: $lines
+    &-Item
+      width: 100%
+      height: 100%
+      display: flex
+      justify-content: flex-start
+      align-items: center
+      color: $primary_text
+      &:hover
+        opacity: .8
+
+@media (max-width: 991px)
+  .Header
+    background: $background
+    border-bottom: 1px solid $pills_dark
+    // box-shadow: $card_shadow
+    &__Logo
+      display: block

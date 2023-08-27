@@ -35,7 +35,7 @@ const Login = () => {
       password: Yup.string().required('Required'),
     }),
     onSubmit: async values => {
-      const response = await login(values);
+      const response = await login(values)
 
       if (response.non_field_errors)
         formik.setErrors({
@@ -62,9 +62,9 @@ const Login = () => {
 
       <section className="d-flex flex-column justify-content-center align-items-center gap-5">
         <AuthCard onSubmit={formik.handleSubmit}>
-          <h1 className="text-3 fw-medium mb-2">Log in</h1>
+          <h1 className="text-1 fw-medium mb-2 ">Log in</h1>
 
-          <p className="text-5 m-0">
+          <p className="text-5 m-1" style={{ color: '#FFFFFF' }}>
             If you are logging in for the first time, enter your email and the
             password provided by us.
           </p>

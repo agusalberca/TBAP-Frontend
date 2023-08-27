@@ -1,0 +1,290 @@
+.CreateSimulation
+  width: 100%
+  height: 100%
+  background: $pills
+  // display: grid
+  // grid-template-columns: 230px 1fr
+  &__Card
+    width: 100%
+    max-width: 540px
+    height: fit-content
+    border-radius: 10px
+    padding: 20px
+    background: $background
+    // box-shadow: $card_shadow
+    text-align: center
+    display: flex
+    flex-direction: column
+    gap: 10px
+  &__Container
+    width: 100%
+    height: fit-content
+    border-radius: 5px
+    border: 1px solid transparent
+    padding: 16px
+    background: $background
+    // box-shadow: $card_shadow
+    display: flex
+    flex-direction: column
+    gap: 16px
+    &--Disabled
+      @extend .CreateSimulation__Container
+      border: 1px solid $lines_dark
+      background: $lines
+      .CreateSimulation__Divisor-Horizontal
+        background: $lines_dark
+      .CreateSimulation__Divisor-Vertical
+        background: $lines_dark
+  &__Title-Icon
+    width: 25px
+    height: 25px
+  &__Input-Container
+    width: 100%
+    max-width: 260px
+  &__Divisor-Horizontal
+    width: 100%
+    height: 1px
+    border-radius: 10px
+    background: $lines
+  &__Divisor-Vertical
+    width: 1px
+    height: 100%
+    border-radius: 10px
+    background: $lines
+  &__Grid
+    display: grid
+    width: 100%
+    height: fit-content
+    align-items: center
+    justify-items: center
+    gap: 0.5rem
+    .measure
+      display: none
+    .Empty_space
+      display: block
+    &.End
+      align-items: end
+    &.Two_Col_and_seven_row
+      grid-template-columns: 1fr 1fr
+      grid-template-rows: repeat(7, 1fr)
+      grid-auto-flow: column
+      column-gap: 4rem
+      row-gap: 1rem
+      max-width: calc(260px * 2 + 4rem)
+    &.Three_col_and_one_row
+      grid-template-columns: 1fr 1fr 1fr
+      grid-template-rows: 1fr
+      grid-auto-flow: column
+      column-gap: 8rem
+      row-gap: 1rem
+      max-width: calc(260px * 3 + 16rem)
+      align-items: end
+    &.Three_col_and_two_row
+      grid-template-columns: 1fr 1fr 1fr
+      grid-template-rows: 1fr 1fr
+      grid-auto-flow: column
+      column-gap: 8rem
+      row-gap: 1rem
+      max-width: calc(260px * 3 + 16rem)
+      align-items: end
+    &.Three_col_and_four_row
+      grid-template-columns: 1fr 1fr 1fr
+      grid-template-rows: repeat(4, 1fr)
+      grid-auto-flow: column
+      column-gap: 8rem
+      row-gap: 1rem
+      max-width: calc(260px * 3 + 16rem)
+      align-items: end
+    &.Three_col_and_eight_row
+      grid-template-columns: 1fr 1fr 1fr
+      grid-template-rows: repeat(8, 1fr)
+      grid-auto-flow: column
+      column-gap: 8rem
+      row-gap: 1rem
+      max-width: calc(260px * 3 + 16rem)
+      align-items: end
+    &.Eight
+      grid-template-columns: repeat(7, 1fr) max-content
+    &.Ten
+      grid-template-columns: repeat(9, 1fr) max-content
+      max-width: 1038px
+      &.Modal
+        grid-template-columns: repeat(5, 1fr)
+        max-width: 532px
+    &.Thirteen
+      grid-template-columns: repeat(6, minmax(38px, 100px)) max-content
+      &_Extra
+        grid-column: 7/8
+        grid-row: 1/3
+        height: 100%
+        align-items: end
+
+.Columns
+  width: 100%
+  height: fit-content
+  display: grid
+  gap: 2rem
+  &.Auto_flow
+    grid-template-columns: repeat(auto-fit, 260px)
+    column-gap: 4rem
+    row-gap: 1rem
+    &.Big
+      grid-template-columns: repeat(auto-fit, 312px)
+    &_line
+      grid-template-columns: 260px repeat(auto-fit, 1px 260px)
+      column-gap: 4rem
+      row-gap: 1rem
+  &.Fixed_auto
+    grid-template-columns: 260px auto
+    column-gap: 4rem
+    row-gap: 1rem
+    &_line
+      grid-template-columns: 260px 1px auto
+      column-gap: 4rem
+      row-gap: 1rem
+      &.Special
+  &.Two
+    grid-template-columns: repeat(2, 1fr)
+    column-gap: 2rem
+    max-width: calc(260px * 2 + 2rem)
+    &_line
+      grid-template-columns: 1fr 1px 1fr
+      column-gap: 4rem
+      row-gap: 1rem
+      max-width: calc(260px * 2 + 1px + 8rem)
+  &.Gap_Mini
+    gap: 0.5rem
+  &.Two_Left_auto
+    grid-template-columns: auto auto 1fr
+  &--Two
+    @extend .Columns
+    grid-template-columns: 1fr auto 1fr
+
+.SimulationModal__Button
+  width: 50px
+  height: 50px
+  border-radius: 50%
+  background: $lightblue
+  position: absolute
+  bottom: 60px
+  right: 20px
+  &:hover
+    background: $lightblue_dark
+
+@media (max-width: 1365px)
+  .CreateSimulation
+    &__Container
+      max-width: 620px
+    &__Grid
+      .measure
+        display: block
+      .Empty_space
+        display: none
+      &.Three_col_and_one_row
+        grid-template-columns: 1fr 1fr
+        grid-template-rows: 1fr 1fr
+        column-gap: 4rem
+        max-width: calc(260px * 2 + 4rem)
+      &.Three_col_and_two_row
+        grid-template-columns: 1fr 1fr
+        grid-template-rows: 1fr 1fr 1fr
+        column-gap: 4rem
+        max-width: calc(260px * 2 + 4rem)
+      &.Three_col_and_four_row
+        grid-template-columns: 1fr 1fr
+        grid-template-rows: repeat(8, 1fr)
+        column-gap: 4rem
+        max-width: calc(260px * 2 + 4rem)
+      &.Three_col_and_eight_row
+        grid-template-columns: 1fr 1fr
+        grid-template-rows: repeat(16, 1fr)
+        column-gap: 4rem
+        max-width: calc(260px * 2 + 4rem)
+      &.Eight
+        grid-template-columns: repeat(4, 1fr)
+      &.Ten
+        grid-template-columns: repeat(5, 1fr)
+      &.Thirteen
+        grid-template-columns: repeat(4, 1fr) max-content
+        &_Extra
+          grid-column: 5/6
+          grid-row: 1/4
+  .Columns
+    &.Auto_flow
+      column-gap: 2rem
+      &_line
+        column-gap: 2rem
+    &.Fixed_auto
+      column-gap: 2rem
+      &_line
+        column-gap: 2rem
+        &.Special
+          grid-template-columns: repeat(auto-fit, minmax(100%, 380px))
+          .CreateSimulation__Divisor-Vertical
+            width: 100%
+            height: 1px
+    &.Two
+      column-gap: 4rem
+      max-width: calc(260px * 2 + 4rem)
+      &_line
+        column-gap: 2rem
+        max-width: calc(260px * 2 + 1px + 4rem)
+    &.Two_Left_auto
+      grid-template-columns: 1fr
+    &--Two
+      grid-template-columns: 1fr
+      .CreateSimulation__Divisor-Vertical
+        width: 100%
+        height: 1px
+
+@media (max-width: 991px)
+  .CreateSimulation
+    &__Container
+      max-width: 412px
+    &__Title-Icon
+      width: 18px
+      height: 18px
+    &__Input-Container
+      max-width: 380px
+    &__Grid
+      &.Two_Col_and_seven_row
+        gap: 0.75rem
+        max-width: calc(260px * 2 + 0.75rem)
+      &.Three_col_and_one_row
+        grid-template-columns: 1fr
+        grid-template-rows: 1fr 1fr 1fr
+        max-width: 380px
+      &.Three_col_and_two_row
+        grid-template-columns: 1fr
+        grid-template-rows: repeat(5, 1fr)
+        max-width: 380px
+      &.Three_col_and_four_row
+        grid-template-columns: 1fr
+        grid-template-rows: repeat(11, 1fr)
+        max-width: 380px
+      &.Three_col_and_eight_row
+        grid-template-columns: 1fr
+        grid-template-rows: repeat(22, 1fr)
+        max-width: 380px
+  .Columns
+    &.Auto_flow
+      grid-template-columns: repeat(auto-fit, minmax(100%, 380px))
+      &.Big
+        grid-template-columns: repeat(auto-fit, minmax(100%, 380px))
+      &_line
+        grid-template-columns: repeat(auto-fit, minmax(100%, 380px))
+    &.Fixed_auto
+      grid-template-columns: repeat(auto-fit, minmax(100%, 380px))
+      &_line
+        grid-template-columns: repeat(auto-fit, minmax(100%, 380px))
+    &.Two
+      max-width: calc(260px * 2 + 0.75rem)
+      column-gap: 0.75rem
+      &_line
+        max-width: calc(260px * 2 + 1px + 0.75rem)
+        column-gap: 0.75rem
+    &.Two_Special
+      grid-template-columns: 380px
+      .CreateSimulation__Divisor-Vertical
+        width: 100%
+        height: 1px

@@ -1,0 +1,86 @@
+.Home
+  display: grid
+  grid-template-columns: 1fr 1fr
+  transition: grid-template-columns 300ms
+  &__Logo
+    grid-column: 1/2
+    overflow: hidden
+  &__Content
+    grid-column: 2/3
+    padding-top: 46px
+  &__Header
+    border-bottom: 1px solid $lines
+  &__Card-Container
+    display: grid
+    grid-template-columns: 1fr 1fr
+    gap: 16px
+    width: 90%
+    max-width: 480px
+    margin: 48px auto
+  &__Card
+    width: 100%
+    border-radius: 10px
+    padding: 16px
+    background-color: $pills
+    display: flex
+    flex-direction: column
+    justify-content: space-between
+    align-items: flex-start
+    gap: 20px
+    color: $primary
+    &:hover
+      color: $primary_dark
+      background-color: $pills_dark
+      .button-blue
+        background-color: $primary_dark
+    .button-blue
+      width: 100%
+      // padding: 6px 10px
+      justify-content: space-between
+    &_Icon
+      width: 2rem
+      height: 2rem
+  &__Button
+    grid-column: 1/3
+    width: 100%
+    display: flex
+    align-items: center
+    gap: 15px
+    padding: 10px 16px
+    border-radius: 10px
+    background-color: $pills
+    color: $primary
+    text-align: start
+    &:hover
+      color: $primary_dark
+      background-color: $pills_dark
+      .Home__Button-Arrow
+        background-color: $primary_dark
+    &_Icon
+      width: 22px
+      height: 22px
+  &__Button-Arrow
+    width: 26px
+    height: 26px
+    border-radius: 100px
+    padding: 8px
+    background-color: $primary
+    display: flex
+    justify-content: center
+    align-items: center
+    color: $background
+    font-size: 16px
+    &:hover
+      background-color: $primary_dark
+  &__UserError
+    display: flex
+    justify-content: center
+    align-items: center
+    width: 100%
+    height: calc(100% - 48px)
+
+@media (max-width: 991px)
+  .Home
+    grid-template-columns: 0 1fr
+    &__Card-Container
+      width: 94%

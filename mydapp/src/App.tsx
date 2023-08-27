@@ -7,6 +7,7 @@ import { Router } from './pages/Router';
 import store from './store/store';
 import AppContextProvider from './context/AppContext';
 import { QueryClient, QueryClientProvider } from 'react-query'
+import './styles/index.sass'
 
 
 log.setDefaultLevel('silent');

@@ -1,0 +1,118 @@
+.button
+  display: flex
+  justify-content: center
+  align-items: center
+  gap: 8px
+  max-width: 100%
+  padding: 4px 16px
+  border-radius: 100vw
+  // font-size: 16px
+  color: $background
+  &_Icon
+    path
+      fill: $background
+  &:disabled
+    @extend .button
+    background-color: $secondary_text
+    color: $pills
+    cursor: not-allowed
+    &_Icon
+      path
+        fill: $pills
+    &:hover
+      background-color: $secondary_text
+  &-blue
+    @extend .button
+    padding: 6px 32px !important
+    background-color: $primary
+    p
+      color: $background
+    &:hover
+      background-color: $primary_dark
+      color: $background
+    &-disabled
+      @extend .button-blue
+      background-color: $secondary_text
+      cursor: not-allowed
+    &_Icon
+      path
+        fill: $background
+  &-gray
+    @extend .button
+    padding: 6px 32px
+    background-color: $secondary_text
+    &:hover
+      background-color: $secondary_black
+  &-pill
+    @extend .button
+    background-color: $pills
+    color: $primary_text
+  &-green
+    @extend .button
+    background-color: rgba($completed, 0.3)
+    color: $primary_text
+  &_red
+    @extend .button
+    background-color: rgba($incomplete, 0.2)
+    color: $red_text
+  &-yellow
+    @extend .button
+    background-color: $yellow
+    color: $primary_text
+    &:hover
+      background-color: $yellow_dark
+  &-transparent
+    @extend .button
+    padding: 6px 32px
+    color: $primary_text
+    &:hover
+      opacity: .8
+      color: $primary_text
+    &:disabled
+      @extend .button-transparent
+      background-color: unset
+      color: $primary_text
+      opacity: .8
+      &:hover
+        background-color: unset
+  &_transparent_blue
+    @extend .button
+    background-color: $bg_primary
+    color: $primary
+    cursor: default
+    p
+      color: $primary
+    &_Icon
+      path
+        fill: $primary
+  &_transparent_red
+    @extend .button
+    background-color: rgba($incomplete, 0.3)
+    color: $primary_text
+  &_transparent_yellow
+    @extend .button
+    background-color: rgba($yellow, 0.5)
+    color: $primary_text
+  &-disabled
+    @extend .button
+    background-color: $secondary_text
+    cursor: not-allowed
+  &__Hidden
+    opacity: 0
+    cursor: default !important
+
+.button_defult
+  padding: 4px 16px !important
+
+.button.enter
+  opacity: 0
+.button.enter-active
+  opacity: 1
+  transition: opacity 200ms
+.button.enter-done
+  opacity: 1
+.button.exit
+  opacity: 1
+.button.exit-active
+  opacity: 0
+  transition: opacity 200ms

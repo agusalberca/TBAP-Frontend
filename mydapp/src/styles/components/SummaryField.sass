@@ -1,0 +1,139 @@
+.SummaryField
+  width: 100%
+  display: grid
+  grid-template-columns: 2rem 1fr
+  column-gap: 0.25rem
+  justify-items: center
+  align-items: center
+  border: 1px solid $lines_dark
+  border-radius: 10px
+  &.Half
+    grid-template-columns: 1fr
+    grid-template-rows: 2fr
+    cursor: default !important
+    .SummaryField__Title
+      padding: 0.25rem 1rem 0
+    .SummaryField__Data
+      grid-column: 1/2
+      grid-row: 2/3
+      padding: 0 1rem 0.25rem
+  &.onlyValue
+    grid-template-columns: 18px 1fr
+    grid-template-rows: 1fr
+    padding: 0 15px
+    border: none
+    border-radius: 0
+    border-top: 1px solid $pills
+    &:hover
+      background-color: $pills
+    &:disabled
+      color: $primary_text
+    .SummaryField__Data
+      grid-column: 2/3
+      grid-row: 1/2
+      padding: 0.25rem 1rem
+      border-width: 0
+      border-radius: 0
+  &.Selected
+    .SummaryField__Checkbox
+      border: 2px solid $lightblue
+  &.Button
+    &:hover
+      border: 1px solid $lightblue
+  &__Title
+    display: flex
+    justify-content: flex-start
+    align-items: center
+    gap: 6px
+    width: 100%
+    height: 100%
+    padding: 0.25rem 0.5rem 0
+    // border-style: solid
+    // border-color: $pills
+    // border-width: 1px 1px 0px
+    // border-radius: 5px 5px 0 0
+    // background: $pills
+    text-align: start
+    overflow: hidden
+    transition: border-color 0.2s ease
+    p
+      overflow: hidden
+      text-overflow: ellipsis
+      white-space: nowrap
+  &__Data
+    grid-column: 2/3
+    grid-row: 2/3
+    display: flex
+    justify-content: flex-start
+    align-items: center
+    width: 100%
+    height: 100%
+    padding: 0 0.5rem 0.25rem
+    // border-style: solid
+    // border-color: $pills
+    // border-width: 0px 1px 1px
+    // border-radius: 0 0 5px 5px
+    // background: $background
+    transition: border-color 0.2s ease,
+  &__Checkbox
+    grid-column: 1/2
+    grid-row: 1/3
+    justify-self: end
+    width: 18px
+    height: 18px
+    border: 2px solid $primary_text
+    border-radius: 6px
+    display: flex
+    justify-content: center
+    align-items: center
+    transition: background 0.2s ease, border 0.2s ease
+    span
+      transition: color 0.2s ease
+      font-weight: 900
+    // &::after
+    //   content: ''
+    //   width: 10px
+    //   height: 10px
+    //   background: $primary_text
+    //   border-radius: 3px
+    //   transform: scale(0)
+    //   transition: transform 0.2s ease
+    &.Selected
+      background: $lightblue
+      border: 2px solid $lightblue
+      span
+        color: $background
+      // &::after
+        // transform: scale(1)
+    &.Disabled
+      border: 2px solid $disabled
+      &::after
+        background: $disabled
+      span
+        display: none
+
+@media (max-width: 1199px)
+  .SummaryField
+    grid-template-columns: 28px 1fr
+    column-gap: 0
+    &.Half
+      // height: 50px
+      grid-template-columns: 1fr
+      .SummaryField__Data
+        grid-column: 1/2
+        grid-row: 2/3
+    &__Title
+      border-right: 1px solid $pills
+      border-bottom: 0px solid $pills
+      border-radius: 5px 5px 0 0
+      overflow: auto
+      p
+        overflow: auto
+        text-overflow: clip
+        white-space: normal
+    &__Data
+      grid-column: 2/3
+      grid-row: 2/3
+      border-top: 0px solid $pills
+      border-left: 1px solid $pills
+      border-radius: 0 0 5px 5px

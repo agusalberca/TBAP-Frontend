@@ -1,0 +1,186 @@
+.TableItem
+  width: 100%
+  height: 32px
+  display: grid
+  color: $primary_text
+  cursor: pointer
+  + .TableItem
+    border-top: 1px solid $lines
+  &:hover
+    background: $hover
+  &.Selected
+    background-color: $hover !important
+    .Checkbox
+      &::after
+        transform: scale(1)
+    .Radio
+      &::after
+        transform: scale(0.75)
+  &.Unselectable
+    cursor: default !important
+  &--Big
+    @extend .TableItem
+    height: auto
+    .TableItem__Cell
+      height: 48px
+  &__Cell
+    width: 100%
+    height: 30px
+    padding: 0 0.5rem
+    display: flex
+    justify-content: flex-start
+    align-items: center
+    text-align: left
+    overflow: hidden
+    p
+      overflow: hidden
+      text-overflow: ellipsis
+      white-space: nowrap
+    &--center
+      @extend .TableItem__Cell
+      justify-content: center
+      color: $primary_text
+    &--Big
+      @extend .TableItem__Cell
+      height: 44px
+    &--Extra-Big
+      @extend .TableItem__Cell
+      height: 58px
+    &.of-visible
+      overflow: visible
+  &__Circle
+    width: 12px
+    height: 12px
+    border-radius: 12px
+    &--creating
+      @extend .TableItem__Circle
+      background-color: $creating
+    &--ready_to_run
+      @extend .TableItem__Circle
+      background-color: $ready
+    &--waiting
+      @extend .TableItem__Circle
+      background-color: $waiting
+    &--running
+      @extend .TableItem__Circle
+      background-color: $running
+    &--error_running
+      @extend .TableItem__Circle
+      background-color: $incomplete
+    &--edited
+      @extend .TableItem__Circle
+      background-color: $edited
+    &--finished
+      @extend .TableItem__Circle
+      background-color: $completed
+  &__Pill
+    flex-shrink: 0
+    min-width: 70px
+    padding: 2px 14px
+    border-radius: 100vw
+    background-color: $pills
+    color: $primary
+    text-align: center
+  &__Button
+    height: 24px
+    padding: 0 12px
+    border-radius: 4px
+    background-color: $primary_text
+    display: flex
+    align-items: center
+    gap: 6px
+    color: $background
+    &:hover
+      background-color: $hover
+  &__Button-Arrow
+    width: 16px
+    height: 30px
+    display: flex
+    justify-content: center
+    align-items: center
+    color: $primary_text
+
+@media (max-width: 767px)
+  .TableItem
+    display: grid
+    grid-template-columns: 1fr 1fr !important
+    width: 100%
+    min-width: 85vw
+    height: auto
+    padding-top: 8px
+    border-radius: 5px
+    background-color: $pills
+    border-left: 0px solid $primary
+    transition: border-width 200ms
+    + .TableItem
+      border-top: none
+    &.Selected
+      border-left: 3px solid $primary
+    &__Cell
+      gap: 8px
+      padding: 8px 16px
+      p
+        white-space: nowrap
+        overflow: hidden
+        text-overflow: ellipsis
+      &_Icon
+        flex-shrink: 0
+        width: 16px
+        height: 16px
+      &.big
+        grid-column: 1/3
+      &--Doble_columns
+        grid-column: 1/3
+        border-bottom-left-radius: 5px
+        border-bottom-right-radius: 5px
+        margin-top: 8px
+        background-color: $lines
+      &--Mb
+        margin-bottom: 8px
+    &__Menu
+      position: relative
+      &_Icon
+        display: flex
+        justify-content: center
+        align-items: center
+        width: 22px
+        height: 22px
+        border-radius: 22px
+        &:hover
+          background-color: $lines
+          cursor: pointer
+      &_Content
+        position: absolute
+        top: 0
+        right: 0
+        width: max-content
+        border-radius: 5px
+        background-color: $background
+        box-shadow: $card_shadow
+        z-index: 10
+        &_Item
+          padding: 10px 20px
+          border-radius: 5px
+          text-align: start
+          &:hover
+            background-color: $pills
+    &__Circle
+      width: 8px
+      height: 8px
+      border-radius: 8px
+      margin: 4px
+    &__Pill
+      background-color: $bg_primary
+
+  .TableItem__Menu_Content.enter
+    opacity: 0
+  .TableItem__Menu_Content.enter-active
+    opacity: 1
+    transition: opacity 300ms
+  .TableItem__Menu_Content.enter-done
+    opacity: 1
+  .TableItem__Menu_Content.exit
+    opacity: 1
+  .TableItem__Menu_Content.exit-active
+    opacity: 0
+    transition: opacity 300ms

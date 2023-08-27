@@ -1,0 +1,61 @@
+.Checkboxes__Container
+  min-width: 180px
+
+.Checkboxes
+  display: flex
+  flex-direction: column
+  align-items: flex-start
+  gap: 12px
+  &--Disabled
+    @extend .Checkboxes
+    .Checkboxes
+      &__Option
+        cursor: not-allowed
+        &:hover
+          .Checkboxes__Check
+            transform: scale(0)
+      &__Check
+        display: none
+  &__Option
+    width: fit-content
+    display: flex
+    align-items: center
+    gap: 12px
+    &:hover
+      .Checkboxes__Check
+        transform: scale(1)
+    &--Small
+      @extend .Checkboxes__Option
+      color: $input_black
+  &__Circle
+    width: 20px
+    height: 20px
+    border-radius: 50%
+    border: 3px solid $secondary_black
+    display: flex
+    justify-content: center
+    align-items: center
+    &-Small
+      @extend .Checkboxes__Circle
+      width: 16px
+      height: 16px
+      border: 2px solid $input_black
+  &__Check
+    width: 10px
+    height: 10px
+    border-radius: 50%
+    background: $secondary_black
+    transform: scale(0)
+    transition: transform .2s ease-in-out
+    &--Active
+      @extend .Checkboxes__Check
+      transform: scale(1)
+  &__Check-Small
+    @extend .Checkboxes__Check
+    width: 8px
+    height: 8px
+    background: $input_black
+    &--Active
+      @extend .Checkboxes__Check
+      transform: scale(1)
+

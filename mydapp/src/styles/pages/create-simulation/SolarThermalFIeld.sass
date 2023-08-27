@@ -1,0 +1,15 @@
+.SolarThermalField
+  &__Grid
+    width: 100%
+    height: fit-content
+    display: grid
+    align-items: end
+    &.Inputs
+      grid-template-columns: repeat(2, 1fr)
+      grid-template-rows: repeat(7, auto)
+      grid-auto-flow: column
+      gap: 0.5rem
+    &--PVData
+      @extend .SolarThermalField__Grid
+      grid-template-columns: repeat(3, 1fr)
+      gap: 1rem

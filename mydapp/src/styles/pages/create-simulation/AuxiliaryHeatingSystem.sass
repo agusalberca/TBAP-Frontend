@@ -1,0 +1,9 @@
+.AuxiliaryHeatingSystem
+  &__Grid
+    width: 100%
+    height: fit-content
+    display: grid
+    &--Inputs
+      @extend .AuxiliaryHeatingSystem__Grid
+      grid-template-columns: 1fr 1fr
+      gap: .5rem
