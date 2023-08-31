@@ -47,5 +47,42 @@ export interface UserComplete {
   } | null;
 }
 
+// const fakeTokenData = {
+//   title: 'Token title',
+//   description: 'Token description',
+//   image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/US_One_Cent_Obv.png/1200px-US_One_Cent_Obv.png',
+//   createdAt: '2021-10-01',
+//   course: {
+//       title: 'Course title',
+//       description: 'Course description',
+//   },
+// };
+
+
+export interface UserToken {
+  token_group: {
+    id: number;
+    name: string;
+    description: string;
+    image: string;
+    createdAt: string;
+    course_id: number;
+    course_name: string;
+    },
+  is_claimed: boolean;
+  created_at: string;
+}
+
+
+export interface getUserTokens {
+  page: number;
+  total_items: number;
+  total_pages: number;
+  data?: UserToken[];
+  error?: string;
+}
+  
+
+
 
 export type TableTypes = UserComplete

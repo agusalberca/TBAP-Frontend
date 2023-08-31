@@ -7,10 +7,12 @@ import {
   useMemo,
 } from 'react'
 import { getUser } from '../api/auth'
+import { getUserTokensApi } from '../api/tokens'
 import {
   User,
   UserComplete,
   UserProfile,
+  UserToken,
 } from '../api/apiTypes'
 import { useQuery } from 'react-query'
 
@@ -27,6 +29,7 @@ interface AppContextInterface {
   // isCentralAdmin: boolean;
   // isOrganizationAdmin: boolean;
   // isRegionAdmin: boolean;
+  getUserTokensAsync: () => Promise<void>
   
 }
 
@@ -36,6 +39,7 @@ const AppContextProvider = ({ children }) => {
   // State to avoid deleting token from local storage on page reload
   const [firstCharge, setFirstCharge] = useState(true)
   const [token, setToken] = useState('')
+  const [userTokens, setUserTokens] = useState<UserToken[]>([])
   const {
     data: user,
     remove: removeUser,
@@ -100,6 +104,11 @@ const AppContextProvider = ({ children }) => {
     }
   }
 
+  const getUserTokensAsync = async () => {
+    const userTokens = await getUserTokensApi(token) || {data: []};
+    setUserTokens(userTokens.data);
+  }
+
 
 
   const values: AppContextInterface = {
@@ -110,7 +119,9 @@ const AppContextProvider = ({ children }) => {
 
     user,
     refreshUser,
-    userIsLoading
+    userIsLoading,
+
+    getUserTokensAsync
   }
 
   return <AppContext.Provider value={values}>{children}</AppContext.Provider>
