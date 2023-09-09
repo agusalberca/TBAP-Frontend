@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { withBackendProtection } from '../../features/auth/hocs/withBackendProtection';
 
 import { CommonHeader } from '../../features/ui/components/CommonHeader';
-import { TokenList } from '../../features/user/components/Tokens/TokenList';
+import { TokenList } from '../../components/Tokens/TokenList';
 import { useQuery } from 'react-query';
 import { getUserTokensApi } from '../../api/tokens';
 import useAppContext from '../../hooks/useAppContext';
@@ -14,6 +14,7 @@ export const ClaimTokensPage: React.FC = withBackendProtection(() => {
   const { t } = useTranslation('PageUser');
   const { token } = useAppContext()
 
+  // TODO poner un useEffect para que se actualice la lista de tokens
   const {data} = useQuery('getUserTokensApi', () => getUserTokensApi(token))
 
   const tokenDataList = {

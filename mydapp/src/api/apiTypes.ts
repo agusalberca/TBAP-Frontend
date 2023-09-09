@@ -81,7 +81,17 @@ export interface getUserTokens {
   data?: UserToken[];
   error?: string;
 }
-  
+
+export interface UserCourse {
+  id: number;
+  course: {
+    id: number;
+    name: string;
+    description: string;
+    organization: number;
+  }
+  user: number;
+}
 
 
 

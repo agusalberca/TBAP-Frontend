@@ -1,11 +1,28 @@
+import axios from 'axios';
 import { getQuery, patchQuery, postQuery } from './apiFunctions'
 import { User, UserProfile } from './apiTypes'
+
+import { API_URL } from '../constants';
 
 export const login = async (body: { email: string; password: string }) => {
   return await postQuery<any>({
     path: '/login/',
     body,
   })
+}
+
+export const logout = async (token) => {
+  try {
+    const { data } = await axios.post(`${API_URL}/logout/`, {
+      headers: {
+        Authorization: `Token ${token}`
+      }
+    })
+
+    return data
+  } catch (error) {
+    console.error(error)
+  }
 }
 
 export const passwordRecovery = async (body: { email: string }) => {

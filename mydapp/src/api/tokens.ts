@@ -1,7 +1,7 @@
 import { getQuery, patchQuery, postQuery } from './apiFunctions'
 import { UserToken, getUserTokens } from './apiTypes'
 
-export const getUserTokensApi =  (token: string) => {
+export const getUserTokensApi = (token: string) => {
     return getQuery<getUserTokens>({
         path: '/blockchain/user-tokens/',
         token,

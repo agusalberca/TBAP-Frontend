@@ -1,6 +1,6 @@
 import { Card, CardHeader, CardBody, CardFooter, HStack, Heading, Divider, Button, Image, Text, Center } from '@chakra-ui/react'
 import React from 'react';
-import { UserToken } from '../../../../api/apiTypes';
+import { UserToken } from '../../api/apiTypes';
 import { TokenBox } from './TokenBox';
 
 interface TokenListProps {

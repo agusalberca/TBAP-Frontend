@@ -1,3 +1,4 @@
+import { useContext } from 'react'
 import {
   Box,
   Text,
@@ -15,7 +16,9 @@ import { CgProfile } from "@react-icons/all-files/cg/CgProfile";
 import { BiMedal } from "@react-icons/all-files/bi/BiMedal";
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { logout } from '../../../../api/auth';
+import { AppContext } from '../../../../context/AppContext';
 
 
 
@@ -26,13 +29,31 @@ export interface DropdownMenuProps {
   onDisconnectClicked: () => void;
 }
 
+
+
 export const DropdownMenu: React.FC<DropdownMenuProps> = ({
   username,
   profileLink,
   myTokensLink,
-  onDisconnectClicked,
 }) => {
   const { t } = useTranslation('FeatureProfile');
+  const { token, setToken } = useContext(AppContext)
+  const navigate = useNavigate()
+
+
+
+  const handleLogout = async ()  => {
+    try {
+      const res = await logout(token)
+      if (res) {
+        navigate('/login', { replace: true })
+        setToken(null)
+        
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   return (
     <Menu placement="bottom-end">
@@ -66,7 +87,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
           {t('My Tokens')}
         </MenuItem>
         <MenuDivider />
-        <MenuItem icon={<IoIosLogOut />} onClick={() => onDisconnectClicked()}>
+        <MenuItem icon={<IoIosLogOut />} onClick={() => { handleLogout(); }} >
           {t('LogOut')}
         </MenuItem>
       </MenuList>

@@ -3,6 +3,7 @@ import { ProfileDropdownMenu } from './components/ProfileDropdownMenu/ProfileDro
 import { LoginButton } from './components/LoginButton/LoginButton';
 import { useBackendAuthentication } from './hooks/useBackendAuthentication';
 import { Wallet } from '../wallet/components/Wallet';
+import { RegisterButton } from './components/RegisterButton/RegisterButton';
 export const UserProfile: React.FC = () => {
     const { isAuthenticated } = useBackendAuthentication();
     return (
@@ -15,6 +16,7 @@ export const UserProfile: React.FC = () => {
         ) : (
           <>
             <LoginButton />
+            <RegisterButton />
           </>
         )}
       </>

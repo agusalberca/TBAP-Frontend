@@ -11,10 +11,12 @@ import { getUserTokensApi } from '../api/tokens'
 import {
   User,
   UserComplete,
+  UserCourse,
   UserProfile,
   UserToken,
 } from '../api/apiTypes'
 import { useQuery } from 'react-query'
+import { getCoursesApi } from '../api/courses'
 
 interface AppContextInterface {
   firstCharge: boolean;
@@ -29,7 +31,8 @@ interface AppContextInterface {
   // isCentralAdmin: boolean;
   // isOrganizationAdmin: boolean;
   // isRegionAdmin: boolean;
-  getUserTokensAsync: () => Promise<void>
+  getUserTokensAsync: () => Promise<void>;
+  getUserCoursesAsync: () => Promise<void>;
   
 }
 
@@ -40,6 +43,7 @@ const AppContextProvider = ({ children }) => {
   const [firstCharge, setFirstCharge] = useState(true)
   const [token, setToken] = useState('')
   const [userTokens, setUserTokens] = useState<UserToken[]>([])
+  const [UserCourse, setUserCourse] = useState<UserCourse[]>([])
   const {
     data: user,
     remove: removeUser,
@@ -109,6 +113,10 @@ const AppContextProvider = ({ children }) => {
     setUserTokens(userTokens.data);
   }
 
+  const getUserCoursesAsync = async () => {
+    const userCourses = await getCoursesApi(token);
+    setUserCourse(userCourses);
+  }
 
 
   const values: AppContextInterface = {
@@ -121,7 +129,8 @@ const AppContextProvider = ({ children }) => {
     refreshUser,
     userIsLoading,
 
-    getUserTokensAsync
+    getUserTokensAsync,
+    getUserCoursesAsync
   }
 
   return <AppContext.Provider value={values}>{children}</AppContext.Provider>
