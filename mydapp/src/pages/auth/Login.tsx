@@ -64,10 +64,10 @@ const Login = () => {
         <AuthCard onSubmit={formik.handleSubmit}>
           <h1 className="text-1 fw-medium mb-2 ">Log in</h1>
 
-          <p className="text-5 m-1" style={{ color: '#FFFFFF' }}>
+          <h5 className="text-5 m-1">
             If you are logging in for the first time, enter your email and the
             password provided by us.
-          </p>
+          </h5>
 
           <FormControl isInvalid={!!formik.errors.email}>
             <FormLabel>Email</FormLabel>

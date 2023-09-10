@@ -25,6 +25,16 @@ export const logout = async (token) => {
   }
 }
 
+export const signUp = async (
+  body
+) => {
+  return await postQuery<any>({
+    path: '/signup/',
+    body,
+  })
+}
+
+
 export const passwordRecovery = async (body: { email: string }) => {
   return await postQuery<any>({
     path: '/users/password-recovery/',
