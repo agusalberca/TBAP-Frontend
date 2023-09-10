@@ -33,7 +33,7 @@ export const FooterView: React.FC<FooterViewProps> = ({
           >
             {firstRowContent}
           </Container>
-          <Divider />
+          {/* <Divider /> */}
         </>
       ) : null}
       {secondRowContent ? (

@@ -27,12 +27,12 @@ export const Footer: React.FC<FooterProps> = ({
           <SecondaryMenu secondaryMenuItems={secondaryMenuItems} />
         </>
       }
-      secondRowContent={
-        <>
-          <Copyright />
-          <SocialMenu />
-        </>
-      }
+      // secondRowContent={
+      //   <>
+      //     <Copyright />
+      //     <SocialMenu />
+      //   </>
+      // }
     />
   );
 };
