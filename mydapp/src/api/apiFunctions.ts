@@ -56,7 +56,6 @@ export const postQuery = async <T>({
     const { data } = await axios.post(`${API_URL}${path}`, body, {
       headers,
     });
-
     return callback(data);
   } catch (error) {
     return handleError(error);

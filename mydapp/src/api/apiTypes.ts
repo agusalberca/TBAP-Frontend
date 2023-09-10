@@ -60,6 +60,7 @@ export interface UserComplete {
 
 
 export interface UserToken {
+  id: number;
   token_group: {
     id: number;
     name: string;
@@ -68,7 +69,7 @@ export interface UserToken {
     createdAt: string;
     course_id: number;
     course_name: string;
-    },
+    };
   is_claimed: boolean;
   created_at: string;
 }
@@ -82,6 +83,20 @@ export interface getUserTokens {
   error?: string;
 }
 
+export interface postClaimToken {
+  user_token_id: number;
+}
+
+export interface tokenClaimSignature {
+  id: number;
+  nonce: number;
+  signature: string;
+  user: number;
+  title: string;
+  issuerId: number;
+  uri: string;
+}
+
 export interface UserCourse {
   id: number;
   course: {
@@ -93,6 +108,8 @@ export interface UserCourse {
   user: number;
 }
 
-
+export interface Error{
+  error: string;
+}
 
 export type TableTypes = UserComplete

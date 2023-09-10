@@ -12,7 +12,7 @@ export const TokenList: React.FC<TokenListProps> = (props) => {
         //List TokenList as TokenBoxes
         <HStack spacing='3'>
             {(props.tokens).map((token: UserToken) => (
-                <TokenBox {...token}/>
+                <TokenBox key={token.token_group.id} {...token}/>
             ))}
         </HStack>
     );
