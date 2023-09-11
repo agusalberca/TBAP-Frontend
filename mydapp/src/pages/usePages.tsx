@@ -18,6 +18,18 @@ const HomePage = React.lazy(() =>
   }))
 );
 
+const UserProfilePage = React.lazy(() =>
+  import(/* webpackChunkName: "UserProfilePage" */ './User/UserProfile').then(module => ({
+    default: module.UserProfilePage,
+  }))
+);
+
+const UserTokensPage = React.lazy(() =>
+  import(/* webpackChunkName: "UserTokensPage" */ './User/UserTokens').then(module => ({
+    default: module.UserTokensPage,
+  }))
+);
+
 const UserPage = React.lazy(() =>
   import(/* webpackChunkName: "UserPage" */ './User/User').then(module => ({
     default: module.UserPage,
@@ -59,6 +71,25 @@ export const usePages = () => {
     element: <UserPage />,
   };
 
+  // User Profile Page
+  const UserProfile: PageType = {
+    path: 'profile',
+    element: <UserProfilePage />,
+    menuLabel: t('Profile', { ns: 'Menu' }),
+    isShownInMainMenu: false,
+    isShownInSecondaryMenu: false,
+    isProtected: false,
+  };
+  // User Tokens Page
+  const UserTokens: PageType = {
+    path: 'tokens',
+    element: <UserTokensPage />,
+    menuLabel: t('My Tokens', { ns: 'Menu' }),
+    isShownInMainMenu: false,
+    isShownInSecondaryMenu: false,
+    isProtected: false,
+  };
+
   // ADD YOUR PAGE ROUTES HERE
   const Courses: PageType = {
     path: 'courses',
@@ -95,8 +126,6 @@ export const usePages = () => {
     isProtected: false,
   };
 
-  
-
   const ForgotPasswordView: PageType = {
     path: 'forgot-password',
     element: <ForgotPassword />,
@@ -108,7 +137,12 @@ export const usePages = () => {
 
 
   // do not forget add your page routes into this array
-  const Pages: PageType[] = [Courses, ClaimTokens, RegisterView, LoginView, ForgotPasswordView];
+  const Pages: PageType[] = [
+      Courses, 
+      UserProfile, 
+      UserTokens,
+      ClaimTokens,
+     RegisterView, LoginView, ForgotPasswordView];
 
   // DO NOT CHANGE THE REST
   const homeMenuItem: MenuType = {

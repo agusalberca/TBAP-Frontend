@@ -51,18 +51,22 @@ export const TokenBox: React.FC<UserToken> = (token_data) => {
                     </Text>
                 </Stack>
             </CardBody>
+            {!token_data.is_claimed && (
+            <>
             <Divider />
             <CardFooter>
                 <Center>
                     <Button
                         variant='solid'
-                        colorScheme='blue'
+                        colorScheme='green'
                         onClick={claimTokenHandler}
                     >
                         Claim token
                     </Button>
                 </Center>
             </CardFooter>
+            </>
+             )}
         </Card>
     );
 };

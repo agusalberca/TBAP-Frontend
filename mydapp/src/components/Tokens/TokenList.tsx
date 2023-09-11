@@ -8,8 +8,8 @@ interface TokenListProps {
   }
 
 export const TokenList: React.FC<TokenListProps> = (props) => {
+    console.log(`TOKEN LIST PROPS: ${JSON.stringify(props.tokens)}`);
     return (
-        //List TokenList as TokenBoxes
         <HStack spacing='3'>
             {(props.tokens).map((token: UserToken) => (
                 <TokenBox key={token.token_group.id} {...token}/>

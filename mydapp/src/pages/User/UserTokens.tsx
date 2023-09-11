@@ -10,13 +10,13 @@ import { useQuery } from 'react-query';
 import { getUserTokensApi } from '../../api/tokens';
 import useAppContext from '../../hooks/useAppContext';
 
-export const ClaimTokensPage: React.FC = withBackendProtection(() => {
-  const { t } = useTranslation('ClaimTokensPage');
+export const UserTokensPage: React.FC = withBackendProtection(() => {
+  const { t } = useTranslation('UserTokensPage');
   const { token } = useAppContext()
 
   // TODO poner un useEffect para que se actualice la lista de tokens
-  const {data} = useQuery('getUserTokensApi', () => getUserTokensApi(token, false))
-
+  const {data} = useQuery('getUserTokensApi', () => getUserTokensApi(token))
+    console.log(data)
   const tokenDataList = {
     tokens: data ? data.data : []
   }
@@ -26,11 +26,11 @@ export const ClaimTokensPage: React.FC = withBackendProtection(() => {
     <Box>
       <Container maxW="7xl" py={2} as={Stack} spacing={2}>
         <CommonHeader 
-            title='Claim Tokens!'
-            description='Claim your tokens here!'
+            title='My tokens!'
+            description='These tokens belong to your wallet! (They have already been claimed)'
         />
         <Box >
-            TODO: Falta cambiar la query para que muestre solo los claimeables
+            TODO: Falta cambiar la query para que muestre solo los ya claimeados por el usuario
             <Center>
                 <TokenList {...tokenDataList} />
             </Center>
