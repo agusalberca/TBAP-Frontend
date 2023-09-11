@@ -9,7 +9,6 @@ function capitalizeText(text: string): string {
 export const getUserTokensApi = (token: string, is_claimed: boolean = true) => {
     return getQuery<getUserTokens>({
         path: '/blockchain/user-tokens/',
-        //capitalize param is clamed
         params: { is_claimed: capitalizeText(is_claimed.toString()) },
         token,
         callback: (data: getUserTokens) =>

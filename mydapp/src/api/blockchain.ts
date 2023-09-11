@@ -4,7 +4,6 @@ import { contractAddress } from "../constants"
 
 const execTransaction = (method, params = []) => {
   const signer = new ethers.providers.Web3Provider(window.ethereum).getSigner()
-  console.log (contractAddress)
   const contract = new ethers.Contract(contractAddress, RewardToken.abi, signer)
   const tx = contract[method](...params)
   return tx

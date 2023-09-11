@@ -8,7 +8,6 @@ interface TokenListProps {
   }
 
 export const TokenList: React.FC<TokenListProps> = (props) => {
-    console.log(`TOKEN LIST PROPS: ${JSON.stringify(props.tokens)}`);
     return (
         <HStack spacing='3'>
             {(props.tokens).map((token: UserToken) => (

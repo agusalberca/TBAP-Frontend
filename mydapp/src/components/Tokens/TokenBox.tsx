@@ -17,7 +17,6 @@ export const TokenBox: React.FC<UserToken> = (token_data) => {
     const claimTokenHandler = async () => {
         try {
             const signature_data = await postClaimTokenApi(token, { user_token_id: token_data.id });
-            console.log('Signature data:', signature_data);
             if (signature_data.error) {
                 throw new Error(signature_data.error);
             }
