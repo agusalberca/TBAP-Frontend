@@ -16,3 +16,8 @@ export const mintToken = (title, issuerId, nonce, uri, signature) => {
   const params = [ title, issuerId, nonce, uri, signature ]
   return execTransaction(method, params)
 }
+
+export const getSignerAddress = () => {
+  const signer = new ethers.providers.Web3Provider(window.ethereum).getSigner()
+  return signer.getAddress()
+}

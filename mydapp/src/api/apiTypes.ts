@@ -23,6 +23,7 @@ export interface UserProfile {
   identification_type: string | null;
   identification_number: string | null;
   user: number;
+  wallet_address: string | null;
 }
 
 export interface UserMe {
@@ -46,18 +47,6 @@ export interface UserComplete {
     user: number;
   } | null;
 }
-
-// const fakeTokenData = {
-//   title: 'Token title',
-//   description: 'Token description',
-//   image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/US_One_Cent_Obv.png/1200px-US_One_Cent_Obv.png',
-//   createdAt: '2021-10-01',
-//   course: {
-//       title: 'Course title',
-//       description: 'Course description',
-//   },
-// };
-
 
 export interface UserToken {
   id: number;
