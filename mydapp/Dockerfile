@@ -11,11 +11,8 @@ RUN npm install
 # Copia el resto de los archivos
 COPY . .
 
-# Construye la aplicación
-RUN npm run build
-
 # Expón el puerto 3000 (el puerto predeterminado para React)
 EXPOSE 3000
 
-# Comando para iniciar la aplicación
+# Comando para iniciar la aplicación con react-scripts
 CMD ["npm", "start"]

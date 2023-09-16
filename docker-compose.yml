@@ -6,9 +6,13 @@ services:
     build: ./landing
     ports:
       - "5050:80"
+    volumes:
+      - ./landing:/usr/share/nginx/html
 
   # Servicio para la aplicación React
   react_app:
     build: ./mydapp
     ports:
       - "3000:3000"
+    volumes:
+      - ./mydapp:/usr/src/app
