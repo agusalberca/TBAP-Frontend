@@ -163,6 +163,9 @@ export const ConnectionModal: React.FC<ConnectionModalProps> = ({
       // STEP 3: Sign Check
       case WalletState.CHECKING_SIGN:
         setActiveStep(3);
+        break;      // STEP 4: AUTHENTICATED
+      case WalletState.CHECKING_SIGN:
+        setActiveStep(4);
         break;
       default:
         setActiveStep(0);

@@ -140,3 +140,14 @@ export const addUser = async (token: string, body: {
     body,
   })
 }
+
+//set user profile wallet_address using a patch
+export const setUserWalletAddress = async (token: string, body: {
+  wallet_address: string;
+}) => {
+  return await patchQuery<any>({
+    path: '/users/me/',
+    token,
+    body,
+  })
+}
