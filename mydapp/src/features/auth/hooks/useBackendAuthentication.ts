@@ -7,5 +7,5 @@ export const useBackendAuthentication = () => {
   // TODO: check if the user is authenticated 
   const { token } = useContext(AppContext)
   const isAuthenticated = !!token
-  return { isAuthenticated };
+  return isAuthenticated ;
 };

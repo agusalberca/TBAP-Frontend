@@ -11,6 +11,7 @@ import Login from '../pages/auth/Login';
 import Register from '../pages/auth/Register';
 import ForgotPassword from './auth/ForgotPassword';
 import { CoursesPage } from './Courses/Courses';
+import { useBackendAuthentication } from '../features/auth/hooks/useBackendAuthentication';
 
 const HomePage = React.lazy(() =>
   import(/* webpackChunkName: "HomePage" */ './Home/Home').then(module => ({
@@ -48,7 +49,10 @@ const ClaimTokensPage = React.lazy(() =>
 
 export const usePages = () => {
   const { t, i18n } = useTranslation('Menu');
-  const { isAuthenticated } = useWalletAuthentication();
+  // const isWalletAuthenticated = useWalletAuthentication();
+  const isWalletAuthenticated = true;
+  const isBackendAuthenticated = useBackendAuthentication();
+  const isAuthenticated  = isWalletAuthenticated && isBackendAuthenticated
 
   // if you do not have control/access on hosting(html server) config, use hashRouter
   // keep in mind that if you do not use hashRouter,
@@ -95,7 +99,7 @@ export const usePages = () => {
     path: 'courses',
     element: <CoursesPage />,
     menuLabel: t('Courses', { ns: 'Menu' }),
-    isShownInMainMenu: true,
+    isShownInMainMenu: isAuthenticated,
     isShownInSecondaryMenu: true,
     isProtected: false,
   };
@@ -103,8 +107,8 @@ export const usePages = () => {
     path: 'tokens/claim',
     element: <ClaimTokensPage />,
     menuLabel: t('Claim Tokens', { ns: 'Menu' }),
-    isShownInMainMenu: true,
-    isShownInSecondaryMenu: true,
+    isShownInMainMenu: isAuthenticated,
+    isShownInSecondaryMenu: isAuthenticated,
     isProtected: false,
   };
 

@@ -8,7 +8,7 @@ export const withBackendProtection = (
   CustomWarning: React.ReactElement | undefined = undefined
 ) => {
   const WithProtection: React.FC = () => {
-    const { isAuthenticated } = useBackendAuthentication();
+    const isAuthenticated = useBackendAuthentication();
     return isAuthenticated ? (
       <ChildWithProps />
     ) : (

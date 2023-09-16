@@ -5,7 +5,7 @@ import { useBackendAuthentication } from './hooks/useBackendAuthentication';
 import { Wallet } from '../wallet/components/Wallet';
 import { RegisterButton } from './components/RegisterButton/RegisterButton';
 export const UserProfile: React.FC = () => {
-    const { isAuthenticated } = useBackendAuthentication();
+    const isAuthenticated = useBackendAuthentication();
     return (
       <>
         {isAuthenticated ? (

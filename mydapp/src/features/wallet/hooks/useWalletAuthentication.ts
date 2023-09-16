@@ -4,5 +4,5 @@ export const useWalletAuthentication = () => {
   const walletState = useTypedSelector(state => state.wallet.state.state);
   const isAuthenticated = walletState === WalletState.AUTHENTICATED;
 
-  return { isAuthenticated };
+  return isAuthenticated;
 };

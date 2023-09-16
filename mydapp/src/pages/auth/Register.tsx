@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Form, Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -90,94 +90,96 @@ const SignUp = () => {
       </Helmet>
 
       <section className="d-flex flex-column justify-content-center align-items-center gap-5">
-        <AuthCard onSubmit={formik.handleSubmit}>
-          <h1 className="text-1 fw-medium mb-2 ">Sign up</h1>
+        <div style={{ margin: '2rem' }}>
+          <AuthCard onSubmit={formik.handleSubmit} >
+            <h1 className="text-1 fw-medium mb-2 ">Sign up</h1>
 
-          <FormControl isInvalid={!!formik.errors.email}>
-            <FormLabel>Email</FormLabel>
-            <Input
-              name="email"
-              type="email"
-              placeholder="someone@email.com"
-              value={formik.values.email}
-              onChange={formik.handleChange}
-              autoComplete="email"
-            />
-            <FormErrorMessage>{formik.errors.email}</FormErrorMessage>
-          </FormControl>
+            <FormControl isInvalid={!!formik.errors.email}>
+              <FormLabel>Email</FormLabel>
+              <Input
+                name="email"
+                type="email"
+                placeholder="someone@email.com"
+                value={formik.values.email}
+                onChange={formik.handleChange}
+                autoComplete="email"
+              />
+              <FormErrorMessage>{formik.errors.email}</FormErrorMessage>
+            </FormControl>
 
-          <FormControl isInvalid={!!formik.errors.password}>
-            <FormLabel>Password</FormLabel>
-            <Input
-              type="password"
-              name="password"
-              placeholder="********"
-              value={formik.values.password}
-              onChange={formik.handleChange}
-              autoComplete="current-password"
-            />
-            <FormErrorMessage>{formik.errors.password}</FormErrorMessage>
-          </FormControl>
+            <FormControl isInvalid={!!formik.errors.password}>
+              <FormLabel>Password</FormLabel>
+              <Input
+                type="password"
+                name="password"
+                placeholder="********"
+                value={formik.values.password}
+                onChange={formik.handleChange}
+                autoComplete="current-password"
+              />
+              <FormErrorMessage>{formik.errors.password}</FormErrorMessage>
+            </FormControl>
 
-          <FormControl isInvalid={!!formik.errors.passwordConfirm}>
-            <FormLabel>Password Confirm</FormLabel>
-            <Input
-              type="password"
-              name="passwordConfirm"
-              placeholder="********"
-              value={formik.values.passwordConfirm}
-              onChange={formik.handleChange}
-              autoComplete="new-password"
-            />
-            <FormErrorMessage>{formik.errors.passwordConfirm}</FormErrorMessage>
-          </FormControl>
+            <FormControl isInvalid={!!formik.errors.passwordConfirm}>
+              <FormLabel>Password Confirm</FormLabel>
+              <Input
+                type="password"
+                name="passwordConfirm"
+                placeholder="********"
+                value={formik.values.passwordConfirm}
+                onChange={formik.handleChange}
+                autoComplete="new-password"
+              />
+              <FormErrorMessage>{formik.errors.passwordConfirm}</FormErrorMessage>
+            </FormControl>
 
-          <FormControl isInvalid={!!formik.errors.first_name}>
-            <FormLabel>First Name</FormLabel>
-            <Input
-              name="first_name"
-              type="text"
-              placeholder="John"
-              value={formik.values.first_name}
-              onChange={formik.handleChange}
-            />
-            <FormErrorMessage>{formik.errors.first_name}</FormErrorMessage>
-          </FormControl>
+            <FormControl isInvalid={!!formik.errors.first_name}>
+              <FormLabel>First Name</FormLabel>
+              <Input
+                name="first_name"
+                type="text"
+                placeholder="John"
+                value={formik.values.first_name}
+                onChange={formik.handleChange}
+              />
+              <FormErrorMessage>{formik.errors.first_name}</FormErrorMessage>
+            </FormControl>
 
-          <FormControl isInvalid={!!formik.errors.last_name}>
-            <FormLabel>Last Name</FormLabel>
-            <Input
-              name="last_name"
-              type="text"
-              placeholder="Doe"
-              value={formik.values.last_name}
-              onChange={formik.handleChange}
-            />
-            <FormErrorMessage>{formik.errors.last_name}</FormErrorMessage>
-          </FormControl>
+            <FormControl isInvalid={!!formik.errors.last_name}>
+              <FormLabel>Last Name</FormLabel>
+              <Input
+                name="last_name"
+                type="text"
+                placeholder="Doe"
+                value={formik.values.last_name}
+                onChange={formik.handleChange}
+              />
+              <FormErrorMessage>{formik.errors.last_name}</FormErrorMessage>
+            </FormControl>
 
-          <h5 className="text-5 m-1">
-            Already have an account?{' '}
-            <Link className="fw-bold" to="/login">
-              Sign in
-            </Link>
-          </h5>
+            <h5 className="text-5 m-1">
+              Already have an account?{' '}
+              <Link className="fw-bold" to="/login">
+                Sign in
+              </Link>
+            </h5>
 
-          <button
-            className="button-blue gap-0 text-4"
-            type="submit"
-            disabled={formik.isSubmitting}
-          >
-            {formik.isSubmitting ? (
-              <>
-                <span>Loading</span>
-                <LoadingDots className="enter-done" />
-              </>
-            ) : (
-              <span>Sign up</span>
-            )}
-          </button>
-        </AuthCard>
+            <button
+              className="button-blue gap-0 text-4"
+              type="submit"
+              disabled={formik.isSubmitting}
+            >
+              {formik.isSubmitting ? (
+                <>
+                  <span>Loading</span>
+                  <LoadingDots className="enter-done" />
+                </>
+              ) : (
+                <span>Sign up</span>
+              )}
+            </button>
+          </AuthCard>
+        </div>
       </section>
 
       <Modal isOpen={isModalOpen} onClose={closeModal}>

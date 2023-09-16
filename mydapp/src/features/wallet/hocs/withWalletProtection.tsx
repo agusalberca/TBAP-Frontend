@@ -8,7 +8,7 @@ export const withWalletProtection = (
   CustomWarning: React.ReactElement | undefined = undefined
 ) => {
   const WithProtection: React.FC = () => {
-    const { isAuthenticated } = useWalletAuthentication();
+    const isAuthenticated = useWalletAuthentication();
     return isAuthenticated ? (
       <ChildWithProps />
     ) : (
