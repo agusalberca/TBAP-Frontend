@@ -1,0 +1,14 @@
+version: '1'
+
+services:
+  # Servicio para la landing page
+  landing_page:
+    build: ./landing
+    ports:
+      - "5050:80"
+
+  # Servicio para la aplicación React
+  react_app:
+    build: ./mydapp
+    ports:
+      - "3000:3000"
