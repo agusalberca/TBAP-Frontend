@@ -30,7 +30,6 @@ export const ClaimTokensPage: React.FC = withBackendProtection(() => {
             description='Claim your tokens here!'
         />
         <Box >
-            TODO: Falta cambiar la query para que muestre solo los claimeables
             <Center>
                 <TokenList {...tokenDataList} />
             </Center>

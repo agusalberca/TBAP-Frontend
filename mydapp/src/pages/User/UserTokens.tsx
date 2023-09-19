@@ -29,7 +29,6 @@ export const UserTokensPage: React.FC = withBackendProtection(() => {
             description='These tokens belong to your wallet! (They have already been claimed)'
         />
         <Box >
-            TODO: Falta cambiar la query para que muestre solo los ya claimeados por el usuario
             <Center>
                 <TokenList {...tokenDataList} />
             </Center>

@@ -1,4 +1,4 @@
-import { HStack} from '@chakra-ui/react'
+import { HStack, Text} from '@chakra-ui/react'
 import React from 'react';
 import { UserCourse } from '../../api/apiTypes';
 import { CourseBox } from './CourseBox';
@@ -9,11 +9,14 @@ interface CourseListProps {
 
 export const CourseList: React.FC<CourseListProps> = (props) => {
     return (
-        //List TokenList as TokenBoxes
         <HStack spacing='3'>
-            {(props.courses).map((course: UserCourse) => (
-                <CourseBox {...course}/>
-            ))}
+            {
+                (props.courses) && (props.courses).length > 0
+                ? (props.courses).map((course: UserCourse) => (
+                    <CourseBox key={course.id}{...course}/>
+                ))
+                : <Text> No Courses </Text>
+            }
         </HStack>
     );
 };
