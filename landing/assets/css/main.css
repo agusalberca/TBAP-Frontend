@@ -2631,6 +2631,8 @@ input, select, textarea {
 
 			.image.fit img {
 				width: 100%;
+				max-height: 20rem!important;
+				object-fit: cover!important;
 			}
 
 		.image.main {
@@ -4688,6 +4690,12 @@ input, select, textarea {
 		}
 
 	}
+
+#FAQs{
+	font-size: 2.5rem;
+	margin-bottom: 3rem;
+}
+
 .faq-container {
 	max-width: 75%;
 	margin: 0 auto;
@@ -4707,6 +4715,10 @@ input, select, textarea {
 	text-align: initial;
 	border-radius: 10px ; /* Ajuste del border-radius para el fondo */
 	font-family: "Merriweather", Georgia, serif;
+	display: flex;
+    align-items: center;
+    justify-content: space-between;
+
 }
 
 .faq-answer {
@@ -4748,4 +4760,18 @@ input, select, textarea {
 
 #ingresar-btn:hover {
 	background-color: #333;
+}
+
+
+
+.faq-answer {
+    display: none;
+}
+
+.faq-answer.visible {
+    display: block;
+}
+
+.toggle-icon {
+    font-size: 11px; /* Tamaño del icono, ajusta según necesites */
 }
