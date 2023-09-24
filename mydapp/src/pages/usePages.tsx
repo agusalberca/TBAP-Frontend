@@ -45,6 +45,8 @@ const ClaimTokensPage = React.lazy(() =>
   }))
 );
 
+
+
 // ADD YOUR PAGE IMPORTS HERE
 
 export const usePages = () => {
@@ -67,7 +69,7 @@ export const usePages = () => {
     isShownInMainMenu: true,
     isShownInSecondaryMenu: true,
     isProtected: false,
-  };
+    };
 
   // User Dashboard Page
   const User: RouteObject = {
@@ -146,7 +148,10 @@ export const usePages = () => {
       UserProfile, 
       UserTokens,
       ClaimTokens,
-     RegisterView, LoginView, ForgotPasswordView];
+      RegisterView, 
+      LoginView, 
+      ForgotPasswordView
+    ];
 
   // DO NOT CHANGE THE REST
   const homeMenuItem: MenuType = {

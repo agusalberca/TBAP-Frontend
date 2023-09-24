@@ -9,8 +9,10 @@ import { TokenList } from '../../components/Tokens/TokenList';
 import { useQuery } from 'react-query';
 import { getUserTokensApi } from '../../api/tokens';
 import useAppContext from '../../hooks/useAppContext';
+import { requireAuth } from '../auth/AboutYou';
 
 export const UserTokensPage: React.FC = withBackendProtection(() => {
+  requireAuth()
   const { t } = useTranslation('UserTokensPage');
   const { token } = useAppContext()
 

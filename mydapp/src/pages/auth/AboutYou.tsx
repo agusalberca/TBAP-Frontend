@@ -11,8 +11,12 @@ import LoadingDots from '../../components/LoadingDots'
 import 'react-phone-number-input/style.css'
 import { isValidPhoneNumber } from 'react-phone-number-input'
 import PhoneNumberInput from '../../components/PhoneNumberInput'
+import { requireAuth } from '../../features/auth/hooks/authUtils'
 
+
+export { requireAuth };
 const AboutYou = () => {
+  requireAuth()
   const { token, user, refreshUser } = useAppContext()
   const [serverError, setServerError] = useState(false)
   const navigate = useNavigate()

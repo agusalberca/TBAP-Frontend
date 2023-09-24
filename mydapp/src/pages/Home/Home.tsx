@@ -9,13 +9,14 @@ import {
   Tag,
   Image,
 } from '@chakra-ui/react';
-import { FaExternalLinkAlt } from '@react-icons/all-files/fa/FaExternalLinkAlt';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { requireAuth } from '../auth/AboutYou';
 
 
 export const HomePage: React.FC = () => {
   const { t } = useTranslation('PageHome');
+  requireAuth()
   return (
     <>
       	

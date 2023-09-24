@@ -9,8 +9,10 @@ import { useQuery } from 'react-query';
 import useAppContext from '../../hooks/useAppContext';
 import { getCoursesApi } from '../../api/courses';
 import { CourseList } from '../../components/Course/CourseList';
+import { requireAuth } from '../auth/AboutYou';
 
 export const CoursesPage: React.FC = withBackendProtection(() => {
+    requireAuth()
     const { t } = useTranslation('PageUser');
     const { token } = useAppContext()
 

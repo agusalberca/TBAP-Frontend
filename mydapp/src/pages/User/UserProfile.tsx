@@ -4,8 +4,10 @@ import { useTranslation } from 'react-i18next';
 import { withBackendProtection } from '../../features/auth/hocs/withBackendProtection'
 import useAppContext from '../../hooks/useAppContext';
 import { CommonHeader } from '../../features/ui/components/CommonHeader';
+import { requireAuth } from '../auth/AboutYou';
 
 export const UserProfilePage: React.FC = withBackendProtection(() => {
+  requireAuth()
   const { t } = useTranslation('UserProfilePage');
   const { token } = useAppContext()
 

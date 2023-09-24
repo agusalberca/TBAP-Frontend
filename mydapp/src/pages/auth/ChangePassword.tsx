@@ -8,8 +8,10 @@ import AuthCard from '../../components/AuthCard'
 import Input from '../../components/Input'
 import LoadingDots from '../../components/LoadingDots'
 import { useState } from 'react'
+import { requireAuth } from './AboutYou'
 
 const ChangePassword = () => {
+  requireAuth()
   const { token } = useAppContext()
   const [serverError, setServerError] = useState(false)
   const navigate = useNavigate()

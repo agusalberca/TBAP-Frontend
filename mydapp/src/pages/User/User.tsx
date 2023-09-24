@@ -5,8 +5,10 @@ import { useTranslation } from 'react-i18next';
 import { withWalletProtection } from '../../features/wallet/hocs/withWalletProtection';
 
 import { Header } from './components/Header';
+import { requireAuth } from '../auth/AboutYou';
 
 export const UserPage: React.FC = withWalletProtection(() => {
+  requireAuth()
   const { t } = useTranslation('PageUser');
   return (
     <Box>
