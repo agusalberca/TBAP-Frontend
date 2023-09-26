@@ -85,6 +85,7 @@ export interface tokenClaimSignature {
   title: string;
   issuerId: number;
   uri: string;
+  pending: boolean;
 }
 
 export interface UserCourse {

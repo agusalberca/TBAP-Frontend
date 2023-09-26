@@ -1,5 +1,15 @@
-import { Box, Container, Stack, Center } from '@chakra-ui/react';
-import React, { useEffect } from 'react';
+import {
+  Button,
+  Box, Container, Stack, Center,
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogContent,
+  AlertDialogOverlay,
+  AlertDialogCloseButton,
+} from '@chakra-ui/react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { withBackendProtection } from '../../features/auth/hocs/withBackendProtection';
@@ -7,17 +17,45 @@ import { withBackendProtection } from '../../features/auth/hocs/withBackendProte
 import { CommonHeader } from '../../features/ui/components/CommonHeader';
 import { TokenList } from '../../components/Tokens/TokenList';
 import { useQuery } from 'react-query';
-import { getUserTokensApi } from '../../api/tokens';
+import { getUserTokensApi, getClaimTokenApi } from '../../api/tokens';
 import useAppContext from '../../hooks/useAppContext';
 import { requireAuth } from '../auth/AboutYou';
 
+import { tr } from 'date-fns/locale';
+
 export const ClaimTokensPage: React.FC = withBackendProtection(() => {
   requireAuth()
+  const cancelRef = React.useRef()
   const { t } = useTranslation('ClaimTokensPage');
   const { token } = useAppContext()
-
-  // TODO poner un useEffect para que se actualice la lista de tokens
   const {data} = useQuery('getUserTokensApi', () => getUserTokensApi(token, false))
+  const pending_signature = useQuery('getClaimTokenApi', () => getClaimTokenApi(token))
+
+  const [alertOpen, setAlertOpen] = useState(false);
+  let alreadyManagedAlert = false;
+
+  const manageAlertPositiveResponse = () => {
+    setAlertOpen(false);
+    console.log('Claiming tokens...')
+    alreadyManagedAlert = true;
+  };
+
+  const closeAlert = () => {
+    setAlertOpen(false);
+    alreadyManagedAlert = true;
+  };
+
+  useEffect(() => {
+    if (pending_signature?.status === 'success' 
+        && !alertOpen
+        && !alreadyManagedAlert) 
+    {
+      console.log(`alertOpen : ${alertOpen}, alreadyManagedAlert : ${alreadyManagedAlert} `)
+      // console.log(pending_signature)
+      setAlertOpen(true);
+      console.log(`Changed isOpen : ${alertOpen}`)
+    }
+  }, [pending_signature])
 
   const tokenDataList = {
     tokens: data ? data.data : []
@@ -25,12 +63,13 @@ export const ClaimTokensPage: React.FC = withBackendProtection(() => {
 
 
   return (
+    <>
     <Box>
       <Container maxW="7xl" py={2} as={Stack} spacing={2}>
         <CommonHeader 
             title='Claim Tokens!'
             description='Claim your tokens here!'
-        />
+            />
         <Box >
             <Center>
                 <TokenList {...tokenDataList} />
@@ -38,5 +77,30 @@ export const ClaimTokensPage: React.FC = withBackendProtection(() => {
         </Box>
       </Container>
     </Box>
+    <AlertDialog
+          motionPreset='slideInBottom'
+          isOpen={alertOpen}
+          onClose={closeAlert}
+          isCentered
+          leastDestructiveRef={cancelRef}
+        >
+    <AlertDialogOverlay />
+      <AlertDialogContent>
+        <AlertDialogHeader>You have unclaimed signatures!</AlertDialogHeader>
+        <AlertDialogCloseButton />
+        <AlertDialogBody>
+          To proceed you have to claim them. Do you wish to continue?
+        </AlertDialogBody>
+        <AlertDialogFooter>
+          <Button ref={cancelRef} onClick={closeAlert}>
+            Cancel
+          </Button>
+          <Button onClick={manageAlertPositiveResponse} colorScheme='green' ml={3}>
+            Proceed
+          </Button>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+    </>
   );
 });

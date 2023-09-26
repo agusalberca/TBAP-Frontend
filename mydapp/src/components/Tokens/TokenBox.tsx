@@ -1,4 +1,16 @@
-import { Card, CardBody, CardFooter, Stack, Heading, Divider, Button, Image, Text, Center } from '@chakra-ui/react';
+import {
+    Button, 
+    Card, 
+    CardBody, 
+    CardFooter, 
+    Center, 
+    Divider, 
+    Heading, 
+    Image, 
+    Stack, 
+    Text, 
+    useDisclosure 
+  } from '@chakra-ui/react';
 import React from 'react';
 import { es } from 'date-fns/locale';
 import { format } from 'date-fns';
@@ -20,7 +32,13 @@ export const TokenBox: React.FC<UserToken> = (token_data) => {
             if (signature_data.error) {
                 throw new Error(signature_data.error);
             }
-            mintToken(signature_data.title, signature_data.issuerId, signature_data.nonce, signature_data.uri, signature_data.signature);
+            mintToken(
+                    signature_data.title, 
+                    signature_data.issuerId, 
+                    signature_data.nonce, 
+                    signature_data.uri, 
+                    signature_data.signature
+                    );
         } catch (error) {
             console.error('Error claiming token:', error);
             toast({
@@ -34,13 +52,14 @@ export const TokenBox: React.FC<UserToken> = (token_data) => {
     };
 
     return (
+        <>
         <Card maxW='xs'>
             <CardBody>
                 <Image
                     src={REACT_APP_URL_BACK + token_data.token_group.image}
                     boxSize='10rem'
                     borderRadius='lg'
-                />
+                    />
                 <Stack mt='6' spacing='3'>
                     <Heading size='md'> {token_data.token_group.name}   </Heading>
                     <Text>  {token_data.token_group.description} </Text>
@@ -51,21 +70,22 @@ export const TokenBox: React.FC<UserToken> = (token_data) => {
                 </Stack>
             </CardBody>
             {!token_data.is_claimed && (
-            <>
-            <Divider />
-            <CardFooter>
-                <Center>
-                    <Button
-                        variant='solid'
-                        colorScheme='green'
-                        onClick={claimTokenHandler}
-                    >
-                        Claim token
-                    </Button>
-                </Center>
-            </CardFooter>
-            </>
-             )}
+                <>
+                    <Divider />
+                    <CardFooter>
+                        <Center>
+                            <Button
+                                variant='solid'
+                                colorScheme='green'
+                                onClick={claimTokenHandler}
+                                >
+                                Claim token
+                            </Button>
+                        </Center>
+                    </CardFooter>
+                </>
+            )}
         </Card>
+        </>
     );
 };

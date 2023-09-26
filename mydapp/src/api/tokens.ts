@@ -18,6 +18,15 @@ export const getUserTokensApi = (token: string, is_claimed: boolean = true) => {
     })
 }
 
+export const getClaimTokenApi = (token: string   
+    ) => {
+    const response = postQuery<tokenClaimSignature | any>({
+        path: '/blockchain/token/claim/',
+        token
+    })
+    return response
+}
+
 export const postClaimTokenApi = (token: string, body:{
     user_token_id: number;
 }) => {
