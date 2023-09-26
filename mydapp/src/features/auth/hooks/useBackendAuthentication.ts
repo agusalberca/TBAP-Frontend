@@ -9,3 +9,9 @@ export const useBackendAuthentication = () => {
   const isAuthenticated = !!token
   return isAuthenticated ;
 };
+
+
+export const isOrganizationUser = () => {
+  const { isOrganization } = useContext(AppContext)
+  return isOrganization 
+};

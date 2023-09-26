@@ -24,6 +24,7 @@ export interface UserProfile {
   identification_number: string | null;
   user: number;
   wallet_address: string | null;
+  user_type: string;
 }
 
 export interface UserMe {
@@ -64,11 +65,11 @@ export interface UserToken {
 }
 
 
-export interface getUserTokens {
+export interface PaginatedItem {
   page: number;
   total_items: number;
   total_pages: number;
-  data?: UserToken[];
+  data?: any[];
   error?: string;
 }
 
@@ -95,6 +96,14 @@ export interface UserCourse {
     organization: number;
   }
   user: number;
+}
+
+export interface OrganizationInvitation {
+  id: number;
+  email: string;
+  status: string;
+  created_at: string;
+  organization: number;
 }
 
 export interface Error{

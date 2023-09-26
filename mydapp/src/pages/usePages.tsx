@@ -11,6 +11,7 @@ import Login from '../pages/auth/Login';
 import Register from '../pages/auth/Register';
 import ForgotPassword from './auth/ForgotPassword';
 import { CoursesPage } from './Courses/Courses';
+import { Invitations } from './Organization/Invitations';
 import { useBackendAuthentication } from '../features/auth/hooks/useBackendAuthentication';
 
 const HomePage = React.lazy(() =>
@@ -66,8 +67,8 @@ export const usePages = () => {
     index: true,
     element: <HomePage />,
     menuLabel: t('Home', { ns: 'Menu' }),
-    isShownInMainMenu: true,
-    isShownInSecondaryMenu: true,
+    isShownInMainMenu: false,
+    isShownInSecondaryMenu: false,
     isProtected: false,
     };
 
@@ -142,15 +143,31 @@ export const usePages = () => {
   };
 
 
+  // Organizations views
+
+  const OrganitationInvitations: PageType = {
+    path: 'invitations',
+    element: <Invitations />,
+    menuLabel: t('Invitations', { ns: 'Menu' }),
+    isShownInMainMenu: true,
+    isShownInSecondaryMenu: true,
+    isProtected: true,
+  };
+
+
+
   // do not forget add your page routes into this array
   const Pages: PageType[] = [
-      Courses, 
-      UserProfile, 
-      UserTokens,
-      ClaimTokens,
       RegisterView, 
       LoginView, 
-      ForgotPasswordView
+      ForgotPasswordView,
+      UserProfile, 
+      
+      OrganitationInvitations,
+
+      Courses, 
+      UserTokens,
+      ClaimTokens,
     ];
 
   // DO NOT CHANGE THE REST

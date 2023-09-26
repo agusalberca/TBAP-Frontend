@@ -56,7 +56,7 @@ const AboutYou = () => {
   return (
     <>
       <Helmet>
-        <title>Solarus: About You</title>
+        <title>TBAP: About You</title>
       </Helmet>
 
       <section className="Auth__Content d-flex flex-column justify-content-center align-items-center gap-5">

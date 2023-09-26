@@ -28,13 +28,14 @@ interface AppContextInterface {
   refreshUser: () => void;
   userIsLoading: boolean;
 
-  // isCentralAdmin: boolean;
-  // isOrganizationAdmin: boolean;
-  // isRegionAdmin: boolean;
+  isOrganization: boolean;
+  isAdmin: boolean;
+  isRegularUser: boolean;
   getUserTokensAsync: () => Promise<void>;
   getUserCoursesAsync: () => Promise<void>;
   
 }
+
 
 export const AppContext = createContext<AppContextInterface | null>(null)
 
@@ -52,6 +53,18 @@ const AppContextProvider = ({ children }) => {
   } = useQuery(['user'], () => getUser(token) || ({} as User & UserProfile), {
     enabled: token !== '',
   })
+  const isOrganization = useMemo(
+    () => user?.user_type === 'organization',
+    [user?.user_type]
+  )
+  const isAdmin = useMemo(
+    () => user?.user_type === 'user_admin',
+    [user?.user_type]
+  )
+  const isRegularUser = useMemo(
+    () => user?.user_type === 'regular_user',
+    [user?.user_type]
+  )
 
 
   // Check token and get user data in first charge
@@ -128,6 +141,10 @@ const AppContextProvider = ({ children }) => {
     user,
     refreshUser,
     userIsLoading,
+
+    isOrganization,
+    isAdmin,
+    isRegularUser,
 
     getUserTokensAsync,
     getUserCoursesAsync
