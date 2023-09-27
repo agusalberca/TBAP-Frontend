@@ -20,7 +20,7 @@ export const getUserTokensApi = (token: string, is_claimed: boolean = true) => {
 
 export const getClaimTokenApi = (token: string   
     ) => {
-    const response = postQuery<tokenClaimSignature | any>({
+    const response = getQuery<tokenClaimSignature | any>({
         path: '/blockchain/token/claim/',
         token
     })

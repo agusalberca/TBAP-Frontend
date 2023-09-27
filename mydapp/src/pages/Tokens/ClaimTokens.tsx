@@ -32,17 +32,17 @@ export const ClaimTokensPage: React.FC = withBackendProtection(() => {
   const pending_signature = useQuery('getClaimTokenApi', () => getClaimTokenApi(token))
 
   const [alertOpen, setAlertOpen] = useState(false);
-  let alreadyManagedAlert = false;
+  const [alreadyManagedAlert, setAlreadyManagedAlert] = useState(false);
 
   const manageAlertPositiveResponse = () => {
     setAlertOpen(false);
     console.log('Claiming tokens...')
-    alreadyManagedAlert = true;
+    setAlreadyManagedAlert(true);
   };
 
   const closeAlert = () => {
     setAlertOpen(false);
-    alreadyManagedAlert = true;
+    setAlreadyManagedAlert(true);
   };
 
   useEffect(() => {
@@ -51,7 +51,7 @@ export const ClaimTokensPage: React.FC = withBackendProtection(() => {
         && !alreadyManagedAlert) 
     {
       console.log(`alertOpen : ${alertOpen}, alreadyManagedAlert : ${alreadyManagedAlert} `)
-      // console.log(pending_signature)
+      console.log(pending_signature)
       setAlertOpen(true);
       console.log(`Changed isOpen : ${alertOpen}`)
     }
