@@ -32,7 +32,7 @@ export const TokenBox: React.FC<UserToken> = (token_data) => {
             if (signature_data.error) {
                 throw new Error(signature_data.error);
             }
-            mintToken(
+            await mintToken(
                     signature_data.title, 
                     signature_data.issuerId, 
                     signature_data.nonce, 
@@ -43,7 +43,7 @@ export const TokenBox: React.FC<UserToken> = (token_data) => {
             console.error('Error claiming token:', error);
             toast({
                 title: 'Error',
-                description: `${error.message || error || 'Unknown error'}`,
+                description: `Transaction failed: ${error.reason || error.message || error || 'Unknown error'}`,
                 status: 'error',
                 duration: 5000, // Duration in milliseconds
                 isClosable: true,
