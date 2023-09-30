@@ -49,6 +49,15 @@ export interface UserComplete {
   } | null;
 }
 
+export interface Organization {
+  id: number;
+  name: string;
+  description: string;
+  logo: string;
+  created_at: string;
+  user: User;
+}
+
 export interface UserToken {
   id: number;
   token_group: {

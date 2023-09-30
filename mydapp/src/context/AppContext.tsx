@@ -7,13 +7,14 @@ import {
   useMemo,
 } from 'react'
 import { getUser } from '../api/auth'
-import { getUserTokensApi } from '../api/tokens'
+import { getUserOrganizationsApi, getUserTokensApi } from '../api/tokens'
 import {
   User,
   UserComplete,
   UserCourse,
   UserProfile,
   UserToken,
+  Organization,
 } from '../api/apiTypes'
 import { useQuery } from 'react-query'
 import { getCoursesApi } from '../api/courses'
@@ -31,6 +32,7 @@ interface AppContextInterface {
   isOrganization: boolean;
   isAdmin: boolean;
   isRegularUser: boolean;
+  getUserOrganizationsAsync: () => Promise<void>;
   getUserTokensAsync: () => Promise<void>;
   getUserCoursesAsync: () => Promise<void>;
   
@@ -43,6 +45,7 @@ const AppContextProvider = ({ children }) => {
   // State to avoid deleting token from local storage on page reload
   const [firstCharge, setFirstCharge] = useState(true)
   const [token, setToken] = useState('')
+  const [userOrganizations, setUserOrganizations] = useState<Organization[]>([])
   const [userTokens, setUserTokens] = useState<UserToken[]>([])
   const [UserCourse, setUserCourse] = useState<UserCourse[]>([])
   const {
@@ -53,6 +56,7 @@ const AppContextProvider = ({ children }) => {
   } = useQuery(['user'], () => getUser(token) || ({} as User & UserProfile), {
     enabled: token !== '',
   })
+
   const isOrganization = useMemo(
     () => user?.user_type === 'organization',
     [user?.user_type]
@@ -121,6 +125,11 @@ const AppContextProvider = ({ children }) => {
     }
   }
 
+  const getUserOrganizationsAsync = async () => {
+    const organizations = await getUserOrganizationsApi(token) || [];
+    setUserOrganizations(organizations);
+  }
+  
   const getUserTokensAsync = async () => {
     const userTokens = await getUserTokensApi(token) || {data: []};
     setUserTokens(userTokens.data);
@@ -146,6 +155,7 @@ const AppContextProvider = ({ children }) => {
     isAdmin,
     isRegularUser,
 
+    getUserOrganizationsAsync,
     getUserTokensAsync,
     getUserCoursesAsync
   }

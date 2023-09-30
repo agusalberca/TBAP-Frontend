@@ -57,7 +57,11 @@ export const usePages = () => {
   const isBackendAuthenticated = useBackendAuthentication();
   const isAuthenticated  = isWalletAuthenticated && isBackendAuthenticated
 
-  const { isOrganization, isAdmin, isRegularUser } = useAppContext();
+  let { isOrganization, isAdmin, isRegularUser } = useAppContext();
+  // TODO REVISAR
+  isOrganization=true;
+  isAdmin=true;
+  isRegularUser=true;
 
   // if you do not have control/access on hosting(html server) config, use hashRouter
   // keep in mind that if you do not use hashRouter,
@@ -99,7 +103,6 @@ export const usePages = () => {
     isProtected: false,
   };
 
-  // ADD YOUR PAGE ROUTES HERE
   const Courses: PageType = {
     path: 'courses',
     element: <CoursesPage />,
