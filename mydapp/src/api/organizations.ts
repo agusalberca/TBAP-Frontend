@@ -12,6 +12,14 @@ export const getInvitationsApi = (token: string) => {
     })
 }
 
+export const sentAdminInvitationEmail = async (token, body: { email: string; }) => {
+    return await postQuery<any>({
+        path: '/organization/send-admin-invitation/',
+        token,
+        body,
+    })
+}
+
 
 export const deleteInvitationApi = async (
     token, body: {invitation_id: number}

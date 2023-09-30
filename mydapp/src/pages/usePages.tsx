@@ -13,6 +13,7 @@ import ForgotPassword from './auth/ForgotPassword';
 import { CoursesPage } from './Courses/Courses';
 import { Invitations } from './Organization/Invitations';
 import { useBackendAuthentication } from '../features/auth/hooks/useBackendAuthentication';
+import useAppContext from '../hooks/useAppContext';
 
 const HomePage = React.lazy(() =>
   import(/* webpackChunkName: "HomePage" */ './Home/Home').then(module => ({
@@ -52,10 +53,11 @@ const ClaimTokensPage = React.lazy(() =>
 
 export const usePages = () => {
   const { t, i18n } = useTranslation('Menu');
-  // const isWalletAuthenticated = useWalletAuthentication();
-  const isWalletAuthenticated = true;
+  const isWalletAuthenticated = useWalletAuthentication();
   const isBackendAuthenticated = useBackendAuthentication();
   const isAuthenticated  = isWalletAuthenticated && isBackendAuthenticated
+
+  const { isOrganization, isAdmin, isRegularUser } = useAppContext();
 
   // if you do not have control/access on hosting(html server) config, use hashRouter
   // keep in mind that if you do not use hashRouter,
@@ -92,8 +94,8 @@ export const usePages = () => {
     path: 'tokens',
     element: <UserTokensPage />,
     menuLabel: t('My Tokens', { ns: 'Menu' }),
-    isShownInMainMenu: false,
-    isShownInSecondaryMenu: false,
+    isShownInMainMenu: isRegularUser,
+    isShownInSecondaryMenu: isRegularUser,
     isProtected: false,
   };
 
@@ -102,16 +104,16 @@ export const usePages = () => {
     path: 'courses',
     element: <CoursesPage />,
     menuLabel: t('Courses', { ns: 'Menu' }),
-    isShownInMainMenu: isAuthenticated,
-    isShownInSecondaryMenu: true,
+    isShownInMainMenu: isRegularUser,
+    isShownInSecondaryMenu: isRegularUser,
     isProtected: false,
   };
   const ClaimTokens: PageType = {
     path: 'tokens/claim',
     element: <ClaimTokensPage />,
     menuLabel: t('Claim Tokens', { ns: 'Menu' }),
-    isShownInMainMenu: isAuthenticated,
-    isShownInSecondaryMenu: isAuthenticated,
+    isShownInMainMenu: isRegularUser,
+    isShownInSecondaryMenu: isRegularUser,
     isProtected: false,
   };
 
@@ -149,8 +151,8 @@ export const usePages = () => {
     path: 'invitations',
     element: <Invitations />,
     menuLabel: t('Invitations', { ns: 'Menu' }),
-    isShownInMainMenu: true,
-    isShownInSecondaryMenu: true,
+    isShownInMainMenu: isOrganization,
+    isShownInSecondaryMenu: isOrganization,
     isProtected: true,
   };
 
