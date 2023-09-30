@@ -49,7 +49,6 @@ import { useQuery, useMutation, useQueryClient } from 'react-query';
 import useAppContext from '../../hooks/useAppContext';
 import { withOrganizationProtection } from '../../features/auth/hocs/withOrganizationProtection';
 import { deleteInvitationApi, getInvitationsApi, sentAdminInvitationEmail } from '../../api/organizations';
-import { el } from 'date-fns/locale';
 
 export const Invitations: React.FC = withOrganizationProtection(() => {
     const { t } = useTranslation('PageUser');
@@ -79,8 +78,7 @@ export const Invitations: React.FC = withOrganizationProtection(() => {
         }),
         onSubmit: async values => {
             const response = await sentAdminInvitationEmail(token, values);
-            console.log(response);
-    
+
             if (response.non_field_errors) {
                 formik.setErrors({
                     email: response.non_field_errors[0]
@@ -98,7 +96,6 @@ export const Invitations: React.FC = withOrganizationProtection(() => {
 
 
     const handleDeleteInvitation = async () => {
-        console.log(deleteInvitationId);
         await deleteInvitationMutation.mutateAsync(deleteInvitationId);
         queryClient.invalidateQueries('getInvitation');
         onCloseAlert();
