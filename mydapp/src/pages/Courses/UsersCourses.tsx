@@ -25,9 +25,6 @@ export const UserCoursesPage: React.FC = withBackendProtection(() => {
         courses: data ? data : []
     }
 
-    console.log("courseDataList", courseDataList)
-
-
     return (
         <Box>
             <Container maxW="7xl" py={2} as={Stack} spacing={2}>

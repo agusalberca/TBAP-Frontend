@@ -54,13 +54,10 @@ export const AdminsInCourse: React.FC = withAdminProtection(() => {
         return getAdminOfOrganizationApi(token, params);
     })
 
-
     var admin_in_organization: AdminInCourse[] = queryClient.getQueryData('getAdmisOfOrganization') || [];
-
     
     const { isOpen: isOpenModal, onOpen: onOpenModal, onClose: onCloseModal } = useDisclosure();
     
-
 
     const formik = useFormik({
         initialValues: {
@@ -88,7 +85,6 @@ export const AdminsInCourse: React.FC = withAdminProtection(() => {
                 });
             } else {
                 onCloseModal();
-                // reload page;
                 window.location.reload();
             }
         }
@@ -125,11 +121,6 @@ export const AdminsInCourse: React.FC = withAdminProtection(() => {
                                     <Tr key={index}>
                                         <Td>{data.user.email}</Td>
                                         <Td >{data.user.first_name} {data.user.last_name}</Td>
-                                        {/* <Td>
-                                            <Button onClick={() => {onOpenAlert(); setDeleteInvitationId(data.id);}} colorScheme="red">
-                                                X
-                                            </Button>
-                                        </Td> */}
                                     </Tr>
                                 ))}
                             </Tbody>

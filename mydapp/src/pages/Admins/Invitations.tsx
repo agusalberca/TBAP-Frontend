@@ -53,7 +53,7 @@ import { deleteInvitationApi, getInvitationsApi, sentAdminInvitationEmail } from
 
 export const AdminInvitations: React.FC = withOrganizationProtection(() => {
     const { t } = useTranslation('PageUser');
-    const { token, adminCourseDetail } = useAppContext()
+    const { token } = useAppContext()
     
 
     const deleteInvitationMutation = useMutation((invitationId: number) => deleteInvitationApi(token, { invitation_id: invitationId }));

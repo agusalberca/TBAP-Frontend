@@ -40,7 +40,6 @@ export const ConnectButton: React.FC = () => {
 
 
   useEffect(() => {
-    console.log("AccountState", accountState);
     let getAddressAndPatchData = () => {};
     
     if (user?.wallet_address === null && accountState === AccountLoadState.ACCOUNT_LOADED) {
