@@ -15,3 +15,8 @@ export const isOrganizationUser = () => {
   const { isOrganization } = useContext(AppContext)
   return isOrganization 
 };
+
+export const isAdminUser = () => {
+  const { isAdmin } = useContext(AppContext)
+  return isAdmin 
+};

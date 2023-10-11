@@ -58,6 +58,18 @@ export interface Organization {
   user: User;
 }
 
+
+export interface Admin{
+  id: number;
+  user: User;
+  organization: Organization;
+}
+
+export interface AdminOrganization {
+  admin_organizations: Organization[];
+  user_organizations: Organization[];
+}
+
 export interface UserToken {
   id: number;
   token_group: {
@@ -106,6 +118,19 @@ export interface UserCourse {
     organization: number;
   }
   user: number;
+}
+export interface AdminInCourse {
+  id: number;
+  user: User;
+  organization: number;  
+}
+
+export interface AdminCourse {
+  id: number;
+  name: string;
+  description: string;
+  organization: number;
+  admins_in_course: AdminInCourse[];
 }
 
 export interface OrganizationInvitation {

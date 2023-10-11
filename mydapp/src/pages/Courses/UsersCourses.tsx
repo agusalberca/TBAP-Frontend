@@ -7,20 +7,25 @@ import { withBackendProtection } from '../../features/auth/hocs/withBackendProte
 import { CommonHeader } from '../../features/ui/components/CommonHeader';
 import { useQuery } from 'react-query';
 import useAppContext from '../../hooks/useAppContext';
-import { getCoursesApi } from '../../api/courses';
-import { CourseList } from '../../components/Course/CourseList';
+import { getUserCoursesApi } from '../../api/courses';
+import { UserCourseList } from '../../components/Course/Users/UserCourseList';
 import { requireAuth } from '../auth/AboutYou';
 
-export const CoursesPage: React.FC = withBackendProtection(() => {
+export const UserCoursesPage: React.FC = withBackendProtection(() => {
     requireAuth()
     const { t } = useTranslation('PageUser');
-    const { token } = useAppContext()
+    const { token, selectedOrganization } = useAppContext()
 
-    const {data} = useQuery('getCourses', () => getCoursesApi(token))
+    const params = { organization_id : selectedOrganization.id }
+    const { data } = useQuery('getCourses', () => {
+        return getUserCoursesApi(token);
+    });
 
     const courseDataList = {
         courses: data ? data : []
     }
+
+    console.log("courseDataList", courseDataList)
 
 
     return (
@@ -32,7 +37,7 @@ export const CoursesPage: React.FC = withBackendProtection(() => {
                 />
                 <Box >
                     <Center>
-                        <CourseList {...courseDataList} />
+                        <UserCourseList {...courseDataList} />
                     </Center>
                 </Box>
             </Container>

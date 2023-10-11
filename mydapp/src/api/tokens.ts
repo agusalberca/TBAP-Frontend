@@ -1,5 +1,5 @@
 import { getQuery, patchQuery, postQuery } from './apiFunctions'
-import { Organization, PaginatedItem, tokenClaimSignature } from './apiTypes'
+import { AdminOrganization, Organization, PaginatedItem, tokenClaimSignature } from './apiTypes'
 
 function capitalizeText(text: string): string {
     return (text && text[0].toUpperCase() + text.slice(1)) || text;
@@ -11,6 +11,15 @@ export const getUserOrganizationsApi = (token: string) => {
         token,
     })
 }
+
+export const getAdminOrganizationsApi = (token: string) => {
+    return getQuery<Organization>({
+        path: '/organization/',
+        token,
+        callback: (data) => [...data.admin_organizations, ...data.user_organizations],
+    })
+}
+
 
 export const getUserTokensApi = (token: string, is_claimed: boolean = true) => {
     return getQuery<PaginatedItem>({

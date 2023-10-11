@@ -7,7 +7,7 @@ import {
   useMemo,
 } from 'react'
 import { getUser } from '../api/auth'
-import { getUserOrganizationsApi, getUserTokensApi } from '../api/tokens'
+import { getAdminOrganizationsApi, getUserOrganizationsApi, getUserTokensApi } from '../api/tokens'
 import {
   User,
   UserComplete,
@@ -15,9 +15,11 @@ import {
   UserProfile,
   UserToken,
   Organization,
+  AdminCourse,
+  AdminOrganization,
 } from '../api/apiTypes'
 import { useQuery } from 'react-query'
-import { getCoursesApi } from '../api/courses'
+import { getAdminCoursesApi, getUserCoursesApi } from '../api/courses'
 
 interface AppContextInterface {
   firstCharge: boolean;
@@ -33,8 +35,19 @@ interface AppContextInterface {
   isAdmin: boolean;
   isRegularUser: boolean;
   getUserOrganizationsAsync: () => Promise<void>;
+  getAdminOrganizationsAsync: () => Promise<void>;
   getUserTokensAsync: () => Promise<void>;
   getUserCoursesAsync: () => Promise<void>;
+  getAdminCoursesAsync: () => Promise<void>;
+
+  userCourseDetail: UserCourse;
+  setUserCourseDetail: Dispatch<SetStateAction<UserCourse>>;
+
+  adminCourseDetail: AdminCourse;
+  setAdminCourseDetail: Dispatch<SetStateAction<AdminCourse>>;
+
+  selectedOrganization: Organization | null;
+  setSelectedOrganization: Dispatch<SetStateAction<Organization | null>>;
   
 }
 
@@ -45,9 +58,15 @@ const AppContextProvider = ({ children }) => {
   // State to avoid deleting token from local storage on page reload
   const [firstCharge, setFirstCharge] = useState(true)
   const [token, setToken] = useState('')
-  const [userOrganizations, setUserOrganizations] = useState<Organization[]>([])
+  const [userOrganizations, setUserOrganizations] = useState<Organization[] >([])
+  const [selectedOrganization, setSelectedOrganization] = useState<Organization | null>(null);
   const [userTokens, setUserTokens] = useState<UserToken[]>([])
-  const [UserCourse, setUserCourse] = useState<UserCourse[]>([])
+  const [UserCourse, setUserCourse] = useState<UserCourse[] | AdminCourse[]>([])
+
+
+  const [userCourseDetail, setUserCourseDetail] = useState< UserCourse>()
+  const [adminCourseDetail, setAdminCourseDetail] = useState< AdminCourse>()
+  
   const {
     data: user,
     remove: removeUser,
@@ -114,6 +133,24 @@ const AppContextProvider = ({ children }) => {
     window.addEventListener('storage', storageEventHandler)
   }, [])
 
+  // Get user organizations
+  useEffect(() => {
+    if (token) {
+      if (isAdmin) {
+        getAdminOrganizationsAsync()
+      } else {
+        getUserOrganizationsAsync()
+      }
+    }
+  }, [token, user])
+
+  useEffect(() => {
+    // Si no hay organización seleccionada y hay organizaciones disponibles,
+    // establecer la primera como seleccionada.
+    if (!selectedOrganization && userOrganizations.length > 0) {
+      setSelectedOrganization(userOrganizations[0]);
+    }
+  }, [userOrganizations, selectedOrganization]);
 
   const checkToken = async () => {
     const savedToken = localStorage.getItem('token')
@@ -129,6 +166,11 @@ const AppContextProvider = ({ children }) => {
     const organizations = await getUserOrganizationsApi(token) || [];
     setUserOrganizations(organizations);
   }
+
+  const getAdminOrganizationsAsync = async () => {
+    const organizations = await getAdminOrganizationsApi(token) || [];
+    setUserOrganizations(organizations as Organization[]);
+  }
   
   const getUserTokensAsync = async () => {
     const userTokens = await getUserTokensApi(token) || {data: []};
@@ -136,7 +178,12 @@ const AppContextProvider = ({ children }) => {
   }
 
   const getUserCoursesAsync = async () => {
-    const userCourses = await getCoursesApi(token);
+    const userCourses = await getUserCoursesApi(token);
+    setUserCourse(userCourses);
+  }
+
+  const getAdminCoursesAsync = async () => {
+    const userCourses = await getAdminCoursesApi(token, { organization_id : selectedOrganization?.id });
     setUserCourse(userCourses);
   }
 
@@ -156,8 +203,20 @@ const AppContextProvider = ({ children }) => {
     isRegularUser,
 
     getUserOrganizationsAsync,
+    getAdminOrganizationsAsync,
     getUserTokensAsync,
-    getUserCoursesAsync
+    getUserCoursesAsync,
+    getAdminCoursesAsync,
+
+    userCourseDetail,
+    setUserCourseDetail,
+
+    adminCourseDetail,
+    setAdminCourseDetail,
+
+    selectedOrganization, 
+    setSelectedOrganization
+
   }
 
   return <AppContext.Provider value={values}>{children}</AppContext.Provider>
