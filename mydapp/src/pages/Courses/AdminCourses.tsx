@@ -7,21 +7,22 @@ import { withBackendProtection } from '../../features/auth/hocs/withBackendProte
 import { CommonHeader } from '../../features/ui/components/CommonHeader';
 import { useQuery } from 'react-query';
 import useAppContext from '../../hooks/useAppContext';
-import { getCoursesApi } from '../../api/courses';
-import { CourseList } from '../../components/Course/CourseList';
+import { getAdminCoursesApi } from '../../api/courses';
+import { AdminCourseList } from '../../components/Course/Admins/AdminCourseList';
 import { requireAuth } from '../auth/AboutYou';
 
-export const CoursesPage: React.FC = withBackendProtection(() => {
-    requireAuth()
+export const AdminCoursesPage: React.FC = withBackendProtection(() => {
     const { t } = useTranslation('PageUser');
-    const { token } = useAppContext()
+    const { token, selectedOrganization } = useAppContext()
 
-    const {data} = useQuery('getCourses', () => getCoursesApi(token))
+    const { data } = useQuery('getCourses', () => {
+        const params = { organization_id : selectedOrganization.id }
+        return getAdminCoursesApi(token, params);
+    });
 
     const courseDataList = {
         courses: data ? data : []
     }
-
 
     return (
         <Box>
@@ -32,7 +33,7 @@ export const CoursesPage: React.FC = withBackendProtection(() => {
                 />
                 <Box >
                     <Center>
-                        <CourseList {...courseDataList} />
+                        <AdminCourseList {...courseDataList} />
                     </Center>
                 </Box>
             </Container>

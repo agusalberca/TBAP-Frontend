@@ -10,10 +10,13 @@ import { MenuType, PageType } from './types';
 import Login from '../pages/auth/Login';
 import Register from '../pages/auth/Register';
 import ForgotPassword from './auth/ForgotPassword';
-import { CoursesPage } from './Courses/Courses';
-import { Invitations } from './Organization/Invitations';
+import { UserCoursesPage } from './Courses/UsersCourses';
+import { AdminCoursesPage } from './Courses/AdminCourses';
+import { OrganizationInvitations } from './Organization/Invitations';
+import { AdminInvitations } from './Admins/Invitations';
 import { useBackendAuthentication } from '../features/auth/hooks/useBackendAuthentication';
 import useAppContext from '../hooks/useAppContext';
+import CourseDetail from '../components/Course/CourseDetailNavbar';
 
 const HomePage = React.lazy(() =>
   import(/* webpackChunkName: "HomePage" */ './Home/Home').then(module => ({
@@ -103,9 +106,18 @@ export const usePages = () => {
     isProtected: false,
   };
 
-  const Courses: PageType = {
-    path: 'courses',
-    element: <CoursesPage />,
+  const UserCourses: PageType = {
+    path: 'user-courses',
+    element: <UserCoursesPage />,
+    menuLabel: t('Courses', { ns: 'Menu' }),
+    isShownInMainMenu: isRegularUser,
+    isShownInSecondaryMenu: isRegularUser,
+    isProtected: false,
+  };
+
+  const AdminCourses: PageType = {
+    path: 'admin-courses',
+    element: <AdminCoursesPage />,
     menuLabel: t('Courses', { ns: 'Menu' }),
     isShownInMainMenu: isRegularUser,
     isShownInSecondaryMenu: isRegularUser,
@@ -150,14 +162,38 @@ export const usePages = () => {
 
   // Organizations views
 
-  const OrganitationInvitations: PageType = {
-    path: 'invitations',
-    element: <Invitations />,
+  const OrganizationInvitationsPage: PageType = {
+    path: 'organzation-invitations',
+    element: <OrganizationInvitations />,
     menuLabel: t('Invitations', { ns: 'Menu' }),
     isShownInMainMenu: isOrganization,
     isShownInSecondaryMenu: isOrganization,
     isProtected: true,
   };
+
+
+  // Admin views
+
+  // const AdminInvitationsPage: PageType = {
+  //   path: 'admin-invitations',
+  //   element: <AdminInvitations />,
+  //   menuLabel: t('Invitations', { ns: 'Menu' }),
+  //   isShownInMainMenu: isAdmin,
+  //   isShownInSecondaryMenu: isAdmin,
+  //   isProtected: true,
+  // };
+
+  const CourseDetailPage: PageType = {
+    path: 'course/',
+    element: <CourseDetail />,
+    menuLabel: t('course', { ns: 'Menu' }),
+    isShownInMainMenu: false,
+    isShownInSecondaryMenu: false,
+    isProtected: true,
+  };
+
+
+  
 
 
 
@@ -168,9 +204,13 @@ export const usePages = () => {
       ForgotPasswordView,
       UserProfile, 
       
-      OrganitationInvitations,
-
-      Courses, 
+      OrganizationInvitationsPage,
+      
+      // AdminInvitationsPage,
+      CourseDetailPage,
+      UserCourses, 
+      
+      AdminCourses, 
       UserTokens,
       ClaimTokens,
     ];

@@ -17,7 +17,8 @@ import {
     Input,
     FormControl,
     FormLabel,
-    FormErrorMessage
+    FormErrorMessage,
+    Divider
 } from '@chakra-ui/react' 
 
 import {
@@ -50,9 +51,10 @@ import useAppContext from '../../hooks/useAppContext';
 import { withOrganizationProtection } from '../../features/auth/hocs/withOrganizationProtection';
 import { deleteInvitationApi, getInvitationsApi, sentAdminInvitationEmail } from '../../api/organizations';
 
-export const OrganizationInvitations: React.FC = withOrganizationProtection(() => {
+export const AdminInvitations: React.FC = withOrganizationProtection(() => {
     const { t } = useTranslation('PageUser');
     const { token } = useAppContext()
+    
 
     const deleteInvitationMutation = useMutation((invitationId: number) => deleteInvitationApi(token, { invitation_id: invitationId }));
 
@@ -104,51 +106,61 @@ export const OrganizationInvitations: React.FC = withOrganizationProtection(() =
     return (
         <>
         
-            <Container maxW="7xl" py={2} as={Stack} spacing={2}>
-                <Heading as="h1" size="xl" textAlign="center">
-                    Invitaciones
-                </Heading>
-                <Box>
-                    <Button onClick={onOpenModal} colorScheme="blue">
-                        Sent new invitation
-                    </Button>
-                </Box>
-                <Box >
-                    <Center>
-                        <TableContainer w="100%">
-                            <Table variant='simple'>
-                                <Thead>
-                                    <Tr>
-                                        <Th>Email</Th>
-                                        <Th>Sent</Th>
-                                        <Th>State</Th>
+        <Container maxW="7xl" py={2} as={Stack} spacing={2}>
+            <Heading as="h1" size="xl" textAlign="center">
+                Invitations
+            </Heading>
+            <Box>
+                <Button onClick={onOpenModal} colorScheme="blue">
+                    Sent new invitation
+                </Button>
+            </Box>
+            <Divider /> {/* Barra divisora */}
+            <Box>
+                <Center>
+                    <TableContainer w="100%">
+                        <Table variant='simple'>
+                            <Thead>
+                                <Tr>
+                                    <Th>Email</Th>
+                                    <Th>Sent</Th>
+                                    <Th>State</Th>
+                                </Tr>
+                            </Thead>
+                            <Tbody>
+                                {invitations.map((data, index) => (
+                                    <Tr key={index}>
+                                        <Td>{data.email}</Td>
+                                        <Td >{new Date(data.created_at).toISOString().split('T')[0]}</Td>
+                                        <Td >{data.status}</Td>
+                                        <Td>
+                                            {data.status.includes('Pending') ?
+                                                <Button onClick={() => {onOpenAlert(); setDeleteInvitationId(data.id);}} colorScheme="red">
+                                                    X
+                                                </Button>
+                                                :<Button colorScheme="red" isDisabled>
+                                                    X
+                                                </Button>
+                                            }
+                                        </Td>
                                     </Tr>
-                                </Thead>
-                                <Tbody>
-                                    {invitations.map((data, index) => (
-                                        <Tr key={index}>
-                                            <Td>{data.email}</Td>
-                                            <Td >{new Date(data.created_at).toISOString().split('T')[0]}</Td>
-                                            <Td >{data.status}</Td>
-                                            <Td>
-                                                {data.status.includes('Pending') ?
-                                                    <Button onClick={() => {onOpenAlert(); setDeleteInvitationId(data.id);}} colorScheme="red">
-                                                        X
-                                                    </Button>
-                                                    // DeactiveButton
-                                                    :<Button colorScheme="red" isDisabled>
-                                                        X
-                                                    </Button>
-                                                }
-                                            </Td>
-                                        </Tr>
-                                    ))}
-                                </Tbody>
-                            </Table>
-                        </TableContainer>
-                    </Center>
-                </Box>
-            </Container>
+                                ))}
+                            </Tbody>
+                        </Table>
+                    </TableContainer>
+                </Center>
+            </Box>
+            <Divider /> {/* Barra divisora */}
+            <Box>
+                {/* Segunda tabla y botón */}
+            </Box>
+        </Container>
+
+
+
+
+
+
 
 
             <AlertDialog

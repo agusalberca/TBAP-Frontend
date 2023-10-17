@@ -62,7 +62,6 @@ export const ClaimTokensPage: React.FC = withWalletProtection(() => {
   };
   const manageAlertPositiveResponse = () => {
     setAlertOpen(false);
-    console.log('Claiming tokens...')
     setAlreadyManagedAlert(true);
     claimTokenHandler(pending_signature.data)
   };
@@ -78,10 +77,7 @@ export const ClaimTokensPage: React.FC = withWalletProtection(() => {
         && !alertOpen
         && !alreadyManagedAlert) 
     {
-      console.log(`alertOpen : ${alertOpen}, alreadyManagedAlert : ${alreadyManagedAlert} `)
-      console.log(pending_signature)
       setAlertOpen(true);
-      console.log(`Changed isOpen : ${alertOpen}`)
     }
   }, [pending_signature])
 

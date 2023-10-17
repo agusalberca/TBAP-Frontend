@@ -1,5 +1,5 @@
 import { getQuery, patchQuery, postQuery, deleteQuery } from './apiFunctions'
-import { UserToken, UserCourse, PaginatedItem } from './apiTypes'
+import { UserToken, UserCourse, PaginatedItem, Admin } from './apiTypes'
 
 export const getInvitationsApi = (token: string) => {
     return getQuery<PaginatedItem>({
@@ -26,6 +26,28 @@ export const deleteInvitationApi = async (
 ) => {
     return await deleteQuery<any>({
         path: '/organization/invitations-sent/',
+        token,
+        body,
+    })
+}
+
+
+export const getAdminOfOrganizationApi = (token: string, params: { organization_id: number }) => {
+    return getQuery<Admin[]>({
+        path: '/organization/admins/',
+        token,
+        params
+    })
+
+}
+
+export const addNewAdminToCourse = async (token, body: { 
+    organization_id: string; 
+    course_id: string;
+    admin_id: string;
+}) => {
+    return await postQuery<any>({
+        path: '/admin/add-admin-to-course/',
         token,
         body,
     })
