@@ -9,7 +9,6 @@ import { useQuery } from 'react-query';
 import useAppContext from '../../hooks/useAppContext';
 import { getAdminCoursesApi } from '../../api/courses';
 import { AdminCourseList } from '../../components/Course/Admins/AdminCourseList';
-import { requireAuth } from '../auth/AboutYou';
 
 export const AdminCoursesPage: React.FC = withBackendProtection(() => {
     const { t } = useTranslation('PageUser');
@@ -23,6 +22,7 @@ export const AdminCoursesPage: React.FC = withBackendProtection(() => {
     const courseDataList = {
         courses: data ? data : []
     }
+
 
     return (
         <Box>

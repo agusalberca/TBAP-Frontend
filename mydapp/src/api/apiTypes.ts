@@ -141,6 +141,14 @@ export interface OrganizationInvitation {
   organization: number;
 }
 
+export interface UserInvitation {
+  id: number;
+  email: string;
+  status: string;
+  created_at: string;
+  course: number;
+}
+
 export interface Error{
   error: string;
 }

@@ -76,6 +76,8 @@ const AppContextProvider = ({ children }) => {
     enabled: token !== '',
   })
 
+  console.log("user", user)
+
   const isOrganization = useMemo(
     () => user?.user_type === 'organization',
     [user?.user_type]
