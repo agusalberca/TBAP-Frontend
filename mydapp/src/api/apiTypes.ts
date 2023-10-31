@@ -116,6 +116,7 @@ export interface UserCourse {
     name: string;
     description: string;
     organization: number;
+    organization_name: string;
   }
   user: number;
 }
@@ -141,12 +142,19 @@ export interface OrganizationInvitation {
   organization: number;
 }
 
+
 export interface UserInvitation {
   id: number;
   email: string;
   status: string;
   created_at: string;
-  course: number;
+  course: {
+    id: number;
+    name: string;
+    description: string;
+    organization: number;
+    organization_name: string;
+  }
 }
 
 export interface Error{

@@ -9,11 +9,12 @@ export const getUserOrganizationsApi = (token: string) => {
     return getQuery<Organization[]>({
         path: '/organization/',
         token,
+        callback: (data) => [...data.admin_organizations, ...data.user_organizations],
     })
 }
 
 export const getAdminOrganizationsApi = (token: string) => {
-    return getQuery<Organization>({
+    return getQuery<Organization[]>({
         path: '/organization/',
         token,
         callback: (data) => [...data.admin_organizations, ...data.user_organizations],

@@ -59,6 +59,7 @@ const AppContextProvider = ({ children }) => {
   const [firstCharge, setFirstCharge] = useState(true)
   const [token, setToken] = useState('')
   const [userOrganizations, setUserOrganizations] = useState<Organization[] >([])
+  const [adminOrganizations, setAdminOrganizations] = useState<Organization[] >([])
   const [selectedOrganization, setSelectedOrganization] = useState<Organization | null>(null);
   const [userTokens, setUserTokens] = useState<UserToken[]>([])
   const [UserCourse, setUserCourse] = useState<UserCourse[] | AdminCourse[]>([])
@@ -76,7 +77,6 @@ const AppContextProvider = ({ children }) => {
     enabled: token !== '',
   })
 
-  console.log("user", user)
 
   const isOrganization = useMemo(
     () => user?.user_type === 'organization',
@@ -149,10 +149,14 @@ const AppContextProvider = ({ children }) => {
   useEffect(() => {
     // Si no hay organización seleccionada y hay organizaciones disponibles,
     // establecer la primera como seleccionada.
-    if (!selectedOrganization && userOrganizations.length > 0) {
-      setSelectedOrganization(userOrganizations[0]);
+    if (!selectedOrganization ) {
+      if (isAdmin && adminOrganizations.length > 0) {
+        setSelectedOrganization(adminOrganizations[0]);
+      }else if (userOrganizations.length > 0) {
+        setSelectedOrganization(userOrganizations[0]);
+      }
     }
-  }, [userOrganizations, selectedOrganization]);
+  }, [userOrganizations, adminOrganizations])
 
   const checkToken = async () => {
     const savedToken = localStorage.getItem('token')
@@ -166,12 +170,13 @@ const AppContextProvider = ({ children }) => {
 
   const getUserOrganizationsAsync = async () => {
     const organizations = await getUserOrganizationsApi(token) || [];
+    console.log("organizations", organizations)
     setUserOrganizations(organizations);
   }
 
   const getAdminOrganizationsAsync = async () => {
     const organizations = await getAdminOrganizationsApi(token) || [];
-    setUserOrganizations(organizations as Organization[]);
+    setAdminOrganizations(organizations as Organization[]);
   }
   
   const getUserTokensAsync = async () => {

@@ -1,5 +1,5 @@
 import { getQuery, patchQuery, postQuery } from './apiFunctions'
-import { UserToken, UserCourse, AdminCourse } from './apiTypes'
+import { UserToken, UserCourse, AdminCourse, UserInvitation } from './apiTypes'
 
 export const getUserCoursesApi = (token: string) => {
     return getQuery<UserCourse[]>({
@@ -20,3 +20,9 @@ export const getAdminCoursesApi = (token: string, params) => {
     })
 }
 
+export const getInvitationToJoinCourseApi = (token: string) => {
+    return getQuery<UserInvitation[]>({
+        path: '/regular_user/invitations-to-join-course-as-user/',
+        token
+    })
+}

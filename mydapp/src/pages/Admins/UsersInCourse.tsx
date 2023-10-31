@@ -61,6 +61,14 @@ export const UsersInCourse: React.FC = withAdminProtection(() => {
         page: page,
     }));
     
+    useEffect(() => {
+        const new_users_in_course = query.data ? query.data.data : [];
+        setData(query.data);
+        setIsLoading(query.isLoading);
+        setUsersInCourse(new_users_in_course);
+
+    }, [page]);
+
 
     useEffect(() => {
         query.refetch();
@@ -83,7 +91,8 @@ export const UsersInCourse: React.FC = withAdminProtection(() => {
         console.log("page", page)
     }
     
-    const { isOpen: isOpenModal, onOpen: onOpenModal, onClose: onCloseModal } = useDisclosure();
+    const { isOpen: isOpenModalSingular, onOpen: onOpenModalSingular, onClose: onCloseModalSingular } = useDisclosure();
+    const { isOpen: isOpenModalMassive, onOpen: onOpenModalMassive, onClose: onCloseModalMassive } = useDisclosure();
     
 
     const formik = useFormik({
@@ -110,12 +119,11 @@ export const UsersInCourse: React.FC = withAdminProtection(() => {
                     email: response.error
                 });
             } else {
-                onCloseModal();
-                window.location.reload();
+                onCloseModalSingular();
+                query.refetch();
             }
         }
     });
-
 
 
     return (
@@ -125,16 +133,17 @@ export const UsersInCourse: React.FC = withAdminProtection(() => {
             <Heading as="h1" size="xl" textAlign="center">
                 Users in course
             </Heading>
-            <Box>
-                <Button onClick={onOpenModal} colorScheme="blue">
+            <Box display="flex" justifyContent="space-around">
+                <Button onClick={onOpenModalSingular} colorScheme="blue">
                     Add new user
                 </Button>
 
-                <Button onClick={onOpenModal} colorScheme="blue">
+                <Button onClick={onOpenModalMassive} colorScheme="blue">
                     Add massive users
                 </Button>
             </Box>
             <Divider /> {/* Barra divisora */}
+            {users_in_course.length > 0 ? (   
             <Box>
                 <Center>
                     <TableContainer w="100%">
@@ -147,11 +156,11 @@ export const UsersInCourse: React.FC = withAdminProtection(() => {
                                 </Tr>
                             </Thead>
                             <Tbody>
-                                {users_in_course.map((data, index) => (
+                                {users_in_course.map((info, index) => (
                                     <Tr key={index}>
-                                        <Td>{data.email}</Td>
-                                        <Td >{format(new Date(data.created_at), 'dd/MM/yyyy', { locale: es })}</Td>
-                                        <Td >{data.status}</Td>
+                                        <Td>{info.email}</Td>
+                                        <Td >{format(new Date(info.created_at), 'dd/MM/yyyy', { locale: es })}</Td>
+                                        <Td >{info.status}</Td>
                                     </Tr>
                                 ))}
                             </Tbody>
@@ -172,13 +181,16 @@ export const UsersInCourse: React.FC = withAdminProtection(() => {
                     />
                 }
             </Box>
+            ) : (
+                <p>There are no users in this course</p>
+            )}
         </Container>
 
 
 
 
 
-            <Modal isOpen={isOpenModal} onClose={onCloseModal} >
+            <Modal isOpen={isOpenModalSingular} onClose={onCloseModalSingular} >
                 <form onSubmit={formik.handleSubmit}>
                     <ModalOverlay />
                     <ModalContent>
@@ -203,7 +215,7 @@ export const UsersInCourse: React.FC = withAdminProtection(() => {
                     </ModalBody>
 
                     <ModalFooter>
-                        <Button variant='ghost' mr={3} onClick={onCloseModal}>
+                        <Button variant='ghost' mr={3} onClick={onCloseModalSingular}>
                         Close
                         </Button>
                         <Button colorScheme='blue' type="submit">Add</Button>
