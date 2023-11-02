@@ -12,6 +12,7 @@ import {
     useDisclosure 
   } from '@chakra-ui/react';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { es } from 'date-fns/locale';
 import { format } from 'date-fns';
 import useAppContext from '../../hooks/useAppContext';
@@ -23,7 +24,9 @@ import { useToast } from '@chakra-ui/react'
 const { REACT_APP_URL_BACK } = process.env;
 
 export const TokenBox: React.FC<UserToken> = (token_data) => {
-    const { token } = useAppContext();
+    const navigate = useNavigate();
+
+    const { token, setTokenDetailId } = useAppContext();
     const toast = useToast();
 
     const claimTokenHandler = async () => {
@@ -51,6 +54,11 @@ export const TokenBox: React.FC<UserToken> = (token_data) => {
         }
     };
 
+    function goToDetail(){
+        setTokenDetailId(token_data.id);
+        navigate('detail');
+    }
+
     return (
         <>
         <Card maxW='xs'>
@@ -69,22 +77,29 @@ export const TokenBox: React.FC<UserToken> = (token_data) => {
                     </Text>
                 </Stack>
             </CardBody>
-            {!token_data.is_claimed && (
-                <>
-                    <Divider />
-                    <CardFooter>
-                        <Center>
-                            <Button
-                                variant='solid'
-                                colorScheme='green'
-                                onClick={claimTokenHandler}
-                                >
-                                Claim token
-                            </Button>
-                        </Center>
-                    </CardFooter>
-                </>
-            )}
+            <Divider />
+                <CardFooter>
+                    <Center>
+                    {!token_data.is_claimed && (
+                        <Button
+                            variant='solid'
+                            colorScheme='green'
+                            onClick={claimTokenHandler}
+                            >
+                            Claim token
+                        </Button>
+                    )}
+                    {token_data.is_claimed && (
+                        <Button
+                            variant='solid'
+                            colorScheme='gray'
+                            onClick={goToDetail}
+                            >
+                            Token detail
+                        </Button>
+                    )}
+                    </Center>
+                </CardFooter>
         </Card>
         </>
     );

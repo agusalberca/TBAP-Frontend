@@ -30,6 +30,12 @@ const UserProfilePage = React.lazy(() =>
   }))
 );
 
+const TokenDetailPage = React.lazy(() =>
+  import(/* webpackChunkName: "UserTokensPage" */ './Tokens/TokenDetail').then(module => ({
+    default: module.TokenDetailPage,
+  }))
+);
+
 const UserTokensPage = React.lazy(() =>
   import(/* webpackChunkName: "UserTokensPage" */ './User/UserTokens').then(module => ({
     default: module.UserTokensPage,
@@ -96,6 +102,7 @@ export const usePages = () => {
     isShownInSecondaryMenu: false,
     isProtected: false,
   };
+
   // User Tokens Page
   const UserTokens: PageType = {
     path: 'tokens',
@@ -105,7 +112,17 @@ export const usePages = () => {
     isShownInSecondaryMenu: isRegularUser,
     isProtected: false,
   };
-
+  
+  // Token Detail Page
+  const TokenDetail: PageType = {
+    path: 'tokens/detail',
+    element: <TokenDetailPage />,
+    menuLabel: t('Token Detail', { ns: 'Menu' }),
+    isShownInMainMenu: false,
+    isShownInSecondaryMenu: false,
+    isProtected: true,
+  };
+  
   const UserCourses: PageType = {
     path: 'user-courses',
     element: <UserCoursesPage />,
@@ -192,11 +209,6 @@ export const usePages = () => {
     isProtected: true,
   };
 
-
-  
-
-
-
   // do not forget add your page routes into this array
   const Pages: PageType[] = [
       RegisterView, 
@@ -208,9 +220,9 @@ export const usePages = () => {
       
       // AdminInvitationsPage,
       CourseDetailPage,
-      UserCourses, 
-      
+      UserCourses,
       AdminCourses, 
+      TokenDetail,
       UserTokens,
       ClaimTokens,
     ];

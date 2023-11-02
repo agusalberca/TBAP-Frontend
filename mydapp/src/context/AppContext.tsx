@@ -40,6 +40,9 @@ interface AppContextInterface {
   getUserCoursesAsync: () => Promise<void>;
   getAdminCoursesAsync: () => Promise<void>;
 
+  tokenDetailId: number;
+  setTokenDetailId: Dispatch<SetStateAction<number>>;
+
   userCourseDetail: UserCourse;
   setUserCourseDetail: Dispatch<SetStateAction<UserCourse>>;
 
@@ -64,6 +67,7 @@ const AppContextProvider = ({ children }) => {
   const [UserCourse, setUserCourse] = useState<UserCourse[] | AdminCourse[]>([])
 
 
+  const [tokenDetailId, setTokenDetailId] = useState< null>()
   const [userCourseDetail, setUserCourseDetail] = useState< UserCourse>()
   const [adminCourseDetail, setAdminCourseDetail] = useState< AdminCourse>()
   
@@ -208,6 +212,9 @@ const AppContextProvider = ({ children }) => {
     getUserCoursesAsync,
     getAdminCoursesAsync,
 
+    tokenDetailId,
+    setTokenDetailId,
+    
     userCourseDetail,
     setUserCourseDetail,
 
