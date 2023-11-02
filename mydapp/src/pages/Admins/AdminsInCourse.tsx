@@ -145,7 +145,8 @@ export const AdminsInCourse: React.FC = withAdminProtection(() => {
                     <ModalHeader>Add new admin</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
-                        
+                            <p>Choose an admin to add to the course {adminCourseDetail.name}</p>
+                            <br/>
                             <FormControl isInvalid={!!formik.errors.admin_id}>
                                 <FormLabel>Admin</FormLabel>
                                 <Select onChange={(e) => formik.setFieldValue('admin_id', e.target.value)}>
