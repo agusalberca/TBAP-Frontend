@@ -162,7 +162,6 @@ export const usePages = () => {
 
   // Organizations views
 
-  console.log("isOrganization", isOrganization)
   const OrganizationInvitationsPage: PageType = {
     path: 'organzation-invitations',
     element: <OrganizationInvitations />,

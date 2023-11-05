@@ -76,3 +76,15 @@ export const addNewUserToCourse = async (token, body: {
         body,
     })
 }
+
+
+export const addNewUserMassivelyToCourse = async (token, body: { 
+    course_id: string;
+    emails: FormData;
+}) => {
+    return await postQuery<any>({
+        path: '/admin/send-invitation-to-join-course-as-user/',
+        token,
+        body,
+    })
+}

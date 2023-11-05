@@ -50,6 +50,8 @@ export const postQuery = async <T>({
 
   if (token) {
     headers.Authorization = `Token ${token}`;
+    // multipart/form-data
+    headers['Content-Type'] = 'multipart/form-data';
   }
 
   try {

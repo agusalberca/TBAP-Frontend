@@ -95,7 +95,6 @@ import {
     });
 
     const handleInvitation = async (invitationId: string, status: string) => {
-      console.log(invitationId, status);
       try {
         const data = await invitationMutation.mutateAsync({invitationId, status});
         // El 'data' contiene la respuesta del servidor (si hay)

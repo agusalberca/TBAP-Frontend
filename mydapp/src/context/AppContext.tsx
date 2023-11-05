@@ -170,7 +170,6 @@ const AppContextProvider = ({ children }) => {
 
   const getUserOrganizationsAsync = async () => {
     const organizations = await getUserOrganizationsApi(token) || [];
-    console.log("organizations", organizations)
     setUserOrganizations(organizations);
   }
 
