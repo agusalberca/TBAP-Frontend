@@ -85,6 +85,29 @@ export interface UserToken {
   created_at: string;
 }
 
+export interface UserTokenDetail {
+  db_token: {
+      description: string,
+      image: string
+  },
+  blockchain_token: {
+      tokenId: number,
+      title: string,
+      issuerId: number,
+      createdAt: number,
+      uri: string
+  },
+  course: {
+      name: string,
+      description: string
+  },
+  organization: {
+      name: string,
+      description: string
+      logo: string
+  }
+}
+
 
 export interface PaginatedItem {
   page: number;
