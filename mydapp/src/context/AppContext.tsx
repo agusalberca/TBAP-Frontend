@@ -43,6 +43,9 @@ interface AppContextInterface {
   tokenDetailId: number;
   setTokenDetailId: Dispatch<SetStateAction<number>>;
 
+  userCourses: UserCourse[]
+  adminCourses: AdminCourse[]
+
   userCourseDetail: UserCourse;
   setUserCourseDetail: Dispatch<SetStateAction<UserCourse>>;
 
@@ -65,7 +68,8 @@ const AppContextProvider = ({ children }) => {
   const [adminOrganizations, setAdminOrganizations] = useState<Organization[] >([])
   const [selectedOrganization, setSelectedOrganization] = useState<Organization | null>(null);
   const [userTokens, setUserTokens] = useState<UserToken[]>([])
-  const [UserCourse, setUserCourse] = useState<UserCourse[] | AdminCourse[]>([])
+  const [userCourses, setUserCourses] = useState<UserCourse[]>([])
+  const [adminCourses, setAdminCourses] = useState<AdminCourse[]>([])
 
 
   const [tokenDetailId, setTokenDetailId] = useState< null>()
@@ -156,11 +160,22 @@ const AppContextProvider = ({ children }) => {
     if (!selectedOrganization ) {
       if (isAdmin && adminOrganizations.length > 0) {
         setSelectedOrganization(adminOrganizations[0]);
+
       }else if (userOrganizations.length > 0) {
         setSelectedOrganization(userOrganizations[0]);
       }
     }
   }, [userOrganizations, adminOrganizations])
+
+  useEffect(() => {
+    if (token) {
+      if (isAdmin) {
+        getAdminCoursesAsync()
+      } else {
+        getUserCoursesAsync()
+      }
+    }
+  }, [selectedOrganization])
 
   const checkToken = async () => {
     const savedToken = localStorage.getItem('token')
@@ -189,12 +204,12 @@ const AppContextProvider = ({ children }) => {
 
   const getUserCoursesAsync = async () => {
     const userCourses = await getUserCoursesApi(token);
-    setUserCourse(userCourses);
+    setUserCourses(userCourses);
   }
 
   const getAdminCoursesAsync = async () => {
-    const userCourses = await getAdminCoursesApi(token, { organization_id : selectedOrganization?.id });
-    setUserCourse(userCourses);
+    const adminCourses = await getAdminCoursesApi(token, { organization_id : selectedOrganization?.id });
+    setAdminCourses(adminCourses);
   }
 
 
@@ -220,6 +235,9 @@ const AppContextProvider = ({ children }) => {
 
     tokenDetailId,
     setTokenDetailId,
+
+    userCourses,
+    adminCourses,
     
     userCourseDetail,
     setUserCourseDetail,

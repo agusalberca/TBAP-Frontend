@@ -35,8 +35,8 @@ import {
   export const UserCoursesPage: React.FC = withBackendProtection(() => {
     requireAuth();
     const { t } = useTranslation('PageUser');
-    const { token, selectedOrganization } = useAppContext();
-  
+    const { token, selectedOrganization, userCourses } = useAppContext();
+    
     if (!selectedOrganization) {
       return (
         <Box p={4}>
@@ -44,7 +44,7 @@ import {
             <CommonHeader
               title="Courses"
               description="These are your courses"
-            />
+              />
             <Box>
               <p>You have no courses</p>
             </Box>
@@ -52,16 +52,20 @@ import {
         </Box>
       );
     }
- 
     
-    const params = { organization_id: selectedOrganization.id };
-    const query = useQuery('getCourses', () => {
-      return getUserCoursesApi(token);
-    });
   
-    const courseDataList = {
-      courses: query.data ? query.data : [],
-    };
+    
+    // const params = { organization_id: selectedOrganization.id };
+    // const query = useQuery('getCourses', () => {
+    //   return getUserCoursesApi(token);
+    // });
+    
+    
+    // const courseDataList = {
+    //   courses: query.data ? query.data : [],
+    // };
+
+    const courseDataList = {courses: userCourses}
   
     const { data: dataInvitations } = useQuery(
       'regular_user/invitations-to-join-course-as-user/',
@@ -100,7 +104,7 @@ import {
         // El 'data' contiene la respuesta del servidor (si hay)
         // Puedes utilizarlo para actualizar la interfaz de usuario si es necesario
         onCloseModal();
-        query.refetch();
+        // query.refetch();
         // invalidate dataInvitations
         dataInvitations
       } catch (error) {

@@ -12,16 +12,14 @@ import { AdminCourseList } from '../../components/Course/Admins/AdminCourseList'
 
 export const AdminCoursesPage: React.FC = withBackendProtection(() => {
     const { t } = useTranslation('PageUser');
-    const { token, selectedOrganization } = useAppContext()
+    const { token, selectedOrganization, adminCourses } = useAppContext()
 
     const { data } = useQuery('getCourses', () => {
         const params = { organization_id : selectedOrganization.id }
         return getAdminCoursesApi(token, params);
     });
 
-    const courseDataList = {
-        courses: data ? data : []
-    }
+    const courseDataList = {courses: adminCourses}
 
 
     return (
