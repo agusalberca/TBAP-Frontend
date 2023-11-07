@@ -8,6 +8,7 @@ import {
 } from '../models/account/actions';
 import { latestBlock, switchNetwork } from '../models/network/actions';
 import { connectWallet } from '../models/provider/actions';
+import { setAccount } from '../models/account/slice';
 
 export const useActions = () => {
   const dispatch = useDispatch();
@@ -20,6 +21,7 @@ export const useActions = () => {
       signIn,
       disconnectWallet,
       latestBlock,
+      setAccount,
     },
     dispatch
   );

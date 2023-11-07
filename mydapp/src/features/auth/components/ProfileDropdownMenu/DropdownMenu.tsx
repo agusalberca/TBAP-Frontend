@@ -19,6 +19,8 @@ import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { logout } from '../../../../api/auth';
 import { AppContext } from '../../../../context/AppContext';
+import { disconnectWallet } from '../../../wallet/models/account/actions';
+import { useActions } from '../../../wallet/hooks/useActions';
 
 
 
@@ -40,11 +42,15 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
   const { token, setToken } = useContext(AppContext)
   const navigate = useNavigate()
 
+  const actions = useActions();
+
+
 
 
   const handleLogout = async ()  => {
     try {
       const res = await logout(token)
+      actions.disconnectWallet()
       if (res) {
         navigate('/login', { replace: true })
         setToken(null)

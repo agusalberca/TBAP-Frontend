@@ -8,6 +8,8 @@ import store from './store/store';
 import AppContextProvider from './context/AppContext';
 import { QueryClient, QueryClientProvider } from 'react-query'
 import './styles/index.sass'
+import { PersistGate } from 'redux-persist/integration/react';
+import { persistor } from './store/store';
 
 
 log.setDefaultLevel('silent');
@@ -44,11 +46,13 @@ export const App: React.FC = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <Provider store={store}>
-        <ChakraProvider theme={theme}>
-          <AppContextProvider> {/* Add the AuthContextProvider */}
-            <Router />
-          </AppContextProvider>
-        </ChakraProvider>
+        <PersistGate loading={null} persistor={persistor}>
+          <ChakraProvider theme={theme}>
+            <AppContextProvider> {/* Add the AuthContextProvider */}
+              <Router />
+            </AppContextProvider>
+          </ChakraProvider>
+        </PersistGate>
       </Provider>
     </QueryClientProvider>
   );

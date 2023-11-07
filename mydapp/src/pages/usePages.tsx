@@ -64,13 +64,9 @@ export const usePages = () => {
   const { t, i18n } = useTranslation('Menu');
   const isWalletAuthenticated = useWalletAuthentication();
   const isBackendAuthenticated = useBackendAuthentication();
-  const isAuthenticated  = isWalletAuthenticated && isBackendAuthenticated
+  const isAuthenticated  = isWalletAuthenticated && isBackendAuthenticated;
 
   let { isOrganization, isAdmin, isRegularUser } = useAppContext();
-  // TODO REVISAR
-  isOrganization=true;
-  isAdmin=true;
-  isRegularUser=true;
 
   // if you do not have control/access on hosting(html server) config, use hashRouter
   // keep in mind that if you do not use hashRouter,
@@ -110,7 +106,7 @@ export const usePages = () => {
     menuLabel: t('My Tokens', { ns: 'Menu' }),
     isShownInMainMenu: isRegularUser,
     isShownInSecondaryMenu: isRegularUser,
-    isProtected: false,
+    isProtected: true,
   };
   
   // Token Detail Page
@@ -129,7 +125,7 @@ export const usePages = () => {
     menuLabel: t('Courses', { ns: 'Menu' }),
     isShownInMainMenu: isRegularUser,
     isShownInSecondaryMenu: isRegularUser,
-    isProtected: false,
+    isProtected: true,
   };
 
   const AdminCourses: PageType = {
@@ -138,7 +134,7 @@ export const usePages = () => {
     menuLabel: t('Courses', { ns: 'Menu' }),
     isShownInMainMenu: isAdmin,
     isShownInSecondaryMenu: isAdmin,
-    isProtected: false,
+    isProtected: true,
   };
   const ClaimTokens: PageType = {
     path: 'tokens/claim',
@@ -146,7 +142,7 @@ export const usePages = () => {
     menuLabel: t('Claim Tokens', { ns: 'Menu' }),
     isShownInMainMenu: isRegularUser,
     isShownInSecondaryMenu: isRegularUser,
-    isProtected: false,
+    isProtected: true,
   };
 
   const RegisterView: PageType = {
@@ -279,6 +275,5 @@ export const usePages = () => {
       secondaryMenuItems,
       isHashRouter,
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [i18n.resolvedLanguage, isAuthenticated]);
+  }, [i18n.resolvedLanguage, isWalletAuthenticated, isBackendAuthenticated, isOrganization, isAdmin, isRegularUser]);
 };

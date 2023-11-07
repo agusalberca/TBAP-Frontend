@@ -20,6 +20,8 @@ import {
 } from '../api/apiTypes'
 import { useQuery } from 'react-query'
 import { getAdminCoursesApi, getUserCoursesApi } from '../api/courses'
+import useTypedSelector from '../hooks/useTypedSelector'
+import { WalletState } from '../features/wallet/models/types/WalletState';
 
 interface AppContextInterface {
   firstCharge: boolean;
@@ -142,6 +144,18 @@ const AppContextProvider = ({ children }) => {
 
     window.addEventListener('storage', storageEventHandler)
   }, [])
+
+  // // Set wallet
+  // useEffect(() => {
+  //   function storageWalletEventHandler(event) {
+  //     if (!event.isTrusted) {
+  //       if (event.currentTarget.localStorage.wallet && true ) {
+  //         const wallet = (event.currentTarget.localStorage.wallet)
+  //         const walletState = useTypedSelector(state => state.wallet.state.state);
+  //         // set wallet value
+  //   }
+  // }, [])
+
 
   // Get user organizations
   useEffect(() => {
