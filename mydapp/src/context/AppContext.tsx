@@ -22,6 +22,8 @@ import { useQuery } from 'react-query'
 import { getAdminCoursesApi, getUserCoursesApi } from '../api/courses'
 import useTypedSelector from '../hooks/useTypedSelector'
 import { WalletState } from '../features/wallet/models/types/WalletState';
+import { useActions } from '../features/wallet/hooks/useActions'
+import { AccountType } from '../features/wallet/models/account/types/Account';
 
 interface AppContextInterface {
   firstCharge: boolean;
@@ -145,16 +147,19 @@ const AppContextProvider = ({ children }) => {
     window.addEventListener('storage', storageEventHandler)
   }, [])
 
-  // // Set wallet
-  // useEffect(() => {
-  //   function storageWalletEventHandler(event) {
-  //     if (!event.isTrusted) {
-  //       if (event.currentTarget.localStorage.wallet && true ) {
-  //         const wallet = (event.currentTarget.localStorage.wallet)
-  //         const walletState = useTypedSelector(state => state.wallet.state.state);
-  //         // set wallet value
-  //   }
-  // }, [])
+  // Set wallet  (no anda)
+    // const actions = useActions();
+    // const walletState = useTypedSelector(state => state.wallet.state.state);
+    // useEffect(() => {
+    //   if (walletState !== WalletState.AUTHENTICATED && user && user.wallet_address){
+    //     const wallet = {address: user.wallet_address, shortAddress: "0x3F1d...88cF", ens: null}
+    //     actions.setAccount(wallet)
+    //     console.log("estoyyy")
+    //   }
+    // }, [user, walletState]);
+    
+  
+  
 
 
   // Get user organizations

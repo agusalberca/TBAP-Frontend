@@ -44,9 +44,6 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
 
   const actions = useActions();
 
-
-
-
   const handleLogout = async ()  => {
     try {
       const res = await logout(token)
