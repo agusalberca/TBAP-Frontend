@@ -29,15 +29,15 @@ export const AdminCourseBox: React.FC<AdminCourse> = (props) => {
                     borderRadius='lg'
                 /> */}
                 <Stack mt='6' spacing='3'>
-                <Heading size='md'> {props.name} </Heading>
-                <Text>  {props.description} </Text>
+                <Heading size='md' textAlign="center"> {props.name} </Heading>
+                <h5 style={{fontSize:"1rem", fontWeight:"300"}}>  {props.description} </h5>
                 {/* <Text color='blue.600' fontSize='xl'>
                     {format(new Date(props.created_at), 'dd/MM/yyyy', { locale: es })}
                 </Text> */}
                 </Stack>
             </CardBody>
             <Divider />
-            <CardFooter>
+            <CardFooter style={{display: "flex", alignSelf: "center"}}>
                 <Center>
                     <Button variant='solid' colorScheme='blue' onClick={() => handleVerCurso(props)}>
                         Ver curso

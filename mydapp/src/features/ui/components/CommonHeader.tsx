@@ -11,12 +11,12 @@ export const CommonHeader: React.FC<HeaderProps> = (props) => {
   
     return (
         <>
-        <Heading size="xs" textAlign="center">
+        <Heading size="l" textAlign="center">
             {props.title}
         </Heading>
         <Divider />
         <Flex alignItems="center" justifyContent="center">
-            <Text fontSize="xs">{props.description}</Text>
+            <h5 style={{fontSize: "1rem", fontWeight:"400"}}>{props.description}</h5>
         </Flex>
         <Divider />
         </>

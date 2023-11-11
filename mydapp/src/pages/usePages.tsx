@@ -64,7 +64,8 @@ export const usePages = () => {
   const { t, i18n } = useTranslation('Menu');
   const isWalletAuthenticated = useWalletAuthentication();
   const isBackendAuthenticated = useBackendAuthentication();
-  const isAuthenticated  = isWalletAuthenticated && isBackendAuthenticated;
+  // const isAuthenticated  = isWalletAuthenticated && isBackendAuthenticated;
+  const isAuthenticated  = isBackendAuthenticated;
 
   let { isOrganization, isAdmin, isRegularUser } = useAppContext();
 

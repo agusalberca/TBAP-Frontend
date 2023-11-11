@@ -1,4 +1,3 @@
-# Usa una imagen base que incluya un servidor web
 FROM nginx:alpine
 
 # Copia los archivos de tu proyecto al directorio de trabajo de nginx

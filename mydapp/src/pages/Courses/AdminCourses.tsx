@@ -23,11 +23,11 @@ export const AdminCoursesPage: React.FC = withBackendProtection(() => {
 
 
     return (
-        <Box>
+        <Box style={{marginTop: "1rem"}}>
             <Container maxW="7xl" py={2} as={Stack} spacing={2}>
                 <CommonHeader 
-                    title='Cursos'
-                    description='Estos son tus cursos!'
+                    title='Courses'
+                    description='This are your courses'
                 />
                 <Box >
                     <Center>
