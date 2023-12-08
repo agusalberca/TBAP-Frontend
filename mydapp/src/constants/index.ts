@@ -4,6 +4,7 @@ const defaultToken = ''
 const contractAddress = process.env.REACT_APP_NFT_CONTRACT_ADDRESS
 // TODO: VERIFICAR
 export {
+  URL,
   API_URL,
   defaultToken,
   contractAddress

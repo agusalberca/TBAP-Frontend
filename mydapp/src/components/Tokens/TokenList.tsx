@@ -14,7 +14,7 @@ export const TokenList: React.FC<TokenListProps> = (props) => {
             (props.tokens) && (props.tokens).length > 0
             ? (props.tokens).map((token: UserToken) => (
                 <TokenBox key={token.token_group.id} {...token}/>)) 
-            : <Text> No tokens </Text>
+            : <h5 style={{ fontSize: "0.9rem", fontWeight:"500" }}> No tokens yet</h5>
             }
         </HStack>
     );

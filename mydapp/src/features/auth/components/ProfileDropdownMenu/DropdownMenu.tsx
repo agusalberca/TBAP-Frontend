@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import {
   Box,
   Text,
@@ -40,9 +40,18 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
 }) => {
   const { t } = useTranslation('FeatureProfile');
   const { token, setToken } = useContext(AppContext)
+  const [isModalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate()
 
   const actions = useActions();
+
+  const handleProfileClick = () => {
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
 
   const handleLogout = async ()  => {
     try {
@@ -83,7 +92,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
           </Box>
         </VStack>
         <MenuDivider />
-        <MenuItem icon={<CgProfile />} as={RouterLink} to={profileLink}>
+        <MenuItem icon={<CgProfile />} onClick={handleProfileClick}>
           {t('Profile')}
         </MenuItem>
         <MenuItem icon={<BiMedal />} as={RouterLink} to={myTokensLink}>

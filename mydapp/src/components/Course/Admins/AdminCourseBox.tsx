@@ -40,7 +40,7 @@ export const AdminCourseBox: React.FC<AdminCourse> = (props) => {
             <CardFooter style={{display: "flex", alignSelf: "center"}}>
                 <Center>
                     <Button variant='solid' colorScheme='blue' onClick={() => handleVerCurso(props)}>
-                        Ver curso
+                        View course
                     </Button>
                 </Center>
             </CardFooter>

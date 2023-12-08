@@ -141,11 +141,11 @@ const Login = () => {
                         You can also log in using your SSO credentials, if you have them.
                       </h5>
                       <Select className="mb-3" style={{ margin:"10% 0 10% 0" }}>
-                          <option value="sso1">SSO Option 1</option>
-                          <option value="sso2">SSO Option 2</option>
-                          <option value="sso3">SSO Option 3</option>
-                        </Select>
-                        <button className="button-blue" style={{ margin:"14% 0 0 0" }}> Log in with SSO</button>
+                        <option value="sso1">SSO Option 1</option>
+                        <option value="sso2">SSO Option 2</option>
+                        <option value="sso3">SSO Option 3</option>
+                      </Select>
+                      <button className="button-blue" style={{ margin:"14% 0 0 0" }}> Log in with SSO</button>
                     </div>
                   </div>
                 </AuthCard>

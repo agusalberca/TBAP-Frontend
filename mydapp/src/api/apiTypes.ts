@@ -37,14 +37,15 @@ export interface UserComplete {
   first_name: string;
   last_name: string;
   email: string;
+  username: string;
   date_joined: string;
   user_profile: {
     id: number;
+    wallet_address: string | null;
+    user_type: string;
     birthdate: string | null;
     sex: string | null;
     profile_image: string | null;
-    identification_type: string | null;
-    identification_number: string | null;
     user: number;
   } | null;
 }

@@ -16,7 +16,7 @@ export const WalletProtectionWarning: React.FC = () => {
     <Box>
       <Container maxW="7xl" py={2} as={Stack} spacing={12}>
         <Stack spacing={0} align="center">
-          <Heading mb={2}>{t('401 Unauthorized')}</Heading>
+          <Heading mb={2}>{t('Unauthorized')}</Heading>
           <Divider />
         </Stack>
         <Center>

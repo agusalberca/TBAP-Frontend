@@ -99,48 +99,6 @@ export const updateUser = async (token: string, body: {
   })
 }
 
-// interface AddUser {
-//   email: string;
-//   user_type: string;
-//   organization_id?: number;
-//   region_id?: number;
-//   organization_name?: string;
-//   organization_country_residence?: string;
-//   organization_address?: string;
-//   organization_contact_email?: string;
-//   organization_phone?: string;
-//   region_name?: string;
-//   country_ids?: Array<number>;
-// }
-
-export const addUser = async (token: string, body: {
-  email: string;
-  user_type: string;
-  organization_id?: number;
-  region_id?: number;
-  organization_name?: string;
-  organization_country_residence?: string;
-  organization_address?: string;
-  organization_contact_email?: string;
-  organization_phone?: string;
-  office_name?: string;
-  office_country?: number;
-  office_city?: string;
-  office_zip_code?: string;
-  address_line_1?: string;
-  address_line_2?: string;
-  office_phone?: string;
-  office_email?: string;
-  region_name?: string;
-  country_ids?: string;
-}, ) => {
-  return await postQuery<any>({
-    path: '/users/send-invitation-email/',
-    token,
-    body,
-  })
-}
-
 //set user profile wallet_address using a patch
 export const setUserWalletAddress = async (token: string, body: {
   wallet_address: string;

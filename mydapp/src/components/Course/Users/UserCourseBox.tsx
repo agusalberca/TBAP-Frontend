@@ -23,27 +23,18 @@ export const UserCourseBox: React.FC<UserCourse> = (props) => {
     return (
         <Card maxW='xs'>
             <CardBody>
-                {/* <Image
-                    src={REACT_APP_URL_BACK + props.token_group.image}
-                    boxSize='10rem'
-                    borderRadius='lg'
-                /> */}
-                <Stack mt='6' spacing='3'>
-                <Heading size='md'> {props.course.name} </Heading>
-                <Text>  {props.course.description} </Text>
-                {/* <Text color='blue.600' fontSize='xl'>
-                    {format(new Date(props.created_at), 'dd/MM/yyyy', { locale: es })}
-                </Text> */}
+                <Stack mt='6' spacing='3' textAlign="center">
+                    <Heading size='md'> {props.course.name} </Heading>
+                    <h5 style={{ fontSize: "0.9rem", fontWeight:"500" }}>  {props.course.description} </h5>
                 </Stack>
             </CardBody>
             <Divider />
-            <CardFooter>
-                <Center>
+                <div style={{ display:"flex", alignSelf:"center" }}>
                     <Button variant='solid' colorScheme='blue' onClick={() => handleVerCurso(props)}>
-                        Ver curso
+                        View course
                     </Button>
-                </Center>
-            </CardFooter>
+                </div>
+                <br></br>
         </Card>
     );
   };
