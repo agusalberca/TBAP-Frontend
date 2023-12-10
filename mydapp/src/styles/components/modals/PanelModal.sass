@@ -1,0 +1,584 @@
+.PanelModal
+  width: 100vw
+  height: 100vh
+  padding: 16px
+  background-color: rgba(0, 0, 0, .40)
+  display: flex
+  justify-content: center
+  align-items: center
+  position: absolute
+  top: 0
+  left: 0
+  z-index: 99999
+  &__Card
+    width: 100%
+    max-width: 400px
+    max-height: 100%
+    border-radius: 20px
+    padding: 18px
+    background: #FFF
+    color: #333333
+    position: relative
+    overflow: hidden auto
+    &::-webkit-scrollbar
+      width: 10px
+      &-thumb
+        border: 1px solid transparent
+        border-radius: 10px
+        background-clip: content-box
+        background-color: #006400
+        box-shadow: inset 0 0 5px rgba(0, 0, 0, .5)
+        &:hover
+          background-color: #00FF00
+          cursor: pointer
+      &-track
+        border-radius: 10px
+        background-color: #F0F0F0
+    &--Medium
+      @extend .PanelModal__Card
+      max-width: 500px
+    &--Big
+      @extend .PanelModal__Card
+      max-width: 720px
+    &--ExtraBig
+      @extend .PanelModal__Card
+      max-width: 1200px
+  &__Scroll-Content
+    width: 100%
+    height: 100%
+    max-height: 45vh
+    overflow: hidden auto
+    scroll-behavior: smooth
+    &::-webkit-scrollbar
+      width: 10px
+      &-thumb
+        border: 1px solid transparent
+        border-radius: 10px
+        background-clip: content-box
+        background-color: #006400
+        box-shadow: inset 0 0 5px rgba(0, 0, 0, .5)
+        &:hover
+          background-color: #00FF00
+          cursor: pointer
+      &-track
+        border-radius: 10px
+        background-color: #F0F0F0
+    &--Small
+      @extend .PanelModal__Scroll-Content
+  &__Button-GoBack
+    width: 30px
+    height: 30px
+    border-radius: 5px
+    display: flex
+    justify-content: center
+    align-items: center
+    font-size: 16px
+    color: #333333
+    position: absolute
+    top: 16px
+    left: 16px
+    &:hover
+      color: #006400
+      background: #FFF-dark
+  &__Button-Close
+    width: 30px
+    height: 30px
+    border-radius: 5px
+    display: flex
+    justify-content: center
+    align-items: center
+    font-size: 18px
+    color: #333333
+    position: absolute
+    top: 16px
+    right: 16px
+    &:hover
+      color: #FF6666
+      background: #FFF-dark
+  &__Button-Edit
+    width: fit-content
+    height: 30px
+    border-radius: 5px
+    padding: 0 6px
+    display: flex
+    justify-content: center
+    align-items: center
+    gap: 10px
+    font-size: 18px
+    color: #333333
+    &:hover
+      color: #006400
+      background: #FFF-dark
+  &__Button-Arrow
+    width: 30px
+    height: 30px
+    border-radius: 5px
+    display: flex
+    justify-content: center
+    align-items: center
+    color: #333333
+    &:hover
+      background: #FFF-dark
+  &__Title
+    padding: 0 26px 20px
+    border-bottom: 2px solid #F0F0F0
+    color: #333333
+    font-size: 20px
+    text-align: center
+  &__Search
+    width: 100%
+    padding: 20px 0
+    display: flex
+    flex-direction: column
+    align-items: flex-start
+    gap: 10px
+    &--With-Results
+      @extend .PanelModal__Search
+      height: 60px
+      padding: 10px
+      flex-direction: row
+      align-items: center
+      gap: 15px
+    &-Input
+      width: 100%
+      height: 34px
+      border: 1px solid #CCCCCC
+      border-radius: 5px
+      padding: 4px 8px
+  &__Input
+    width: 100%
+    height: 34px
+    border: 1px solid #CCCCCC
+    border-radius: 5px
+    padding: 4px 8px
+  &__Textarea-Container
+    display: flex
+    flex-direction: column
+    justify-content: flex-start
+    align-items: flex-start
+    position: relative
+  &__Textarea
+    width: 100%
+    border: 1px solid #808080
+    border-radius: 10px
+    padding: 12px
+    resize: none
+  &__Options-Container
+    width: 100%
+    height: fit-content
+    display: flex
+    flex-direction: column
+    align-items: center
+    gap: 6px
+    overflow: hidden auto
+    &::-webkit-scrollbar
+      width: 8px
+      &-thumb
+        border: 1px solid transparent
+        border-radius: 10px
+        background-clip: content-box
+        background-color: #006400
+        box-shadow: inset 0 0 5px rgba(0, 0, 0, .5)
+        &:hover
+          background-color: #00FF00
+          cursor: pointer
+      &-track
+        background-color: #F0F0F0
+  &__Option
+    width: 100%
+    border-left: 3px solid transparent
+    border-radius: 5px
+    padding: 6px 12px
+    display: flex
+    justify-content: space-between
+    align-items: center
+    gap: 16px
+    text-align: center
+    color: #333333
+    cursor: pointer !important
+    transition: background-color .2s, color .2s, border .2s
+    &:hover
+      background-color: #808080
+      border-left: 3px solid #006400
+    &--Active
+      @extend .PanelModal__Option
+      background-color: #808080
+      border-left: 3px solid #006400 !important
+      cursor: not-allowed !important
+    &:disabled
+      opacity: 50%
+      background-color: #FFF !important
+      border-left: 3px solid transparent !important
+      cursor: default !important
+    &-Circle
+      flex-shrink: 0
+      width: 16px
+      height: 16px
+      border: 1px solid #006400
+      border-radius: 50%
+      &--Active
+        @extend .PanelModal__Option-Circle
+        position: relative
+        &::after
+          content: ''
+          width: 10px
+          height: 10px
+          border-radius: 50%
+          background: #006400
+          position: absolute
+          top: 2px
+          left: 2px
+    &-left
+      @extend .PanelModal__Option
+      justify-content: start
+  &__Option-Price
+    flex-shrink: 0
+    border-radius: 5px
+    padding: 5px 10px
+    color: #FFF
+    background: #008000-panel
+    text-align: center
+  &__Amount-Container
+    display: flex
+    flex-direction: column
+    justify-content: flex-start
+    align-items: center
+    gap: 16px
+  &__Amount-Buttons
+    display: flex
+    align-items: center
+    gap: 15px
+  &__Amount-Button
+    width: 24px
+    height: 24px
+    border-radius: 40px
+    background: #808080
+    display: flex
+    justify-content: center
+    align-items: center
+    font-size: 12px
+    &:hover
+      background: #808080-middle
+  &__Amount-Input
+    width: 50px
+    height: 30px
+    border: 1px solid #333333
+    border-radius: 5px
+    padding: 6px 10px
+    text-align: center
+    -moz-appearance: textfield
+    &::-webkit-inner-spin-button
+      -webkit-appearance: none
+      margin: 0
+  &__Inputs-Container
+    width: 100%
+    display: grid
+    grid-template-columns: 1fr 1fr
+    justify-content: space-between
+    align-items: end
+    gap: 10px
+  &__Input-Info
+    display: flex
+    justify-content: center
+    padding: 10px 0
+    border-radius: 5px
+    color: #333333
+    background-color: #F0F0F0
+  &__Date-Selector
+    padding: .75rem 0 !important
+    display: flex
+    justify-content: space-between
+    align-items: center
+    font-weight: bold
+  &__Plan-Detail-Container
+    display: grid
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr))
+    gap: 10px
+    width: 100%
+    max-height: 161px
+    overflow-y: auto
+    &::-webkit-scrollbar
+      width: 10px
+      height: 10px
+      &-thumb
+        border: 1px solid transparent
+        border-radius: 10px
+        background-clip: content-box
+        background-color: #006400
+        box-shadow: inset 0 0 5px rgba(0, 0, 0, .5)
+        &:hover
+          background-color: #00FF00
+          cursor: pointer
+      &-track
+        border-radius: 10px
+        background-color: #F0F0F0
+  &__Plan-Detail
+    width: 100%
+    border-radius: 10px
+    padding: 10px 15px
+    background-color: #FFF-2
+    display: flex
+    justify-content: space-between
+    align-items: center
+    text-align: center
+  &__Discount-Container
+    width: 100%
+    height: fit-content
+    padding: 50px 0
+    display: flex
+    justify-content: space-between
+    align-items: flex-startcolumn
+    gap: 20px
+  &__Discount-Divisor
+    width: 2px
+    height: 210px
+    border-radius: 4px
+    background-color: #808080
+  &__Credits-Detail
+    width: 100%
+    height: 30px
+    border-radius: 5px
+    display: flex
+    justify-content: center
+    align-items: center
+    background: #FFA500
+    color: #FFA500
+  &__Confirm
+    padding: 1.25rem 0
+    border-bottom: 2px solid #F0F0F0
+    text-align: center
+  &__Show-Name
+    display: flex
+    flex-direction: column
+    align-items: center
+    gap: 5px
+  &__Plan-Info
+    display: grid
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr))
+    justify-content: center
+    gap: 5px
+    max-height: 145px
+    margin: 30px 0
+    overflow-y: auto
+    &::-webkit-scrollbar
+      width: 10px
+      &-thumb
+        border: 1px solid transparent
+        border-radius: 10px
+        background-clip: content-box
+        background-color: #006400
+        box-shadow: inset 0 0 5px rgba(0, 0, 0, .5)
+        &:hover
+          background-color: #00FF00
+          cursor: pointer
+      &-track
+        border-radius: 10px
+        background-color: #F0F0F0
+  &__Plan-Info-Item
+    width: 100%
+    padding: 10px 0
+    border-radius: 5px
+    text-align: center
+    &--Fuego
+      @extend .PanelModal__Plan-Info-Item
+      color: #FF4500
+      background-color: rgba(#FF4500, 0.1)
+    &--Agua
+      @extend .PanelModal__Plan-Info-Item
+      color: #0077cc
+      background-color: rgba(#0077cc, 0.1)
+  &__User-Info
+    display: flex
+    flex-direction: column
+    gap: 10px
+    width: 100%
+    max-height: 172px
+    overflow-y: auto
+    &::-webkit-scrollbar
+      width: 10px
+      height: 10px
+      &-thumb
+        border: 1px solid transparent
+        border-radius: 10px
+        background-clip: content-box
+        background-color: #006400
+        box-shadow: inset 0 0 5px rgba(0, 0, 0, .5)
+        &:hover
+          background-color: #00FF00
+          cursor: pointer
+      &-track
+        border-radius: 10px
+        background-color: #F0F0F0
+  &__User-Info-Item
+    width: 100%
+    max-width: 320px
+    margin: auto
+    display: grid
+    grid-template-columns: 1fr 100px
+    justify-items: start
+    &-2
+      @extend .PanelModal__User-Info-Item
+      max-width: 420px
+      grid-template-columns: 1fr 100px 100px
+  &__Special-Option
+    display: flex
+    justify-content: center
+    align-items: center
+    margin: 30px 0
+    > *
+      padding: 5px
+      cursor: pointer
+    &-1
+      display: flex
+      justify-content: center
+      align-items: center
+      gap: 10px
+      > p
+        margin-bottom: 0
+        user-select: none
+  &__Checkbox
+    flex-shrink: 0
+    width: 16px
+    height: 16px
+    border-radius: 4px
+    border: 2px solid #000000
+    position: relative
+    &::after
+      content: ''
+      width: 10px
+      height: 10px
+      border-radius: 2px
+      background: #008000
+      position: absolute
+      top: 1px
+      left: 1px
+      transform: scale(0)
+      transition: transform .2s
+    &--Selected
+      &::after
+        transform: scale(1)
+  &__SolicitPlanModal
+    display: grid
+    grid-template-columns: 220px 61px 1fr
+    justify-content: space-between
+    width: 100%
+    height: 100%
+    &-Line
+      width: 1px
+      margin: 0 30px
+      background-color: #808080
+    &-Plans-Container
+      display: flex
+      flex-direction: column
+      width: 100%
+      max-height: 400px
+      overflow: auto
+      &::-webkit-scrollbar
+        width: 10px
+        height: 10px
+        &-thumb
+          border: 1px solid transparent
+          border-radius: 10px
+          background-clip: content-box
+          background-color: #006400
+          box-shadow: inset 0 0 5px rgba(0, 0, 0, .5)
+        &:hover
+          background-color: #00FF00
+          cursor: pointer
+        &-track
+          background-color: #F0F0F0
+    &-Button
+      color: #333333
+      text-decoration: underline
+  &__Error
+    color: #FF6666
+  &__Alert
+    width: 100%
+    padding: 60px 0
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    color: #FF6666
+  &__Pill
+    width: fit-content
+    border-radius: 30px
+    padding: 4px 10px
+    background-color: #008000-panel
+    display: flex
+    justify-content: space-between
+    align-items: center
+    gap: 4px
+    color: #FFF
+    font-size: .8em
+  &__Pill-Button
+    width: fit-content
+    height: 20px
+    border-radius: 30px
+    padding: 5px
+    display: flex
+    justify-content: center
+    align-items: center
+    color: #FFF
+    cursor: pointer
+    &:hover
+      background-color: #006400
+
+
+@media (max-height: 760px)
+  .PanelModal
+    &__Scroll-Content--Small
+      max-height: 40vh
+@media (max-height: 670px)
+  .PanelModal
+    &__Scroll-Content--Small
+      max-height: 34vh
+@media (max-height: 630px)
+  .PanelModal
+    &__Scroll-Content--Small
+      max-height: 30vh
+@media (max-height: 590px)
+  .PanelModal
+    &__Scroll-Content--Small
+      max-height: 25vh
+
+@media (max-width: 767px)
+  .PanelModal
+    &__Card
+      padding: 16px
+    &__Title
+      padding: 0 32px 20px
+    &__Button-GoBack
+      top: 12px
+      left: 12px
+    &__Button-Close
+      top: 12px
+      right: 12px
+    &__SolicitPlanModal
+      grid-template-columns: 1fr
+      &-Line
+        width: 100%
+        height: 1px
+        margin: 30px 0
+      &-Plans-Container
+        max-height: 372px
+    &__Discount-Container
+      flex-direction: column
+    &__Discount-Divisor
+      width: 100%
+      height: 2px
+    &__Confirm
+      padding: 1rem 0
+
+@media (max-width: 576px)
+  .PanelModal
+    &__Confirm
+      padding: .85rem 0
+    &__Cancel-Rooms-Reservation-Item--Admin
+      grid-template-columns: repeat(2, 1fr)
+
+@media (max-width: 374px)
+  .PanelModal
+    &__SolicitPlanModal
+      &-Plans-Container-item
+        min-width: 350px

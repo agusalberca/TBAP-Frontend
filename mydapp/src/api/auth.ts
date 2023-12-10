@@ -89,9 +89,18 @@ export const getUser = async (token: string) => {
 export const updateUser = async (token: string, body: {
   first_name?: string;
   last_name?: string;
-  phone?: string;
-  rol?: string;
+  birthdate?: string;
+  sex?: string;
+  profile_image?: string;
 }) => {
+  return await patchQuery<any>({
+    path: '/users/me/',
+    token,
+    body,
+  })
+}
+
+export const updateUserProfile = async (token: string, body: FormData) => {
   return await patchQuery<any>({
     path: '/users/me/',
     token,

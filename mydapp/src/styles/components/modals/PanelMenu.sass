@@ -1,0 +1,424 @@
+.PanelMenu
+  flex-shrink: 0
+  display: flex
+  flex-direction: column
+  justify-content: space-between
+  align-items: center
+  position: relative
+  width: 75px
+  height: 100%
+  border-right: 1px solid $special-white
+  background: $white
+  &__Content
+    width: 100%
+    height: 100%
+    display: flex
+    flex-direction: column
+    justify-content: flex-start
+    align-items: center
+    z-index: 0
+    overflow: hidden auto
+    &::-webkit-scrollbar
+      width: 8px
+      &-thumb
+        border: 1px solid transparent
+        border-radius: 10px
+        background-clip: content-box
+        background-color: $green-dark
+        box-shadow: inset 0 0 5px rgba(0, 0, 0, .5)
+        &:hover
+          background-color: $green-light
+          cursor: pointer
+      &-track
+        background-color: $special-white
+  &__Button
+    width: 35px
+    height: 35px
+    border-radius: 50%
+    background: $white
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, .1)
+    display: flex
+    justify-content: center
+    align-items: center
+    color: $black
+    position: absolute
+    top: 69px
+    right: -17px
+    z-index: 10000
+    &:hover
+      background: $white-dark
+    &-Icon
+      transform: rotateY(180deg)
+  &__User
+    width: 100%
+    padding: 0 20px 0 17px
+    display: flex
+    justify-content: space-between
+    align-items: flex-start
+    &-Image
+      position: absolute
+      width: 40px
+      height: 40px
+      object-fit: cover
+      &--Medium
+        @extend .PanelMenu__User-Image
+        width: 80px
+        height: 80px
+      &-Container
+        flex-shrink: 0
+        display: flex
+        justify-content: center
+        align-items: center
+        position: relative
+        width: 40px
+        height: 40px
+        margin-right: 10px
+        border-radius: 50%
+        color: $green-panel
+        background: $special-white
+        overflow: hidden
+        &--Medium
+          @extend .PanelMenu__User-Image-Container
+          width: 80px
+          height: 80px
+          margin-right: 0
+      &-Edit
+        position: absolute
+        width: 100%
+        height: 100%
+        display: flex
+        justify-content: center
+        align-items: center
+        background-color: rgba($white, 0.5)
+        color: $gray-dark
+        z-index: 10
+    &-Info
+      flex-shrink: 0
+      max-width: 110px
+      opacity: 0
+    &-Name
+      margin-bottom: 4px
+      font-size: 16px
+      font-weight: bold
+      text-overflow: clip
+      color: $gray-dark
+    &-Username
+      font-size: 14px
+      font-weight: 300
+      color: $gray-dark
+    &-Edit
+      width: 24px
+      height: 24px
+      display: flex
+      justify-content: flex-end
+      align-items: flex-start
+      color: $gray
+      z-index: 10
+      &:hover
+        color: $green-dark
+  &__Links
+    display: flex
+    flex-direction: column
+    align-items: flex-start
+    width: 100%
+    margin-bottom: 3rem
+    &--Default
+      @extend .PanelMenu__Links
+      margin-top: 3rem
+  &__Link
+    display: flex
+    justify-content: flex-start
+    align-items: center
+    gap: 15px
+    width: 100%
+    border-left: 3px solid transparent
+    padding: 15px 20px 15px 17px
+    font-size: 16px
+    color: $black
+    cursor: pointer
+    &:hover
+      border-left: 3px solid $green-dark
+      background: $special-white
+      color: $black
+    &--Active
+      @extend .PanelMenu__Link
+      border-left: 3px solid $green-dark
+      background: $special-white
+      color: $black
+    &-Icon
+      width: 34px
+      height: 34px
+    &-text
+      opacity: 0
+  &__Company
+    width: 100%
+    margin: 1.5rem 0
+  &__Sublinks
+    display: flex
+    flex-direction: column
+    opacity: 0
+    height: auto
+    max-height: 0
+    overflow: hidden
+  &__Sublink
+    display: block
+    width: 100%
+    padding: 5px 32px 5px 29px
+    border-left: 3px solid transparent
+    font-size: 16px
+    color: $black
+    &:hover
+      border-left: 3px solid $green-dark
+      background: rgba($special-white, 0.5)
+      color: $black
+    &--Active
+      @extend .PanelMenu__Sublink
+      border-left: 3px solid $green-dark
+      background: rgba($special-white, 0.5)
+      color: $black
+    &-first-letter
+    &-text
+      width: max-content
+      white-space: nowrap
+      opacity: 0
+  &__Whatsapp
+    display: flex
+    align-items: center
+    gap: 5px
+    width: 100%
+    padding: 15px 20px 15px 20px
+    margin-bottom: 1.5rem
+    color: $gray-dark
+    white-space: nowrap
+    &:hover
+      color: $gray-dark
+      .PanelMenu__Whatsapp-Icon
+        color: $whatsapp-dark
+    &-Icon
+      flex-shrink: 0
+      font-size: 30px
+      width: 34px
+      height: 34px
+      color: $green
+    &-text
+      width: max-content
+      opacity: 0
+  &__Linkchar
+    width: 100%
+    min-width: max-content
+    padding: 6px 0
+    margin-top: auto
+    font-size: 12px
+    color: $black
+    opacity: 0
+    &-Link
+      color: $black
+      &:hover
+        color: $orange
+
+.PanelMenu.enter
+  width: 75px
+.PanelMenu.enter-active
+  width: 225px
+  transition: width 200ms
+.PanelMenu.enter-done
+  width: 225px
+.PanelMenu.exit
+  width: 225px
+.PanelMenu.exit-active
+  width: 75px
+  transition: width 200ms
+
+.PanelMenu__Content.enter
+  .PanelMenu__User-Info
+    opacity: 0
+  .PanelMenu__User-Edit
+    opacity: 0
+  .PanelMenu__Link-text
+    opacity: 0
+  .PanelMenu__Sublink
+    padding: 5px 32px 5px 29px
+  .PanelMenu__Sublink-text
+    opacity: 0
+  .PanelMenu__Whatsapp-text
+    opacity: 0
+  .PanelMenu__Linkchar
+    opacity: 0
+.PanelMenu__Content.enter-active
+  .PanelMenu__User-Info
+    opacity: 1
+    transition: opacity 200ms 100ms
+  .PanelMenu__User-Edit
+    opacity: 1
+    transition: opacity 200ms 100ms
+  .PanelMenu__Link-text
+    opacity: 1
+    transition: opacity 200ms 100ms
+  .PanelMenu__Sublink
+    padding: 10px 20px 10px 66px
+    transition: padding 200ms
+  .PanelMenu__Sublink-text
+    opacity: 1
+    transition: opacity 200ms 100ms
+  .PanelMenu__Whatsapp-text
+    opacity: 1
+    transition: opacity 200ms 100ms
+  .PanelMenu__Linkchar
+    opacity: 1
+    transition: opacity 200ms 100ms
+.PanelMenu__Content.enter-done
+  .PanelMenu__User-Info
+    opacity: 1
+  .PanelMenu__User-Edit
+    opacity: 1
+  .PanelMenu__Link-text
+    opacity: 1
+  .PanelMenu__Sublink
+    padding: 10px 20px 10px 66px
+  .PanelMenu__Sublink-text
+    opacity: 1
+  .PanelMenu__Whatsapp-text
+    opacity: 1
+  .PanelMenu__Linkchar
+    opacity: 1
+.PanelMenu__Content.exit
+  .PanelMenu__User-Info
+    opacity: 1
+  .PanelMenu__User-Edit
+    opacity: 1
+  .PanelMenu__Link-text
+    opacity: 1
+  .PanelMenu__Sublink
+    padding: 10px 20px 10px 66px
+  .PanelMenu__Sublink-text
+    opacity: 1
+  .PanelMenu__Whatsapp-text
+    opacity: 1
+  .PanelMenu__Linkchar
+    opacity: 1
+.PanelMenu__Content.exit-active
+  .PanelMenu__User-Info
+    opacity: 0
+    transition: opacity 200ms
+  .PanelMenu__User-Edit
+    opacity: 0
+    transition: opacity 200ms
+  .PanelMenu__Link-text
+    opacity: 0
+    transition: opacity 200ms
+  .PanelMenu__Sublink
+    padding: 5px 32px 5px 29px
+    transition: padding 200ms
+  .PanelMenu__Sublink-text
+    opacity: 0
+    transition: opacity 200ms
+  .PanelMenu__Whatsapp-text
+    opacity: 0
+    transition: opacity 200ms
+  .PanelMenu__Linkchar
+    opacity: 0
+    transition: opacity 200ms
+
+.PanelMenu__Button-Icon.enter
+  transform: rotateY(180deg)
+.PanelMenu__Button-Icon.enter-active
+  transform: rotateY(0)
+  transition: transform 200ms
+.PanelMenu__Button-Icon.enter-done
+  transform: rotateY(0)
+.PanelMenu__Button-Icon.exit
+  transform: rotateY(0)
+.PanelMenu__Button-Icon.exit-active
+  transform: rotateY(180deg)
+  transition: transform 200ms
+
+@media (max-width: 1366px)
+  .PanelMenu
+    &__Company
+      margin: 0.5rem 0
+    &__Links
+      margin-bottom: 0.5rem
+      &--Default
+        margin-top: 0.5rem
+    &__Whatsapp
+      margin: 0 auto 0.5rem auto
+
+@media (max-width: 992px)
+  .PanelMenu
+    &__User
+      &-Edit
+        width: 36px
+        height: 36px
+        justify-content: flex-end
+        align-items: flex-start
+        font-size: 1.5rem
+
+@media (max-width: 767px)
+  .PanelMenu
+    position: absolute
+    width: 100%
+    height: 0
+    overflow: hidden
+    z-index: 100
+    &__Content
+      width: 100%
+      max-width: 425px
+    &__User
+      padding-bottom: 12px
+      border-bottom: 1px solid $special-white
+    &__Button
+      display: none
+    &__Sublink
+      &-text
+        opacity: 1
+
+  .PanelMenu.enter
+    width: 100%
+    height: 0
+  .PanelMenu.enter-active
+    width: 100%
+    height: calc(100% - 75px)
+    transition: height 200ms
+  .PanelMenu.enter-done
+    width: 100%
+    height: calc(100% - 75px)
+  .PanelMenu.exit
+    width: 100%
+    height: calc(100% - 75px)
+  .PanelMenu.exit-active
+    width: 100%
+    height: 0
+    transition: height 200ms 100ms
+
+  .PanelMenu__Content.enter
+    overflow: hidden
+    .PanelMenu__User-Info
+      opacity: 1
+    .PanelMenu__User-Edit
+      opacity: 1
+    .PanelMenu__Link-text
+      opacity: 1
+    .PanelMenu__Sublink
+      padding: 10px 20px 10px 66px
+    .PanelMenu__Sublink-text
+      opacity: 1
+    .PanelMenu__Whatsapp-text
+      opacity: 1
+    .PanelMenu__Linkchar
+      opacity: 1
+  .PanelMenu__Content.exit-active
+    overflow: hidden
+    .PanelMenu__User-Info
+      opacity: 1
+    .PanelMenu__User-Edit
+      opacity: 1
+    .PanelMenu__Link-text
+      opacity: 1
+    .PanelMenu__Sublink
+      padding: 10px 20px 10px 66px
+    .PanelMenu__Sublink-text
+      opacity: 1
+    .PanelMenu__Whatsapp-text
+      opacity: 1
+    .PanelMenu__Linkchar
+      opacity: 1

@@ -63,7 +63,7 @@ const Login = () => {
       </Helmet>
       <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '75vh'}}>
         <section className="d-flex flex-row gap-5">
-          <Card style={{display: 'flex', justifyContent: 'center', alignItems: 'center', padding: "1rem"}}>
+          <Card style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
             <div style={{ margin: '2rem' }} className="d-flex flex-row gap-5">
               <div className="d-flex flex-column gap-3">
                 <AuthCard onSubmit={formik.handleSubmit}>

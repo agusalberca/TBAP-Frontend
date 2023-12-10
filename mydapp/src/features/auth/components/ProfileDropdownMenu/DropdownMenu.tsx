@@ -10,6 +10,7 @@ import {
   MenuDivider,
   HStack,
   VStack,
+  Image,
 } from '@chakra-ui/react';
 import { IoIosLogOut } from '@react-icons/all-files/io/IoIosLogOut';
 import { CgProfile } from "@react-icons/all-files/cg/CgProfile";
@@ -21,6 +22,10 @@ import { logout } from '../../../../api/auth';
 import { AppContext } from '../../../../context/AppContext';
 import { disconnectWallet } from '../../../wallet/models/account/actions';
 import { useActions } from '../../../wallet/hooks/useActions';
+
+import UserProfileComponent from '../../../../pages/User/components/UserProfileComponent';
+import profileImage from '../../../../assets/images/default.jpg';
+const { REACT_APP_URL_BACK } = process.env;
 
 
 
@@ -39,19 +44,23 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
   myTokensLink,
 }) => {
   const { t } = useTranslation('FeatureProfile');
-  const { token, setToken } = useContext(AppContext)
+  const { token, setToken, user } = useContext(AppContext)
   const [isModalOpen, setModalOpen] = useState(false);
+  const [showEditUserModal, setShowEditUserModal] = useState(false);
   const navigate = useNavigate()
 
   const actions = useActions();
+  
 
+  
   const handleProfileClick = () => {
-    setModalOpen(true);
+    setShowEditUserModal(true);
   };
-
+  
   const closeModal = () => {
-    setModalOpen(false);
+    setShowEditUserModal(false);
   };
+  
 
   const handleLogout = async ()  => {
     try {
@@ -68,41 +77,53 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
   }
 
   return (
-    <Menu placement="bottom-end">
-      <MenuButton
-        as={Button}
-        cursor="pointer"
-        bg="gray.800"
-        _hover={{
-          backgroundColor: 'gray.700',
-        }}
-        variant="outline"
-        ml={2}
-      >
-        <HStack>
-          <Text color="white" fontSize="md" fontWeight="medium" mr="2">
-            {username}
-          </Text>
-        </HStack>
-      </MenuButton>
-      <MenuList alignItems="center" m={0}>
-        <VStack align="center">
-          <Box>
-            <Text>{username}</Text>
-          </Box>
-        </VStack>
-        <MenuDivider />
-        <MenuItem icon={<CgProfile />} onClick={handleProfileClick}>
-          {t('Profile')}
-        </MenuItem>
-        <MenuItem icon={<BiMedal />} as={RouterLink} to={myTokensLink}>
-          {t('My Tokens')}
-        </MenuItem>
-        <MenuDivider />
-        <MenuItem icon={<IoIosLogOut />} onClick={() => { handleLogout(); }} >
-          {t('LogOut')}
-        </MenuItem>
-      </MenuList>
-    </Menu>
+    <>
+      <Menu placement="bottom-end">
+        <MenuButton
+          as={Button}
+          cursor="pointer"
+          bg="gray.800"
+          _hover={{
+            backgroundColor: 'gray.700',
+          }}
+          variant="outline"
+          ml={2}
+        >
+          <HStack>
+            <Text color="white" fontSize="md" fontWeight="medium" mr="2">
+              {username}
+            </Text>
+            <Box>
+              
+              <Image src={user?.profile_image ? `${REACT_APP_URL_BACK}${user.profile_image}` : profileImage} alt="user profile image" boxSize="30px" borderRadius="50%" />
+            </Box>
+          </HStack>
+        </MenuButton>
+        <MenuList alignItems="center" m={0}>
+          <VStack align="center">
+            <Box>
+              <Text>{username}</Text>
+            </Box>
+          </VStack>
+          <MenuDivider />
+          <MenuItem icon={<CgProfile />} onClick={handleProfileClick}>
+            {t('Profile')}
+          </MenuItem>
+          <MenuItem icon={<BiMedal />} as={RouterLink} to={myTokensLink}>
+            {t('My Tokens')}
+          </MenuItem>
+          <MenuDivider />
+          <MenuItem icon={<IoIosLogOut />} onClick={() => { handleLogout(); }} >
+            {t('LogOut')}
+          </MenuItem>
+        </MenuList>
+      </Menu>
+
+      {showEditUserModal && (
+        <UserProfileComponent closeModal={closeModal} />
+      )}
+
+    </>
   );
+  
 };

@@ -13,10 +13,10 @@ import * as Yup from 'yup'
 export const UserProfilePage: React.FC = withBackendProtection(() => {
   requireAuth()
   const { t } = useTranslation('UserProfilePage');
-  const { token } = useAppContext()
+  const { token, user } = useAppContext()
   const formik = useFormik({
     initialValues: {
-      user_type: userInfo?.user_profile.user_type ?? '',
+      user_type: user?.user_type ?? '',
     },
     validateOnChange: false,
     validationSchema: Yup.object().shape({

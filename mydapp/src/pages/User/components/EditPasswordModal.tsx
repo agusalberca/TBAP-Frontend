@@ -3,16 +3,18 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import propTypes from 'prop-types'
 import ModalHeader from '../../../components/ModalHeader'
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import FinishModal from './FinishModal'
 import { AppContext } from '../../../context/AppContext';
 import Input from '../../../components/Input'
+import { changePassword } from '../../../api/auth'
 // import { postPasswordChange } from '../../api/auth'
 
 
 const EditPasswordModal = ({ closeModal }) => {
   const { token } = useContext(AppContext)
   const [step, setStep] = useState(1)
+
 
   const formik = useFormik({
     initialValues: {
@@ -22,24 +24,24 @@ const EditPasswordModal = ({ closeModal }) => {
     },
     validateOnChange: false,
     validationSchema: Yup.object({
-      old_password: Yup.string().required('Su contraseña es requerida').min(5, 'Mínimo de caracteres: 5').max(40, 'Máximo de caracteres: 40'),
-      new_password1: Yup.string().required('Su contraseña es requerida').min(5, 'Mínimo de caracteres: 5').max(40, 'Máximo de caracteres: 40'),
-      new_password2: Yup.string().required('Repetir la contraseña es requerido').min(5, 'Mínimo de caracteres: 5').max(40, 'Máximo de caracteres: 40'),
+      old_password: Yup.string().required('Your password is required').min(5, 'Minimum characters: 5').max(40, 'Maximum characters: 40'),
+      new_password1: Yup.string().required('Your password is required').min(5, 'Minimum characters: 5').max(40, 'Maximum characters: 40'),
+      new_password2: Yup.string().required('Repeating the password is required').min(5, 'Minimum characters: 5').max(40, 'Maximum characters: 40'),
     }),
     onSubmit: async ({ old_password, new_password1, new_password2 }) => {
       if (old_password === new_password1) {
-        formik.setFieldError('old_password', 'Las contraseñas no deben coincidir')
-        formik.setFieldError('new_password1', 'Las contraseñas no deben coincidir')
+        formik.setFieldError('old_password', 'Passwords must not match')
+        formik.setFieldError('new_password1', 'Passwords must not match')
       } else if  (new_password1 !== new_password2) {
-        formik.setFieldError('new_password1', 'Las contraseñas no coinciden')
-        formik.setFieldError('new_password2', 'Las contraseñas no coinciden')
+        formik.setFieldError('new_password1', 'Passwords do not match')
+        formik.setFieldError('new_password2', 'Passwords do not match')
       } else {
-        // const response = await postPasswordChange(token, {old_password, new_password1, new_password2 })
+        const response = await changePassword(token, {old_password, new_password1, new_password2 })
 
-    //     if (response.error === 'Old password is incorrect')
-    //       formik.setFieldError('old_password', 'Contraseña incorrecta')
-    //     else if (response)
-    //       setStep(prev => prev + 1)
+        if (response.error === 'Old password is incorrect')
+          formik.setFieldError('old_password', 'Incorrect password')
+        else if (response)
+          setStep(prev => prev + 1)
       }
     }
   })
@@ -47,11 +49,11 @@ const EditPasswordModal = ({ closeModal }) => {
   if(step === 1) return (
     <div className="PanelModal px-3" onClick={closeModal}>
       <form className="PanelModal__Card" onClick={(e) => e.stopPropagation()}>
-        <ModalHeader title={'Cambiar contraseña'} closeModal={closeModal} />
+        <ModalHeader title={'Change password'} closeModal={closeModal} />
 
         <div className='d-flex flex-column gap-5 my-5'>
           <Input
-            label='Contraseña actual'
+            label='Current Password'
             name='old_password'
             type='password'
             value={formik.values.old_password}
@@ -61,18 +63,18 @@ const EditPasswordModal = ({ closeModal }) => {
           />
 
           <Input
-            label='Contraseña nueva'
+            label='New Password'
             name='new_password1'
             type='password'
             value={formik.values.new_password1}
             onChange={formik.handleChange}
             error={formik.errors.new_password1}
-            tip={'<span>Debe contener al menos 5 caracteres<br />No debe ser igual a la anterior</span>'}
+            tip={'<span>Must contain at least 5 characters<br />Must not be the same as the previous one</span>'}
             icon={faLock}
           />
 
           <Input
-            label='Repetir contraseña'
+            label='Repeat Password'
             name='new_password2'
             type='password'
             value={formik.values.new_password2}
@@ -82,8 +84,15 @@ const EditPasswordModal = ({ closeModal }) => {
           />
         </div>
         <div className="d-flex justify-content-center">
-          {/* <button className='button-green-panel' type="submit" onClick={formik.handleSubmit}>Cambiar contraseña</button> */}
-          <button className='button-green-panel' type="submit">Cambiar contraseña</button>
+          {/* <button className='button-green-panel' type="submit" onClick={formik.handleSubmit}>Change password</button> */}
+
+          <button
+            type="button"
+            className='button-green-panel'
+            onClick={() => formik.handleSubmit()}
+          >
+            Change password
+          </button>
         </div>
       </form>
     </div>
@@ -91,10 +100,10 @@ const EditPasswordModal = ({ closeModal }) => {
 
   if(step === 2) return (
     <FinishModal
-      title='Cambiar contraseña'
-      message='Contraseña guardada'
-      description={'Tu nueva contraseña fue creada con éxito'}
-      buttonText={'¡Entendido!'}
+      title='Change password'
+      message='Password saved'
+      description={'Your new password was successfully created'}
+      buttonText={'Got it!'}
       closeModal={closeModal}
     />
   )

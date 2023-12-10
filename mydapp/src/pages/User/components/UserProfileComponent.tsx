@@ -1,4 +1,5 @@
-import { faAddressCard, faBriefcase, faCakeCandles, faLock, faPenToSquare, faPhone, faUser  } from '@fortawesome/free-solid-svg-icons'
+
+import { faVenusMars, faCakeCandles, faLock, faPenToSquare, faUser  } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
@@ -11,14 +12,21 @@ import Media from '../../../components/Media'
 // import { patchUpdateUser } from '../../api/users'
 // import useApi from '../../hooks/useApi'
 import Input from '../../../components/Input'
-
+import { Badge, Select } from '@chakra-ui/react'
+import { Input as ChakraInput } from '@chakra-ui/react';
+import { updateUserProfile } from '../../../api/auth';
 
 const EditUserModal = ({ closeModal }) => {
-  const { token, user } = useContext(AppContext)
-  const [ userImg, setUserImg ] = useState('')
-  const [ professionsNames, setProfessionsNames ] = useState([])
-  const [showEditPassword, setShowEditPassword] = useState(false)
+  const { token, user } = useContext(AppContext);
+  const [userImg, setUserImg] = useState('');
+  const [showEditPassword, setShowEditPassword] = useState(false);
 
+  const sexOptions = [
+    { value: 'Masculino', label: 'Male' },
+    { value: 'Femenino', label: 'Female' },
+    { value: 'Otro', label: 'Others' },
+    { value: 'Prefiero no decirlo', label: 'I prefer not to say' },
+  ];
 
   const handleInputImage = (e) => {
     const acceptedImageTypes = ['image/png', 'image/jpg', 'image/jpeg']
@@ -26,7 +34,7 @@ const EditUserModal = ({ closeModal }) => {
 
     if(acceptedImageTypes.includes(file['type']) && file.size <= 3145728){
       // Save image in formik
-      formik.setFieldValue('image', file)
+      formik.setFieldValue('profile_image', file)
 
       // Save the image in the state to show it
       const imageReader = new FileReader()
@@ -45,40 +53,43 @@ const EditUserModal = ({ closeModal }) => {
     initialValues: {
       first_name: user.first_name,
       last_name: user.last_name,
-      birthdate: user.profile.birthdate,
+      birthdate: user.birthdate,
+      sex: user.sex,
       profile_image: '',
     },
     validateOnChange: false,
     validationSchema: Yup.object({
-      first_name: Yup.string().required('Su nombre es requerido').max(60, 'Máximo de caracteres: 60'),
-      last_name: Yup.string().required('Su apellido es requerido').max(60, 'Máximo de caracteres: 60'),
-      dni: Yup.number('Solo se permite números').required('Su DNI es requrido').positive('Ingrese un DNI valido').integer('Ingrese un DNI valido, sin puntos ni comas').min(1000000, 'DNI invalido').max(100000000, 'DNI invalido'),
-      birthdate: Yup.date().required('Su fecha de cumpleaños es requerida').max(new Date(), 'La fecha de cumpleaños no puede ser mayor a la actual'),
-      profession: Yup.string().min(3, 'Mínimo caracteres: 3').max(50, 'Máximo de caracteres: 50'),
-      other_profession: Yup.string().min(3, 'Mínimo caracteres: 3').max(50, 'Máximo de caracteres: 50'),
+      first_name: Yup.string().required('Your name is required').max(60, 'Maximum characters: 60'),
+      last_name: Yup.string().required('Your last name is required').max(60, 'Maximum characters: 60'),
+      birthdate: Yup.date().required('Your birthdate is required').max(new Date(), 'You cannot be born in the future'),
+      profile_image: Yup.mixed().test('fileSize', 'The image cannot weigh more than 3MB', (value) => {
+        if(value) {
+          return value.size <= 3145728
+        }
+        return true
+      })
     }),
     onSubmit: async (data) => {
-      const fixedProfessionData = {...data}
+      const formdata = new FormData();
+      Object.keys({ ...data }).forEach((value) => {
+        if (value === 'profile_image' && { ...data }.profile_image) {
+          const file = new Blob([{ ...data }.profile_image], { type: 'image/png' });
+          formdata.append(value, file, 'profile-image.png');
+        } else {
+          formdata.append(value, { ...data }[value]);
+        }
+      });
 
-      const formFiltered = Object.entries(fixedProfessionData).reduce((a,[k,v]) => (v ? (a[k]=v, a) : a), {})
+      const response = await updateUserProfile(token, formdata)
 
-      const formdata = new FormData()
-      Object.keys(formFiltered).forEach(value => {
-        formdata.append(value, formFiltered[value])
-      })
-      if(formFiltered.image) {
-        formdata.append('image', formFiltered.image, 'profile-image.png')
+      if (response.error) {
+        console.error(response.error)
+        return
       }
+      if( response.user ) {
+        closeModal()
 
-      // const response = await patchUpdateUser(token, formdata)
-
-      // if (response.error) {
-      //   // console.error(response.error)
-      //   return
-      // }
-      // if( response.user ) {
-      //   closeModal()
-      // }
+      }
     }
   })
 
@@ -86,31 +97,41 @@ const EditUserModal = ({ closeModal }) => {
     setShowEditPassword(prev => !prev)
   }
 
+  function getUserType() {
+    if (user.user_type === 'user_admin') {
+      return 'Admin'
+    } else if (user.user_type === 'regular_user') {
+      return 'Regular user'
+    } else if (user.user_type === 'organization') {
+      return 'Organization'
+    }
+  }
+
   return (
     <>
       <div className="PanelModal px-3" onClick={closeModal}>
         <form className="PanelModal__Card--Medium" onClick={(e) => e.stopPropagation()}>
-          <ModalHeader title={'Editá tu información'} closeModal={closeModal} />
+          <ModalHeader title={'Edit your information'} closeModal={closeModal} />
           <div className='d-flex flex-column gap-3 my-4'>
             <span className='text-4 fw-bold text-center'>
-              Actualizá tus datos cuando sea necesario
+              Your profile
             </span>
 
             <div className='d-flex flex-column justify-content-center align-items-center'>
               <div className="PanelMenu__User-Image-Container--Medium text-1" >
                 {userImg.length !== 0
-                  ? <img src={userImg} alt='Imagen nueva' title='Imagen nueva' className='PanelMenu__User-Image--Medium' />
-                  : user?.profile?.image && (
-                    <Media type='image' className='PanelMenu__User-Image--Medium' src={user?.profile?.image ?? ''} alt='imagen de usuario' />
+                  ? <img src={userImg} alt='New image' title='New image' className='PanelMenu__User-Image--Medium' />
+                  : user?.profile_image && (
+                    <Media type='image' className='PanelMenu__User-Image--Medium' src={user?.profile_image ?? ''} alt='user image' />
                   )
                 }
                 <FontAwesomeIcon icon={faUser}/>
-                <div className="PanelMenu__User-Image-Edit">
+                <div className="PanelMenu__User-Image-Edit" style={{ cursor: 'pointer' }}>
                   <label htmlFor='image' onChange={handleInputImage}>
-                    <FontAwesomeIcon icon={faPenToSquare} />
+                    <FontAwesomeIcon icon={faPenToSquare} style={{ cursor: 'pointer' }} />
                     <input
                       id='image'
-                      name='image'
+                      name='profile_image'
                       type="file"
                       accept="image/png, image/jpg, image/jpeg"
                       className='d-none'
@@ -120,10 +141,15 @@ const EditUserModal = ({ closeModal }) => {
               </div>
               <span className='text-5'>Max. 3MB</span>
             </div>
+              
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+              <Badge className="text-center d-inline-block">{getUserType()}</Badge>
+            </div>
+              
 
             <div className='PanelModal__Inputs-Container'>
               <Input
-                label={'Nombre'}
+                label={'First Name'}
                 name='first_name'
                 type='text'
                 value={formik.values.first_name}
@@ -132,7 +158,7 @@ const EditUserModal = ({ closeModal }) => {
                 icon={faUser}
               />
               <Input
-                label={'Apellido'}
+                label={'Last Name'}
                 name='last_name'
                 type='text'
                 value={formik.values.last_name}
@@ -142,56 +168,44 @@ const EditUserModal = ({ closeModal }) => {
               />
             </div>
 
-            <div className='PanelModal__Inputs-Container'>
-              <Input
-                label='DNI'
-                name='dni'
-                type='number'
-                value={formik.values.dni}
-                onChange={formik.handleChange}
-                error={formik.errors.dni}
-                icon={faAddressCard}
-              />
-            </div>
+            <div className='PanelModal__Input-Container'>
+                <label htmlFor='Birthdate' className='Input__Label text-5 fw-medium'>
+                  Birthdate
+                </label>
 
-            <div className='PanelModal__Inputs-Container'>
-              <Input
-                label='Cumpleaños'
-                name='birthdate'
-                type='date'
-                value={formik.values.birthdate}
-                onChange={formik.handleChange}
-                error={formik.errors.birthdate}
-                icon={faCakeCandles}
-              />
-              <Input
-                label='Profesión/Rubro'
-                name='profession'
-                type='select'
-                value={formik.values.profession}
-                list={professionsNames}
-                onChange={formik.setFieldValue}
-                error={formik.errors.profession}
-                icon={faBriefcase}
-              />
-            </div>
+                <ChakraInput
+                  placeholder="YYYY-MM-DD"
+                  size="sm"
+                  type="date"
+                  value={formik.values.birthdate}
+                />
 
-            {formik.values.profession.toLowerCase() === 'otros' ? (
-              <Input
-                label="¿A qué te dedicás?"
-                name="other_profession"
-                type="text"
-                value={formik.values.other_profession}
-                onChange={formik.handleChange}
-                error={formik.errors.other_profession}
-                icon={faBriefcase}
-              />
-            ) : (
-              <></>
-            )}
+              <div className='PanelModal__Input-Container'>
+                <label htmlFor='sex' className='Input__Label text-5 fw-medium'>
+                  Sex
+                </label>
+                <Select
+                  id='sex'
+                  name='sex'
+                  value={formik.values.sex}
+                  onChange={(e) => formik.setFieldValue('sex', e.target.value)}
+                  size="sm"
+                >
+                  {sexOptions.map((option) => (
+                    <option key={option.value} value={option.value}> 
+                      <FontAwesomeIcon icon={faVenusMars} style={{ marginRight: '5px' }} />
+                      {option.label}
+                    </option>
+                  ))}
+
+
+                </Select>
+              </div>
+                
+            </div>
 
             <div className="w-100 d-flex flex-column align-items-start position-relative">
-              <label htmlFor='password' className="text-3 fw-normal">Contraseña</label>
+              <label htmlFor='password' className="text-3 fw-normal">Password</label>
               <div className="w-100 position-relative">
                 <input
                   className={'Input--Disabled text-3'}
@@ -209,14 +223,23 @@ const EditUserModal = ({ closeModal }) => {
                 className='text-5 text-center p-2'
                 onClick={toggleShowEditPassword}
               >
-              ¿Cambiar contraseña?
+              Change password?
               </button>
             </div>
           </div>
 
           <div className="d-flex justify-content-center">
-            <button className='button-green-panel' type="submit">Actualizar datos</button>
-            {/* <button className='button-green-panel' type="submit" onClick={formik.handleSubmit}>Actualizar datos</button> */}
+          <button
+            type="button" 
+            className='button-green-panel'
+            onClick={() => {
+              console.log("Button clicked");
+              formik.handleSubmit();
+            }}
+          >
+            Update data
+          </button>
+            {/* <button className='button-green-panel' type="submit" onClick={formik.handleSubmit}>Update data</button> */}
           </div>
         </form>
       </div>
