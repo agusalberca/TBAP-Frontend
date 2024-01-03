@@ -133,8 +133,8 @@ export const usePages = () => {
     path: 'admin-courses',
     element: <AdminCoursesPage />,
     menuLabel: t('Courses', { ns: 'Menu' }),
-    isShownInMainMenu: isAdmin,
-    isShownInSecondaryMenu: isAdmin,
+    isShownInMainMenu: isAdmin || isOrganization,
+    isShownInSecondaryMenu: isAdmin || isOrganization,
     isProtected: true,
   };
   const ClaimTokens: PageType = {

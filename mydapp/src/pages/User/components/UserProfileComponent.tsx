@@ -3,6 +3,7 @@ import { faVenusMars, faCakeCandles, faLock, faPenToSquare, faUser  } from '@for
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
+import { SingleDatepicker } from "chakra-dayzed-datepicker";
 import propTypes from 'prop-types'
 import ModalHeader from '../../../components/ModalHeader'
 import { useContext, useEffect, useState } from 'react'
@@ -15,6 +16,7 @@ import Input from '../../../components/Input'
 import { Badge, Select } from '@chakra-ui/react'
 import { Input as ChakraInput } from '@chakra-ui/react';
 import { updateUserProfile } from '../../../api/auth';
+import { use } from 'i18next';
 
 const EditUserModal = ({ closeModal }) => {
   const { token, user } = useContext(AppContext);
@@ -27,6 +29,7 @@ const EditUserModal = ({ closeModal }) => {
     { value: 'Otro', label: 'Others' },
     { value: 'Prefiero no decirlo', label: 'I prefer not to say' },
   ];
+
 
   const handleInputImage = (e) => {
     const acceptedImageTypes = ['image/png', 'image/jpg', 'image/jpeg']
@@ -53,8 +56,8 @@ const EditUserModal = ({ closeModal }) => {
     initialValues: {
       first_name: user.first_name,
       last_name: user.last_name,
-      birthdate: user.birthdate,
-      sex: user.sex,
+      birthdate: user.birthdate ? new Date(user.birthdate) : undefined,
+      sex: user.sex || 'Masculino',
       profile_image: '',
     },
     validateOnChange: false,
@@ -75,8 +78,11 @@ const EditUserModal = ({ closeModal }) => {
         if (value === 'profile_image' && { ...data }.profile_image) {
           const file = new Blob([{ ...data }.profile_image], { type: 'image/png' });
           formdata.append(value, file, 'profile-image.png');
+          
+        } else if (value === 'birthdate' && { ...data }.birthdate){
+          formdata.append(value, { ...data }.birthdate.toISOString().split('T')[0]);
         } else {
-          formdata.append(value, { ...data }[value]);
+          formdata.append(value, { ...data }[value] as string);
         }
       });
 
@@ -88,7 +94,6 @@ const EditUserModal = ({ closeModal }) => {
       }
       if( response.user ) {
         closeModal()
-
       }
     }
   })
@@ -172,12 +177,17 @@ const EditUserModal = ({ closeModal }) => {
                 <label htmlFor='Birthdate' className='Input__Label text-5 fw-medium'>
                   Birthdate
                 </label>
-
-                <ChakraInput
-                  placeholder="YYYY-MM-DD"
-                  size="sm"
-                  type="date"
-                  value={formik.values.birthdate}
+                
+                <SingleDatepicker
+                  name="date-input"
+                  date={formik.values.birthdate}
+                  onDateChange={(date) => formik.setFieldValue('birthdate', date)}
+                  maxDate={new Date()}
+                  propsConfigs={{
+                    inputProps: {
+                      size: "sm"
+                    }
+                  }}
                 />
 
               <div className='PanelModal__Input-Container'>
@@ -233,8 +243,7 @@ const EditUserModal = ({ closeModal }) => {
             type="button" 
             className='button-green-panel'
             onClick={() => {
-              console.log("Button clicked");
-              formik.handleSubmit();
+              formik.submitForm() 
             }}
           >
             Update data

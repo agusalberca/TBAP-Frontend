@@ -188,7 +188,7 @@ const AppContextProvider = ({ children }) => {
 
   useEffect(() => {
     if (token) {
-      if (isAdmin) {
+      if (isAdmin || isOrganization) {
         getAdminCoursesAsync()
       } else {
         getUserCoursesAsync()

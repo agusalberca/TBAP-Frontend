@@ -106,7 +106,7 @@ export const OrganizationInvitations: React.FC = withOrganizationProtection(() =
         
             <Container maxW="7xl" py={2} as={Stack} spacing={2}>
                 <Heading as="h1" size="xl" textAlign="center">
-                    Invitaciones
+                    Invitations
                 </Heading>
                 <Box>
                     <Button onClick={onOpenModal} colorScheme="blue">
@@ -125,24 +125,30 @@ export const OrganizationInvitations: React.FC = withOrganizationProtection(() =
                                     </Tr>
                                 </Thead>
                                 <Tbody>
-                                    {invitations.map((data, index) => (
-                                        <Tr key={index}>
-                                            <Td>{data.email}</Td>
-                                            <Td >{new Date(data.created_at).toISOString().split('T')[0]}</Td>
-                                            <Td >{data.status}</Td>
-                                            <Td>
-                                                {data.status.includes('Pending') ?
-                                                    <Button onClick={() => {onOpenAlert(); setDeleteInvitationId(data.id);}} colorScheme="red">
-                                                        X
-                                                    </Button>
-                                                    // DeactiveButton
-                                                    :<Button colorScheme="red" isDisabled>
-                                                        X
-                                                    </Button>
-                                                }
-                                            </Td>
+                                    {invitations.length > 0 ? (
+                                        invitations.map((data, index) => (
+                                            <Tr key={index}>
+                                                <Td>{data.email}</Td>
+                                                <Td>{new Date(data.created_at).toISOString().split('T')[0]}</Td>
+                                                <Td>{data.status}</Td>
+                                                <Td>
+                                                    {data.status.includes('Pending') ? (
+                                                        <Button onClick={() => {onOpenAlert(); setDeleteInvitationId(data.id);}} colorScheme="red">
+                                                            X
+                                                        </Button>
+                                                    ) : (
+                                                        <Button colorScheme="red" isDisabled>
+                                                            X
+                                                        </Button>
+                                                    )}
+                                                </Td>
+                                            </Tr>
+                                        ))
+                                    ) : (
+                                        <Tr>
+                                            <Td colSpan={4} textAlign="center">No invitations yet.</Td>
                                         </Tr>
-                                    ))}
+                                    )}
                                 </Tbody>
                             </Table>
                         </TableContainer>

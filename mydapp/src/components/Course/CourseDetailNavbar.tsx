@@ -5,6 +5,7 @@ import { AdminsInCourse } from "../../pages/Admins/AdminsInCourse";
 import { UsersInCourse } from "../../pages/Admins/UsersInCourse";
 import useAppContext from "../../hooks/useAppContext";
 import { useNavigate } from "react-router-dom";
+import CourseInformation from "./CourseInformation";
 
 const CourseDetail = () => {
     const [selected, setSelected] = useState<number>(0);
@@ -28,7 +29,7 @@ const CourseDetail = () => {
 
             <TabPanels>
                 <TabPanel>
-                    <p>Details course</p>
+                    <CourseInformation />
                 </TabPanel>
                 <TabPanel>
                     <AdminsInCourse />
