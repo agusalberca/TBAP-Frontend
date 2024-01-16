@@ -1,6 +1,5 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { Tabs, TabList, Tab, TabPanels, TabPanel } from "@chakra-ui/react";
-import { AdminInvitations } from "../../pages/Admins/Invitations";
 import { AdminsInCourse } from "../../pages/Admins/AdminsInCourse";
 import { UsersInCourse } from "../../pages/Admins/UsersInCourse";
 import useAppContext from "../../hooks/useAppContext";
@@ -13,17 +12,18 @@ const CourseDetail = () => {
     const handleTabChange = (index: number) => {
         setSelected(index);
     };
-    const { adminCourseDetail } = useAppContext();
-    const navigate = useNavigate()
-    if (!adminCourseDetail) navigate('/admin-courses')
 
+    const { adminCourseDetail, userCourseDetail, isRegularUser } = useAppContext();
+    const navigate = useNavigate();
+    if (isRegularUser && !userCourseDetail) navigate('/courses');
+    if (!isRegularUser && !adminCourseDetail) navigate('/admin-courses');
 
     return (
         <Tabs index={selected} onChange={handleTabChange} isFitted variant='enclosed'>
             <TabList>
                 <Tab>Course detail</Tab>
-                <Tab>Admins in course</Tab>
-                <Tab>Users in course</Tab>
+                {!isRegularUser && <Tab>Admins in course</Tab>}
+                {!isRegularUser && <Tab>Users in course</Tab>}
                 <Tab>Tokens of the course</Tab>
             </TabList>
 
@@ -31,12 +31,16 @@ const CourseDetail = () => {
                 <TabPanel>
                     <CourseInformation />
                 </TabPanel>
-                <TabPanel>
-                    <AdminsInCourse />
-                </TabPanel>
-                <TabPanel>
-                    <UsersInCourse />
-                </TabPanel>
+                {!isRegularUser && (
+                    <TabPanel>
+                        <AdminsInCourse />
+                    </TabPanel>
+                )}
+                {!isRegularUser && (
+                    <TabPanel>
+                        <UsersInCourse />
+                    </TabPanel>
+                )}
                 <TabPanel>
                     <p>Tab 3 content</p>
                 </TabPanel>

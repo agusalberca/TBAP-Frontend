@@ -90,6 +90,7 @@ export const ClaimTokensPage: React.FC = withWalletProtection(() => {
     <>
     <Box>
       <Container maxW="7xl" py={2} as={Stack} spacing={2}>
+        <br></br>
         <CommonHeader 
             title='Claim Tokens!'
             description='Claim your tokens here!'
