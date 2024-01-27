@@ -16,11 +16,12 @@ export const ProfileDropdownMenu: React.FC = () => {
     navigate('/');
   };
   return (
-    <DropdownMenu
-    username={username}
-    profileLink={pageLink('/profile')}
-    myTokensLink={pageLink('/tokens')}
-    onDisconnectClicked={onDisconnectClick}
-    />
+    <>
+      <DropdownMenu
+      username={username}
+      myTokensLink={pageLink('/tokens')}
+      onDisconnectClicked={onDisconnectClick}
+      />
+    </>
   );
 };

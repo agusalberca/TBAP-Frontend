@@ -15,6 +15,8 @@ import {
 import { IoIosLogOut } from '@react-icons/all-files/io/IoIosLogOut';
 import { CgProfile } from "@react-icons/all-files/cg/CgProfile";
 import { BiMedal } from "@react-icons/all-files/bi/BiMedal";
+import { VscOrganization } from "@react-icons/all-files/vsc/VscOrganization";
+
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
@@ -31,7 +33,6 @@ const { REACT_APP_URL_BACK } = process.env;
 
 export interface DropdownMenuProps {
   username: string;
-  profileLink: string;
   myTokensLink: string;
   onDisconnectClicked: () => void;
 }
@@ -40,12 +41,10 @@ export interface DropdownMenuProps {
 
 export const DropdownMenu: React.FC<DropdownMenuProps> = ({
   username,
-  profileLink,
   myTokensLink,
 }) => {
   const { t } = useTranslation('FeatureProfile');
   const { token, setToken, user } = useContext(AppContext)
-  const [isModalOpen, setModalOpen] = useState(false);
   const [showEditUserModal, setShowEditUserModal] = useState(false);
   const navigate = useNavigate()
 
@@ -122,6 +121,8 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
       {showEditUserModal && (
         <UserProfileComponent closeModal={closeModal} />
       )}
+
+      
 
     </>
   );

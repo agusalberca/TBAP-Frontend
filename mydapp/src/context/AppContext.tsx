@@ -56,6 +56,8 @@ interface AppContextInterface {
   adminCourseDetail: AdminCourse;
   setAdminCourseDetail: Dispatch<SetStateAction<AdminCourse>>;
 
+  adminOrganizations: Organization[];
+  userOrganizations: Organization[];
   selectedOrganization: Organization | null;
   setSelectedOrganization: Dispatch<SetStateAction<Organization | null>>;
   
@@ -147,30 +149,13 @@ const AppContextProvider = ({ children }) => {
     window.addEventListener('storage', storageEventHandler)
   }, [])
 
-  // Set wallet  (no anda)
-    // const actions = useActions();
-    // const walletState = useTypedSelector(state => state.wallet.state.state);
-    // useEffect(() => {
-    //   if (walletState !== WalletState.AUTHENTICATED && user && user.wallet_address){
-    //     const wallet = {address: user.wallet_address, shortAddress: "0x3F1d...88cF", ens: null}
-    //     actions.setAccount(wallet)
-    //     console.log("estoyyy")
-    //   }
-    // }, [user, walletState]);
-    
-  
-  
-
 
   // Get user organizations
   useEffect(() => {
     if (token) {
-      if (isAdmin) {
         getAdminOrganizationsAsync()
-      } else {
         getUserOrganizationsAsync()
       }
-    }
   }, [token, user])
 
   useEffect(() => {
@@ -222,7 +207,7 @@ const AppContextProvider = ({ children }) => {
   }
 
   const getUserCoursesAsync = async () => {
-    const userCourses = await getUserCoursesApi(token);
+    const userCourses = await getUserCoursesApi(token, { organization_id : selectedOrganization?.id });
     setUserCourses(userCourses);
   }
 
@@ -264,6 +249,8 @@ const AppContextProvider = ({ children }) => {
     adminCourseDetail,
     setAdminCourseDetail,
 
+    adminOrganizations,
+    userOrganizations,
     selectedOrganization, 
     setSelectedOrganization
 

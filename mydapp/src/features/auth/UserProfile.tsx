@@ -1,4 +1,5 @@
 import React from 'react';
+import { OrganizationsMenu } from './components/ProfileDropdownMenu/OrganizationsMenu';
 import { ProfileDropdownMenu } from './components/ProfileDropdownMenu/ProfileDropdownMenu';
 import { LoginButton } from './components/LoginButton/LoginButton';
 import { useBackendAuthentication } from './hooks/useBackendAuthentication';
@@ -10,6 +11,7 @@ export const UserProfile: React.FC = () => {
       <>
         {isAuthenticated ? (
           <>
+            <OrganizationsMenu />
             <Wallet />
             <ProfileDropdownMenu />
           </>

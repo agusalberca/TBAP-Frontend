@@ -21,7 +21,7 @@ export const UserCourseBox: React.FC<UserCourse> = (props) => {
     };
 
     return (
-        <Card maxW='xs'>
+        <Card w={"12rem"}>
             <CardBody>
                 <Stack mt='6' spacing='3' textAlign="center">
                     <Heading size='md'> {props.course.name} </Heading>
