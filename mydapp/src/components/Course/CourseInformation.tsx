@@ -15,7 +15,6 @@ import {
 import { canBeDeletedCourseApi, deleteCourseApi } from "../../api/courses";
 import { Tooltip } from '@chakra-ui/react';
 import { useNavigate } from "react-router-dom";
-// import getAdminCoursesAsync
   
 
 const CourseInformation = () => {
@@ -33,7 +32,6 @@ const CourseInformation = () => {
         deleteCourseApi(token, { course_id: adminCourseDetail.id });
         getAdminCoursesAsync();
         navigate('/admin-courses');
-
     }
 
     return (
