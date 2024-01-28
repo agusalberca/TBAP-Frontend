@@ -32,7 +32,7 @@ import { useMutation, useQuery } from 'react-query';
 import { API_URL } from '../../../../constants';
 
 export const OrganizationsMenu: React.FC = () => {
-  const { t } = useTranslation('FeatureProfile');
+  const { t } = useTranslation('');
   const { token, adminOrganizations, userOrganizations, selectedOrganization, setSelectedOrganization } = useContext(AppContext)
 
   const { isOpen: isOpenModal, onOpen: onOpenModal, onClose: onCloseModal } = useDisclosure();
@@ -115,11 +115,11 @@ export const OrganizationsMenu: React.FC = () => {
           <HStack key="selectedOrganization" align="center" justifyContent={"center"}>
             {selectedOrganization ? (
               <>
-                <Text>{selectedOrganization.name}</Text>
+                <Text>{t(selectedOrganization.name)}</Text>
                 <CheckCircleIcon ml={2} color="green.500" />
               </>
             ) : (
-              <Text>No organizations yet</Text>
+              <Text>{t('No organizations yet')}</Text>
             )}
           </HStack>
           {adminOrganizations.length > 1 && (
@@ -131,7 +131,7 @@ export const OrganizationsMenu: React.FC = () => {
                     key={index}
                     onClick={() => handleSetSelectedOrganization(organization)}
                   >
-                    {organization.name}
+                    {t(organization.name)}
                   </MenuItem>
                 )
               ))}
@@ -148,15 +148,15 @@ export const OrganizationsMenu: React.FC = () => {
         <Modal isOpen={isOpenModal} onClose={onCloseModal}>
           <ModalOverlay />
           <ModalContent p={4}>
-            <ModalHeader>Invitations to Organizations</ModalHeader>
+            <ModalHeader>{t('Invitations to Organizations')}</ModalHeader>
             <ModalCloseButton />
             {dataInvitationsAdmin.length > 0 || dataInvitationsUser.length > 0 ? (
               <Box mb={4} p={7}>
-                <Text>Manage your invitations to organizations</Text>
+                <Text>{t('Manage your invitations to organizations')}</Text>
               </Box>
             ) : (
               <Box mb={4} p={7}>
-                <Text>No invitations yet</Text>
+                <Text>{t('No invitations yet')}</Text>
               </Box>
             )}
 
@@ -175,7 +175,7 @@ export const OrganizationsMenu: React.FC = () => {
                       borderRadius="md"
                       mb={4}
                     >
-                      <Text>{info.organization.name} - {info.organization.organization_name}</Text>
+                      <Text>{t(info.organization.name)} - {t(info.organization.organization_name)}</Text>
                       <Button
                         colorScheme="teal"
                         mr={2}
@@ -183,7 +183,7 @@ export const OrganizationsMenu: React.FC = () => {
                           handleInvitation(info.id.toString(), 'Accepted', 'admin');
                         }}
                       >
-                        Accept
+                        {t('Accept')}
                       </Button>
                       <Button
                         colorScheme="red"
@@ -191,7 +191,7 @@ export const OrganizationsMenu: React.FC = () => {
                           handleInvitation(info.id.toString(), 'Rejected', 'admin');
                         }}
                       >
-                        Decline
+                        {t('Decline')}
                       </Button>
                     </Box>
                   ))}
@@ -210,10 +210,12 @@ export const OrganizationsMenu: React.FC = () => {
                       border="1px"
                       borderColor="gray.200"
                       borderRadius="md"
-                      mb={4}
+                      mb={
+
+4}
                     >
-                      <Text>{info.course.name} - {info.course.organization_name}</Text>
-                      <Text>{info.course.description}</Text>
+                      <Text>{t(info.course.name)} - {t(info.course.organization_name)}</Text>
+                      <Text>{t(info.course.description)}</Text>
                       <Button
                         colorScheme="teal"
                         mr={2}
@@ -221,7 +223,7 @@ export const OrganizationsMenu: React.FC = () => {
                           handleInvitation(info.id.toString(), 'Accepted', 'user');
                         }}
                       >
-                        Accept
+                        {t('Accept')}
                       </Button>
                       <Button
                         colorScheme="red"
@@ -229,7 +231,7 @@ export const OrganizationsMenu: React.FC = () => {
                           handleInvitation(info.id.toString(), 'Rejected', 'user');
                         }}
                       >
-                        Decline
+                        {t('Decline')}
                       </Button>
                     </Box>
                   ))}
@@ -239,7 +241,7 @@ export const OrganizationsMenu: React.FC = () => {
 
             <ModalFooter>
               <Button variant="ghost" mr={3} onClick={onCloseModal}>
-                Close
+                {t('Close')}
               </Button>
             </ModalFooter>
           </ModalContent>

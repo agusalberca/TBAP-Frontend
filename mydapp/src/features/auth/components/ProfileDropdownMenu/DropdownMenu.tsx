@@ -121,9 +121,6 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
       {showEditUserModal && (
         <UserProfileComponent closeModal={closeModal} />
       )}
-
-      
-
     </>
   );
   

@@ -5,13 +5,13 @@ import Menu_EN_US from './translations/en-US/Menu.json';
 import PageHome_EN_US from './translations/en-US/PageHome.json';
 import PageNotFound_EN_US from './translations/en-US/PageNotFound.json';
 import PageUser_EN_US from './translations/en-US/PageUser.json';
-import Components_TR_TR from './translations/tr-TR/Components.json';
-import FeatureWallet_TR_TR from './translations/tr-TR/FeatureWallet.json';
-import Layout_TR_TR from './translations/tr-TR/Layout.json';
-import Menu_TR_TR from './translations/tr-TR/Menu.json';
-import PageHome_TR_TR from './translations/tr-TR/PageHome.json';
-import PageNotFound_TR_TR from './translations/tr-TR/PageNotFound.json';
-import PageUser_TR_TR from './translations/tr-TR/PageUser.json';
+import Components_ES_ES from './translations/es-ES/Components.json';
+import FeatureWallet_ES_ES from './translations/es-ES/FeatureWallet.json';
+import Layout_ES_ES from './translations/es-ES/Layout.json';
+import Menu_ES_ES from './translations/es-ES/Menu.json';
+import PageHome_ES_ES from './translations/es-ES/PageHome.json';
+import PageNotFound_ES_ES from './translations/es-ES/PageNotFound.json';
+import PageUser_ES_ES from './translations/es-ES/PageUser.json';
 
 export const resources = {
   'en-US': {
@@ -32,22 +32,22 @@ export const resources = {
     PageNotFound: PageNotFound_EN_US,
     PageUser: PageUser_EN_US,
   },
-  'tr-TR': {
-    Components: Components_TR_TR,
-    FeatureWallet: FeatureWallet_TR_TR,
-    Layout: Layout_TR_TR,
-    Menu: Menu_TR_TR,
-    PageHome: PageHome_TR_TR,
-    PageNotFound: PageNotFound_TR_TR,
-    PageUser: PageUser_TR_TR,
+  'es-ES': {
+    Components: Components_ES_ES,
+    FeatureWallet: FeatureWallet_ES_ES,
+    Layout: Layout_ES_ES,
+    Menu: Menu_ES_ES,
+    PageHome: PageHome_ES_ES,
+    PageNotFound: PageNotFound_ES_ES,
+    PageUser: PageUser_ES_ES,
   },
-  tr: {
-    Components: Components_TR_TR,
-    FeatureWallet: FeatureWallet_TR_TR,
-    Layout: Layout_TR_TR,
-    Menu: Menu_TR_TR,
-    PageHome: PageHome_TR_TR,
-    PageNotFound: PageNotFound_TR_TR,
-    PageUser: PageUser_TR_TR,
+  es: {
+    Components: Components_ES_ES,
+    FeatureWallet: FeatureWallet_ES_ES,
+    Layout: Layout_ES_ES,
+    Menu: Menu_ES_ES,
+    PageHome: PageHome_ES_ES,
+    PageNotFound: PageNotFound_ES_ES,
+    PageUser: PageUser_ES_ES,
   },
 };

@@ -1,7 +1,5 @@
-import { Box, Container, HStack, Stack, Center, Textarea,
-  Card, CardHeader, CardBody, CardFooter,
-  Heading, Image, Text, Button, Divider, VStack, Code, Link  } from '@chakra-ui/react';
-import React, { useEffect } from 'react';
+import { Box, Container, HStack, Stack, Center, Card, 
+  CardBody, Heading, Image, Text, Divider, VStack, Link  } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { withBackendProtection } from '../../features/auth/hocs/withBackendProtection';
 import polygonScanLogo from '../../assets/images/polygonScanLogo.svg';
@@ -57,16 +55,17 @@ export const TokenDetailPage: React.FC = withBackendProtection(() => {
                   <CardBody>
                     <Center><Heading size='md'>{tokenDetail.blockchain_token.title}</Heading></Center>
                     <Text py='3'>{tokenDetail.db_token.description}</Text>
-                    <Text py='2'>Token ID:
+                    <Text py='2'>{t('Token ID')}:
                         <Link 
                         href={`https://mumbai.polygonscan.com/token/${REACT_APP_NFT_CONTRACT_ADDRESS}?a=${tokenDetail.blockchain_token.tokenId}`} 
                         isExternal>
                         {tokenDetail.blockchain_token.tokenId} <FontAwesomeIcon icon={faArrowUpRightFromSquare} size="xs" /> 
                       </Link>
                     </Text>
-                    <Text py='2'>Created at: {tokenDetail.blockchain_token.createdAt}</Text>
                     <Text py='2'>
-                      URI:<Link href={tokenDetail.blockchain_token.uri} isExternal>
+                      {t('Created at')}: {tokenDetail.blockchain_token.createdAt}</Text>
+                    <Text py='2'>
+                    {t('URI')}:<Link href={tokenDetail.blockchain_token.uri} isExternal>
                           {tokenDetail.blockchain_token.uri} <FontAwesomeIcon icon={faArrowUpRightFromSquare} size="xs" />
                           </Link>
                     </Text>
@@ -89,7 +88,6 @@ export const TokenDetailPage: React.FC = withBackendProtection(() => {
               <HStack>
                 <CardBody>
                   <HStack> 
-                    {/* <FontAwesomeIcon icon={faCheckCircle} style={{color: "#7ed251",}} /> */}
                     <Image
                     objectFit='cover'
                     maxW={{ base: '100%', sm: '120px' }}
@@ -100,7 +98,7 @@ export const TokenDetailPage: React.FC = withBackendProtection(() => {
                       <Link 
                         href={`https://mumbai.polygonscan.com/address/${REACT_APP_NFT_CONTRACT_ADDRESS}?a=${tokenDetail.blockchain_token.tokenId}`} 
                         isExternal>
-                        Verify Contract <FontAwesomeIcon icon={faArrowUpRightFromSquare} size="xs" /> 
+                        {t('Verify Contract')} <FontAwesomeIcon icon={faArrowUpRightFromSquare} size="xs" /> 
                       </Link>
                     </CardBody>
                   </HStack>

@@ -38,8 +38,8 @@ export const HomePage: React.FC = () => {
         <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", width: "50%", height: "85vh" }}>
           <h1 style={{ fontSize: "5rem" }}>TBAP</h1>
           <br />
-          <h5 style={{ fontSize: "1.5rem", fontWeight:"400"}}>Turn your achievements into digital badges</h5>
-          <h5 style={{ fontSize: "1.5rem", fontWeight:"400" }}>backed by Blockchain</h5>
+          <h5 style={{ fontSize: "1.5rem", fontWeight:"400"}}>{t('Turn your achievements into digital badges')}</h5>
+          <h5 style={{ fontSize: "1.5rem", fontWeight:"400" }}>{t('backed by Blockchain')}</h5>
           <div>
             <button className="btn btn-primary" 
               style={{ width: "10rem", marginTop: "2rem", background: '#3182ce', borderColor: '#3182ce', transition: 'background 0.4s'
@@ -48,7 +48,7 @@ export const HomePage: React.FC = () => {
                 onMouseOut={(e) => (e.target as HTMLElement).style.background = '#3182ce'}
                 onClick={redirectToGetStarted}
             >
-              Get Started
+              {t('Get Started')}
               </button>
             <button className="btn btn-outline-primary" 
               style={{ width: "10rem", marginTop: "2rem", marginLeft: "1rem", borderColor: '#3182ce', transition: 'background 0.4s'
@@ -57,7 +57,7 @@ export const HomePage: React.FC = () => {
                 onMouseOut={(e) => (e.target as HTMLElement).style.background = 'transparent'}
                 onClick={redirectToFAQs}
             >
-              Learn More
+              {t('Learn More')}
               </button>
           </div>
         </div>

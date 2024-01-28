@@ -12,12 +12,12 @@ import {
   Stack,
 } from '@chakra-ui/react';
 
-import imageTrFlag from '../../assets/images/flags/tr.webp';
+import imageESFlag from '../../assets/images/flags/es.webp';
 import imageUsFlag from '../../assets/images/flags/us.webp';
 import { LangCode, SupportedLang } from '../../types';
 
 const imagesFlag: Record<LangCode, string> = {
-  [LangCode.TR_TR]: imageTrFlag,
+  [LangCode.ES_ES]: imageESFlag,
   [LangCode.EN_US]: imageUsFlag,
 };
 

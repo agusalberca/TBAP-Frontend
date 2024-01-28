@@ -15,9 +15,11 @@ import {
 import { canBeDeletedCourseApi, deleteCourseApi } from "../../api/courses";
 import { Tooltip } from '@chakra-ui/react';
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
   
 
 const CourseInformation = () => {
+    const { t } = useTranslation('');
     const { adminCourseDetail, token, getAdminCoursesAsync } = useAppContext();
     const { isOpen: isOpenModal, onOpen: onOpenModal, onClose: onCloseModal } = useDisclosure();
 
@@ -58,12 +60,12 @@ const CourseInformation = () => {
                         variant="link"
                         _hover={{ textDecoration: 'underline', color: 'red.500' }}
                     >
-                        Delete course
+                        {t('Delete course')}
                     </Button>
                 ) : (
                     <Tooltip label="This course can't be deleted because it has tokens assigned" aria-label="A tooltip">
                         <Text color="gray.500" cursor="not-allowed" _hover={{ textDecoration: 'underline' }}>
-                            Delete course
+                            {t('Delete course')}
                         </Text>
                     </Tooltip>
                 )}
@@ -74,18 +76,18 @@ const CourseInformation = () => {
             <Modal isOpen={isOpenModal} onClose={onCloseModal}>
                 <ModalOverlay />
                 <ModalContent p={4}>
-                    <ModalHeader>Delete course</ModalHeader>
+                    <ModalHeader>{t('Delete course')}</ModalHeader>
                     <ModalCloseButton />
                     <Box mb={4} p={7}>
-                        <Text>Are you sure you want to delete this course?</Text>
+                        <Text>{t('Are you sure you want to delete this course?')}</Text>
                     </Box>
 
                     <ModalFooter>
                     <Button colorScheme="red" mr={3} onClick={handleDeleteCourse}>
-                        Delete
+                        {t('Delete')}
                     </Button>
                     <Button variant="ghost" mr={3} onClick={onCloseModal}>
-                        Close
+                        {t('Close')}
                     </Button>
 
                     </ModalFooter>

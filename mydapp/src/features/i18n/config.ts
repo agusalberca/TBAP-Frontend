@@ -5,13 +5,13 @@ const langENUS: SupportedLang = {
   label: 'English (US)',
 };
 
-const langTRTR: SupportedLang = {
-  code: LangCode.TR_TR,
-  label: 'Türkçe',
+const langESES: SupportedLang = {
+  code: LangCode.ES_ES,
+  label: 'Español',
 };
 
 export const i18nConfig: I18NConfig = {
-  supportedLanguages: [langENUS, langTRTR],
+  supportedLanguages: [langENUS, langESES],
   fallbackLang: langENUS,
   urlParam: 'lang',
   debug: false,
