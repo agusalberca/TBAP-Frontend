@@ -5,8 +5,10 @@ import { UsersInCourse } from "../../pages/Admins/UsersInCourse";
 import useAppContext from "../../hooks/useAppContext";
 import { useNavigate } from "react-router-dom";
 import CourseInformation from "./CourseInformation";
+import { useTranslation } from "react-i18next";
 
 const CourseDetail = () => {
+    const { t } = useTranslation('Course');
     const [selected, setSelected] = useState<number>(0);
 
     const handleTabChange = (index: number) => {
@@ -21,10 +23,10 @@ const CourseDetail = () => {
     return (
         <Tabs index={selected} onChange={handleTabChange} isFitted variant='enclosed'>
             <TabList>
-                <Tab>Course detail</Tab>
-                {!isRegularUser && <Tab>Admins in course</Tab>}
-                {!isRegularUser && <Tab>Users in course</Tab>}
-                <Tab>Tokens of the course</Tab>
+                <Tab>{t('Course detail')}</Tab>
+                {!isRegularUser && <Tab>{t('Admins in course')}</Tab>}
+                {!isRegularUser && <Tab>{t('Users in course')}</Tab>}
+                <Tab>{t('Tokens of the course')}</Tab>
             </TabList>
 
             <TabPanels>

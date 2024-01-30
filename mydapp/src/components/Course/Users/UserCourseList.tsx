@@ -10,7 +10,7 @@ interface ListProps {
 
 
 export const UserCourseList: React.FC<ListProps> = (props) => {
-    const { t } = useTranslation('');
+    const { t } = useTranslation('Course');
     return (
         <HStack spacing='3'>
             {

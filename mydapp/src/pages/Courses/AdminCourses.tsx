@@ -11,7 +11,7 @@ import { getAdminCoursesApi } from '../../api/courses';
 import { AdminCourseList } from '../../components/Course/Admins/AdminCourseList';
 
 export const AdminCoursesPage: React.FC = withBackendProtection(() => {
-    const { t } = useTranslation('PageUser');
+    const { t } = useTranslation('Course');
     const { token, selectedOrganization, adminCourses } = useAppContext()
 
     const { data } = useQuery('getCourses', () => {
@@ -26,8 +26,8 @@ export const AdminCoursesPage: React.FC = withBackendProtection(() => {
         <Box style={{marginTop: "1rem"}}>
             <Container maxW="7xl" py={2} as={Stack} spacing={2}>
                 <CommonHeader 
-                    title='Courses'
-                    description='This are your courses'
+                    title={t('Courses')}
+                    description={t('These are your courses')}
                 />
                 <Box >
                     <Center>

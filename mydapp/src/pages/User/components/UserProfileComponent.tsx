@@ -1,33 +1,32 @@
 
-import { faVenusMars, faCakeCandles, faLock, faPenToSquare, faUser  } from '@fortawesome/free-solid-svg-icons'
+import { faVenusMars, faLock, faPenToSquare, faUser  } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { SingleDatepicker } from "chakra-dayzed-datepicker";
 import propTypes from 'prop-types'
 import ModalHeader from '../../../components/ModalHeader'
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useState } from 'react'
 import EditPasswordModal from './EditPasswordModal'
 import { AppContext } from '../../../context/AppContext'
 import Media from '../../../components/Media'
-// import { patchUpdateUser } from '../../api/users'
-// import useApi from '../../hooks/useApi'
 import Input from '../../../components/Input'
 import { Badge, Select } from '@chakra-ui/react'
-import { Input as ChakraInput } from '@chakra-ui/react';
 import { updateUserProfile } from '../../../api/auth';
-import { use } from 'i18next';
+import { useTranslation } from 'react-i18next';
+
 
 const EditUserModal = ({ closeModal }) => {
+  const { t } = useTranslation('UserProfile');
   const { token, user } = useContext(AppContext);
   const [userImg, setUserImg] = useState('');
   const [showEditPassword, setShowEditPassword] = useState(false);
 
   const sexOptions = [
-    { value: 'Masculino', label: 'Male' },
-    { value: 'Femenino', label: 'Female' },
-    { value: 'Otro', label: 'Others' },
-    { value: 'Prefiero no decirlo', label: 'I prefer not to say' },
+    { value: 'Masculino', label: t('Male') },
+    { value: 'Femenino', label: t('Female') },
+    { value: 'Otro', label: t('Others') },
+    { value: 'Prefiero no decirlo', label: t('Prefer not to say') },
   ];
 
 
@@ -57,15 +56,15 @@ const EditUserModal = ({ closeModal }) => {
       first_name: user.first_name,
       last_name: user.last_name,
       birthdate: user.birthdate ? new Date(user.birthdate) : undefined,
-      sex: user.sex || 'Masculino',
+      sex: user.sex || t('Male'),
       profile_image: '',
     },
     validateOnChange: false,
     validationSchema: Yup.object({
-      first_name: Yup.string().required('Your name is required').max(60, 'Maximum characters: 60'),
-      last_name: Yup.string().required('Your last name is required').max(60, 'Maximum characters: 60'),
-      birthdate: Yup.date().required('Your birthdate is required').max(new Date(), 'You cannot be born in the future'),
-      profile_image: Yup.mixed().test('fileSize', 'The image cannot weigh more than 3MB', (value) => {
+      first_name: Yup.string().required(t('Your name is required')).max(60, t('Maximum characters: 60')),
+      last_name: Yup.string().required(t('Your last name is required')).max(60, t('Maximum characters: 60')),
+      birthdate: Yup.date().required(t('Your birthdate is required')).max(new Date(), t('You cannot be born in the future')),
+      profile_image: Yup.mixed().test('fileSize', t('The image cannot weigh more than 3MB'), (value) => {
         if(value) {
           return value.size <= 3145728
         }
@@ -104,11 +103,11 @@ const EditUserModal = ({ closeModal }) => {
 
   function getUserType() {
     if (user.user_type === 'user_admin') {
-      return 'Admin'
+      return t('Admin')
     } else if (user.user_type === 'regular_user') {
-      return 'Regular user'
+      return t('Regular user')
     } else if (user.user_type === 'organization') {
-      return 'Organization'
+      return t('Organization')
     }
   }
 
@@ -116,10 +115,10 @@ const EditUserModal = ({ closeModal }) => {
     <>
       <div className="PanelModal px-3" onClick={closeModal}>
         <form className="PanelModal__Card--Medium" onClick={(e) => e.stopPropagation()}>
-          <ModalHeader title={'Edit your information'} closeModal={closeModal} />
+          <ModalHeader title={t('Edit your information')} closeModal={closeModal} />
           <div className='d-flex flex-column gap-3 my-4'>
             <span className='text-4 fw-bold text-center'>
-              Your profile
+              {t('Your profile')}
             </span>
 
             <div className='d-flex flex-column justify-content-center align-items-center'>
@@ -154,7 +153,7 @@ const EditUserModal = ({ closeModal }) => {
 
             <div className='PanelModal__Inputs-Container'>
               <Input
-                label={'First Name'}
+                label={t('First name')}
                 name='first_name'
                 type='text'
                 value={formik.values.first_name}
@@ -163,7 +162,7 @@ const EditUserModal = ({ closeModal }) => {
                 icon={faUser}
               />
               <Input
-                label={'Last Name'}
+                label={t('Last name')}
                 name='last_name'
                 type='text'
                 value={formik.values.last_name}
@@ -175,7 +174,7 @@ const EditUserModal = ({ closeModal }) => {
 
             <div className='PanelModal__Input-Container'>
                 <label htmlFor='Birthdate' className='Input__Label text-5 fw-medium'>
-                  Birthdate
+                  {t('Birthdate')}
                 </label>
                 
                 <SingleDatepicker
@@ -192,7 +191,7 @@ const EditUserModal = ({ closeModal }) => {
 
               <div className='PanelModal__Input-Container'>
                 <label htmlFor='sex' className='Input__Label text-5 fw-medium'>
-                  Sex
+                  {t("Sex")}
                 </label>
                 <Select
                   id='sex'
@@ -215,7 +214,9 @@ const EditUserModal = ({ closeModal }) => {
             </div>
 
             <div className="w-100 d-flex flex-column align-items-start position-relative">
-              <label htmlFor='password' className="text-3 fw-normal">Password</label>
+              <label htmlFor='password' className="text-3 fw-normal">
+                {t('Password')}
+              </label>
               <div className="w-100 position-relative">
                 <input
                   className={'Input--Disabled text-3'}
@@ -233,7 +234,7 @@ const EditUserModal = ({ closeModal }) => {
                 className='text-5 text-center p-2'
                 onClick={toggleShowEditPassword}
               >
-              Change password?
+                {t('Change password?')}
               </button>
             </div>
           </div>
@@ -246,9 +247,8 @@ const EditUserModal = ({ closeModal }) => {
               formik.submitForm() 
             }}
           >
-            Update data
+            {t('Update data')}
           </button>
-            {/* <button className='button-green-panel' type="submit" onClick={formik.handleSubmit}>Update data</button> */}
           </div>
         </form>
       </div>

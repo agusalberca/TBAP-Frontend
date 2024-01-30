@@ -1,5 +1,5 @@
 import { Box, Container, Stack, Center } from '@chakra-ui/react';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { withBackendProtection } from '../../features/auth/hocs/withBackendProtection';
@@ -13,7 +13,7 @@ import { requireAuth } from '../auth/AboutYou';
 
 export const UserTokensPage: React.FC = withBackendProtection(() => {
   requireAuth()
-  const { t } = useTranslation('UserTokensPage');
+  const { t } = useTranslation('Tokens');
   const { token } = useAppContext()
 
   // TODO poner un useEffect para que se actualice la lista de tokens
@@ -27,8 +27,8 @@ export const UserTokensPage: React.FC = withBackendProtection(() => {
     <Box>
       <Container maxW="7xl" py={2} as={Stack} spacing={2}>
         <CommonHeader 
-            title='My tokens!'
-            description='These tokens belong to your wallet! (They have already been claimed)'
+            title={t('My tokens!')}
+            description={t('These tokens belong to your wallet! (They have already been claimed)')}
         />
         <Box >
             <Center>

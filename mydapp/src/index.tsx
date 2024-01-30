@@ -30,7 +30,7 @@ const loader = (
   <div className="container">
     <div className="loading">
       <span className="pulse spinner">
-        dApp is loading. Almost done.
+        TBAP is loading. Almost done.
         <br />
         Please wait.
       </span>

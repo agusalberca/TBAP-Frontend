@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Form, Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -15,8 +15,10 @@ import {
   Input,
   Select,
 } from '@chakra-ui/react';
+import { useTranslation } from 'react-i18next';
 
 const Login = () => {
+  const { t } = useTranslation('Login');
   const { token, setToken } = useAppContext();
   const navigate = useNavigate();
 
@@ -33,8 +35,8 @@ const Login = () => {
     },
     validateOnChange: false,
     validationSchema: Yup.object().shape({
-      email: Yup.string().email('Invalid email').required('Required'),
-      password: Yup.string().required('Required'),
+      email: Yup.string().email(t('Invalid email')).required(t('Required')),
+      password: Yup.string().required(t('Required')),
     }),
     onSubmit: async values => {
       const response = await login(values)
@@ -46,7 +48,7 @@ const Login = () => {
         });
       else if (response.key) {
         setToken(response.key);
-        if (response.error == 'You must change your password first.') {
+        if (response.error == t('You must change your password first.')) {
           localStorage.setItem('must-change-password', values.password);
           navigate('/change-password');
         } else {
@@ -59,7 +61,7 @@ const Login = () => {
   return (
     <>
       <Helmet>
-        <title>TBAP: Login</title>
+        <title>{t('TBAP: Login')}</title>
       </Helmet>
       <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '75vh'}}>
         <section className="d-flex flex-row gap-5">
@@ -68,15 +70,16 @@ const Login = () => {
               <div className="d-flex flex-column gap-3">
                 <AuthCard onSubmit={formik.handleSubmit}>
                   <div className='innerAuthCard'>
-                    <h1 className="text-1 fw-medium mb-2 ">Log in</h1>
+                    <h1 className="text-1 fw-medium mb-2 ">{t('Login')}</h1>
 
                     <h5 className="text-5 m-1">
-                      If you are logging in for the first time, enter your email and the
-                      password provided by us.
+                      {t('If you are logging in for the first time, enter your email and the password provided by us.')}
                     </h5>
 
                     <FormControl isInvalid={!!formik.errors.email}>
-                      <FormLabel>Email</FormLabel>
+                      <FormLabel>
+                        {t('Email')}
+                      </FormLabel>
                       <Input
                         name="email"
                         type="email"
@@ -89,7 +92,9 @@ const Login = () => {
                     </FormControl>
 
                     <FormControl isInvalid={!!formik.errors.password}>
-                      <FormLabel>Password</FormLabel>
+                      <FormLabel>
+                        {t('Password')}
+                      </FormLabel>
                       <Input
                         type="password"
                         name="password"
@@ -108,18 +113,22 @@ const Login = () => {
                       >
                         {formik.isSubmitting ? (
                           <>
-                            <span>Loading</span>
+                            <span>
+                              {t('Loading')}
+                            </span>
                             <LoadingDots className="enter-done" />
                           </>
                         ) : (
-                          <span>Log in</span>
+                          <span>
+                            {t('Login')}
+                          </span>
                         )}
                       </button>
 
                       <span className="text-5 mt-3">
-                        Forgot your password?{' '}
+                        {t('Forgot your password?')}
                         <Link className="fw-bold" to="/forgot-password">
-                          Reset
+                          {t(' Reset')}
                         </Link>
                       </span>
                     </div>
@@ -136,16 +145,18 @@ const Login = () => {
                 <AuthCard onSubmit={formik.handleSubmit}>
                   <div style={{height:"400px"}} >
                     <div className="border-right border-dark p-3 d-flex flex-column justify-content-center">
-                      <h3>SSO Options</h3>
+                      <h1 className="text-1 fw-medium mb-2 ">{t('SSO Options')}</h1>
                       <h5 className="text-5" style={{ margin:"10% 0 10% 0" }}>
-                        You can also log in using your SSO credentials, if you have them.
+                        {t('You can also log in using your SSO credentials, if you have them.')}
                       </h5>
                       <Select className="mb-3" style={{ margin:"10% 0 10% 0" }}>
                         <option value="sso1">SSO Option 1</option>
                         <option value="sso2">SSO Option 2</option>
                         <option value="sso3">SSO Option 3</option>
                       </Select>
-                      <button className="button-blue" style={{ margin:"14% 0 0 0" }}> Log in with SSO</button>
+                      <button className="button-blue" style={{ margin:"14% 0 0 0" }}> 
+                        {t('Log in with SSO')}
+                      </button>
                     </div>
                   </div>
                 </AuthCard>

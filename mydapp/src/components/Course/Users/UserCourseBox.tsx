@@ -5,12 +5,14 @@ import { format } from 'date-fns';
 import { es } from 'date-fns/locale'; // Para el idioma en español
 import { Link, useNavigate } from 'react-router-dom';
 import useAppContext from '../../../hooks/useAppContext';
+import { useTranslation } from 'react-i18next';
 
 const { REACT_APP_URL_BACK } = process.env;
 
 
 
 export const UserCourseBox: React.FC<UserCourse> = (props) => {
+    const { t } = useTranslation('Course');
 
     const { userCourseDetail, setUserCourseDetail } = useAppContext();
     const navigate = useNavigate()
@@ -31,7 +33,7 @@ export const UserCourseBox: React.FC<UserCourse> = (props) => {
             <Divider />
                 <div style={{ display:"flex", alignSelf:"center" }}>
                     <Button variant='solid' colorScheme='blue' onClick={() => handleVerCurso(props)}>
-                        View course
+                        {t('View course')}
                     </Button>
                 </div>
                 <br></br>

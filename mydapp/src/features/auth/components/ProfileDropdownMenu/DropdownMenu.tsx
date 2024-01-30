@@ -43,7 +43,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
   username,
   myTokensLink,
 }) => {
-  const { t } = useTranslation('FeatureProfile');
+  const { t } = useTranslation('UserProfile');
   const { token, setToken, user } = useContext(AppContext)
   const [showEditUserModal, setShowEditUserModal] = useState(false);
   const navigate = useNavigate()

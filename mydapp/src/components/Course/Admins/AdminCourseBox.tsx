@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 
 
 export const AdminCourseBox: React.FC<AdminCourse> = (props) => {
-    const { t } = useTranslation('PageHome');
+    const { t } = useTranslation('Course');
 
     const {setAdminCourseDetail } = useAppContext();
     const navigate = useNavigate()

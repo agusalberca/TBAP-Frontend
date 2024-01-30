@@ -40,7 +40,7 @@ import {
     ModalCloseButton,
   } from '@chakra-ui/react'
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useFormik } from 'formik';
@@ -52,7 +52,7 @@ import { withOrganizationProtection } from '../../features/auth/hocs/withOrganiz
 import { deleteInvitationApi, getInvitationsApi, sentAdminInvitationEmail } from '../../api/organizations';
 
 export const AdminInvitations: React.FC = withOrganizationProtection(() => {
-    const { t } = useTranslation('PageUser');
+    const { t } = useTranslation('Invitations');
     const { token } = useAppContext()
     
 
@@ -76,7 +76,7 @@ export const AdminInvitations: React.FC = withOrganizationProtection(() => {
         },
         validateOnChange: false,
         validationSchema: Yup.object().shape({
-            email: Yup.string().email('Invalid email').required('Required'),
+            email: Yup.string().email(t('Invalid email')).required('Required'),
         }),
         onSubmit: async values => {
             const response = await sentAdminInvitationEmail(token, values);
@@ -108,11 +108,11 @@ export const AdminInvitations: React.FC = withOrganizationProtection(() => {
         
         <Container maxW="7xl" py={2} as={Stack} spacing={2}>
             <Heading as="h1" size="xl" textAlign="center">
-                Invitations
+                {t('Invitations')}
             </Heading>
             <Box>
                 <Button onClick={onOpenModal} colorScheme="blue">
-                    Sent new invitation
+                    {t('Sent new invitation')}
                 </Button>
             </Box>
             <Divider /> {/* Barra divisora */}
@@ -122,9 +122,9 @@ export const AdminInvitations: React.FC = withOrganizationProtection(() => {
                         <Table variant='simple'>
                             <Thead>
                                 <Tr>
-                                    <Th>Email</Th>
-                                    <Th>Sent</Th>
-                                    <Th>State</Th>
+                                    <Th>{t('Email')}</Th>
+                                    <Th>{t('Sent')}</Th>
+                                    <Th>{t('State')}</Th>
                                 </Tr>
                             </Thead>
                             <Tbody>
@@ -171,19 +171,19 @@ export const AdminInvitations: React.FC = withOrganizationProtection(() => {
             <AlertDialogOverlay>
             <AlertDialogContent>
                 <AlertDialogHeader fontSize='lg' fontWeight='bold'>
-                Delete invitation
+                    {t('Delete invitation')}
                 </AlertDialogHeader>
 
                 <AlertDialogBody>
-                Do you want to delete this invitation? 
+                    {t('Do you want to delete this invitation?')}
                 </AlertDialogBody>
 
                 <AlertDialogFooter>
                 <Button ref={cancelRef} onClick={onCloseAlert}>
-                    Cancel
+                    {t('Cancel')}
                 </Button>
                 <Button colorScheme='red' onClick={() => handleDeleteInvitation()} ml={3}>
-                    Delete
+                    {t('Delete')}
                 </Button>
                 </AlertDialogFooter>
             </AlertDialogContent>
@@ -194,12 +194,16 @@ export const AdminInvitations: React.FC = withOrganizationProtection(() => {
                 <form onSubmit={formik.handleSubmit}>
                     <ModalOverlay />
                     <ModalContent>
-                    <ModalHeader>Add new admin</ModalHeader>
+                    <ModalHeader>
+                        {t('Add new admin')}
+                    </ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
                         
                             <FormControl isInvalid={!!formik.errors.email}>
-                                <FormLabel>Email</FormLabel>
+                                <FormLabel>
+                                    {t('Email')}
+                                </FormLabel>
                                 <Input
                                 name="email"
                                 type="email"
@@ -215,15 +219,15 @@ export const AdminInvitations: React.FC = withOrganizationProtection(() => {
 
                     <ModalFooter>
                         <Button colorScheme='blue' mr={3} onClick={onCloseModal}>
-                        Close
+                            {t('Close')}
                         </Button>
-                        <Button variant='ghost' type="submit">Add</Button>
+                        <Button variant='ghost' type="submit">
+                            {t('Add')}
+                        </Button>
                     </ModalFooter>
                     </ModalContent>
                 </form>
             </Modal>
-
         </>
-
     );
 });

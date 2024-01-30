@@ -19,7 +19,7 @@ import { useTranslation } from "react-i18next";
   
 
 const CourseInformation = () => {
-    const { t } = useTranslation('');
+    const { t } = useTranslation('Course');
     const { adminCourseDetail, token, getAdminCoursesAsync } = useAppContext();
     const { isOpen: isOpenModal, onOpen: onOpenModal, onClose: onCloseModal } = useDisclosure();
 

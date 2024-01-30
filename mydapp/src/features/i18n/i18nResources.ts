@@ -12,6 +12,13 @@ import Menu_ES_ES from './translations/es-ES/Menu.json';
 import PageHome_ES_ES from './translations/es-ES/PageHome.json';
 import PageNotFound_ES_ES from './translations/es-ES/PageNotFound.json';
 import PageUser_ES_ES from './translations/es-ES/PageUser.json';
+import Course_ES_ES from './translations/es-ES/Course.json';
+import UserProfile_ES_ES from './translations/es-ES/UserProfile.json';
+import Invitations_ES_ES from './translations/es-ES/Invitations.json';
+import Tokens_ES_ES from './translations/es-ES/Tokens.json';
+import Login_ES_ES from './translations/es-ES/Login.json';
+import ForgotPassword_ES_ES from './translations/es-ES/ForgotPassword.json';
+
 
 export const resources = {
   'en-US': {
@@ -40,6 +47,12 @@ export const resources = {
     PageHome: PageHome_ES_ES,
     PageNotFound: PageNotFound_ES_ES,
     PageUser: PageUser_ES_ES,
+    Course: Course_ES_ES,
+    UserProfile: UserProfile_ES_ES,
+    Invitations: Invitations_ES_ES,
+    Tokens: Tokens_ES_ES,
+    Login: Login_ES_ES,
+    ForgotPassword: ForgotPassword_ES_ES,
   },
   es: {
     Components: Components_ES_ES,
@@ -49,5 +62,11 @@ export const resources = {
     PageHome: PageHome_ES_ES,
     PageNotFound: PageNotFound_ES_ES,
     PageUser: PageUser_ES_ES,
+    Course: Course_ES_ES,
+    UserProfile: UserProfile_ES_ES,
+    Invitations: Invitations_ES_ES,
+    Tokens: Tokens_ES_ES,
+    Login: Login_ES_ES,
+    ForgotPassword: ForgotPassword_ES_ES,
   },
 };

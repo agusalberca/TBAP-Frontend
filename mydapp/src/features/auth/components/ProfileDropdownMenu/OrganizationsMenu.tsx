@@ -32,7 +32,7 @@ import { useMutation, useQuery } from 'react-query';
 import { API_URL } from '../../../../constants';
 
 export const OrganizationsMenu: React.FC = () => {
-  const { t } = useTranslation('');
+  const { t } = useTranslation('OrganizationsMenu');
   const { token, adminOrganizations, userOrganizations, selectedOrganization, setSelectedOrganization } = useContext(AppContext)
 
   const { isOpen: isOpenModal, onOpen: onOpenModal, onClose: onCloseModal } = useDisclosure();
@@ -175,7 +175,7 @@ export const OrganizationsMenu: React.FC = () => {
                       borderRadius="md"
                       mb={4}
                     >
-                      <Text>{t(info.organization.name)} - {t(info.organization.organization_name)}</Text>
+                      <Text>{info.organization.name} - {info.organization.organization_name}</Text>
                       <Button
                         colorScheme="teal"
                         mr={2}
@@ -210,12 +210,10 @@ export const OrganizationsMenu: React.FC = () => {
                       border="1px"
                       borderColor="gray.200"
                       borderRadius="md"
-                      mb={
-
-4}
+                      mb={4}
                     >
-                      <Text>{t(info.course.name)} - {t(info.course.organization_name)}</Text>
-                      <Text>{t(info.course.description)}</Text>
+                      <Text>{info.course.name} - {info.course.organization_name}</Text>
+                      <Text>{info.course.description}</Text>
                       <Button
                         colorScheme="teal"
                         mr={2}

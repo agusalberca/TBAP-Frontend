@@ -10,11 +10,14 @@ import {
 } from '../../api/auth'
 import AuthCard from '../../components/AuthCard'
 import Input from '../../components/Input'
-// import SolarusBanner from '../../components/SolarusBanner'
 import { CSSTransition, SwitchTransition } from 'react-transition-group'
 import LoadingDots from '../../components/LoadingDots'
+import { useTranslation } from 'react-i18next'
+import { Text } from '@chakra-ui/react'
+
 
 const ForgotPassword = () => {
+  const { t } = useTranslation('ForgotPassword')
   const navigate = useNavigate()
   const [step, setStep] = useState(0)
   const [serverError, setServerError] = useState(false)
@@ -28,8 +31,8 @@ const ForgotPassword = () => {
     validateOnChange: false,
     validationSchema: Yup.object({
       email: Yup.string()
-        .required('E-mail is required.')
-        .max(60, 'Maximum characters: 60.'),
+        .required(t('E-mail is required.'))
+        .max(60, t('Maximum characters: 60.')),
     }),
     onSubmit: async ({ email }) => {
       if (email.includes(' ')) {
@@ -39,7 +42,7 @@ const ForgotPassword = () => {
       const response = await passwordRecovery({ email })
 
       if (response.e === 'No User matches the given query.')
-        formik1.setFieldError('email', 'E-mail not found.')
+        formik1.setFieldError('email', t('E-mail not found.'))
       else if (response.error) setServerError(true)
       else if (response.message === 'Email sent') setStep((prev) => prev + 1)
     },
@@ -52,8 +55,8 @@ const ForgotPassword = () => {
     validateOnChange: false,
     validationSchema: Yup.object({
       token: Yup.string()
-        .required('Token is required.')
-        .max(60, 'Maximum characters: 60.'),
+        .required(t('Token is required.'))
+        .max(60, t('Maximum characters: 60.')),
     }),
     onSubmit: async ({ token }) => {
       const response = await checkPasswordRecoveryToken({
@@ -62,9 +65,9 @@ const ForgotPassword = () => {
       })
 
       if (response.e === 'No User matches the given query.')
-        formik2.setFieldError('token', 'Code is invalid')
+        formik2.setFieldError('token', t('Code is invalid'))
       else if (response.error === 'Token is invalid')
-        formik2.setFieldError('token', 'Code is invalid')
+        formik2.setFieldError('token', t('Code is invalid'))
       else if (response.error) setServerError2(true)
       else if (response.message === 'Token is valid')
         setStep((prev) => prev + 1)
@@ -79,13 +82,13 @@ const ForgotPassword = () => {
     validateOnChange: false,
     validationSchema: Yup.object({
       password: Yup.string()
-        .required('Required')
-        .min(8, 'Password must be at least 8 characters')
-        .max(40, 'Maximum characters: 40'),
+        .required(t('Required'))
+        .min(8, t('Password must be at least 8 characters'))
+        .max(40, t('Maximum characters: 40')),
       passwordConfirm: Yup.string()
-        .required('Required')
-        .min(8, 'Password must be at least 8 characters')
-        .max(40, 'Maximum characters: 40'),
+        .required(t('Required'))
+        .min(8, t('Password must be at least 8 characters'))
+        .max(40, t('Maximum characters: 40')),
     }),
     onSubmit: async ({ password, passwordConfirm }) => {
       if (error === 'Code expired') {
@@ -99,8 +102,8 @@ const ForgotPassword = () => {
         return
       }
       if (password !== passwordConfirm) {
-        formik3.setFieldError('password', 'passwords don\'t matchn')
-        formik3.setFieldError('passwordConfirm', 'passwords don\'t matchn')
+        formik3.setFieldError('password', t('passwords don\'t matchn'))
+        formik3.setFieldError('passwordConfirm', t('passwords don\'t matchn'))
         return null
       }
 
@@ -124,8 +127,7 @@ const ForgotPassword = () => {
           )
         )
           formik3.setErrors({
-            password: 'This password is very insecure',
-            passwordConfirm: 'This password is very insecure',
+            password: 'This password is very insecure'
           })
         else if (
           response.error.includes(
@@ -138,12 +140,10 @@ const ForgotPassword = () => {
         )
           formik3.setErrors({
             password:
-              'Your password must contain a number, a symbol, and a capital letter',
-            passwordConfirm:
-              'Your password must contain a number, a symbol, and a capital letter',
+              t('Your password must contain a number, a symbol, and a capital letter')
           })
         else if (response.error === 'Token expired') {
-          setError('Code expired')
+          setError(t('Code expired'))
         } else setError('Something went wrong')
       } else if (response) setStep((prev) => prev + 1)
     },
@@ -151,27 +151,29 @@ const ForgotPassword = () => {
 
   return (
     <>
+      <br></br>
       <Helmet>
-        <title>Solarus: Forgot Password</title>
+        <title>{t('Forgot Password')}</title>
       </Helmet>
 
       <SwitchTransition>
         <CSSTransition key={step} timeout={300}>
           <section className="Auth__Content d-flex flex-column justify-content-center align-items-center gap-5">
-            <h1 className="text-1 fw-medium">Reset your password</h1>
+            <h1 className="text-1 fw-medium">
+              {t('Reset your password')}
+            </h1>
             {step === 0 && (
               <AuthCard
                 currentStep={1}
                 totalSteps={3}
                 onSubmit={formik1.handleSubmit}
               >
-                <p className="text-4 fw-medium">
-                  Input your email & we will send you a code to reset your
-                  password.
-                </p>
+                <Text className="text-4 fw-medium">
+                  {t('Input your email & we will send you a code to reset your password.')}
+                </Text>
 
                 <Input
-                  label="Email"
+                  label={t("Email")}
                   name="email"
                   type="email"
                   value={formik1.values.email}
@@ -181,7 +183,9 @@ const ForgotPassword = () => {
                 />
 
                 {serverError ? (
-                  <p className="text-red">Something went wrong</p>
+                  <Text className="text-red">
+                    {t('Something went wrong')}
+                  </Text>
                 ) : (
                   <></>
                 )}
@@ -193,11 +197,15 @@ const ForgotPassword = () => {
                 >
                   {formik1.isSubmitting ? (
                     <>
-                      <span>Sending</span>
+                      <span>
+                        {t('Sending')}
+                      </span>
                       <LoadingDots className="enter-done" />
                     </>
                   ) : (
-                    <span>Continue</span>
+                    <span>
+                      {t('Continue')}
+                    </span>
                   )}
                 </button>
               </AuthCard>
@@ -208,12 +216,12 @@ const ForgotPassword = () => {
                 totalSteps={3}
                 onSubmit={formik2.handleSubmit}
               >
-                <p className="text-4 fw-medium">
-                  Please input the code we sent you to your email.
-                </p>
+                <Text className="text-4 fw-medium">
+                  {t('Please input the code we sent you to your email.')}
+                </Text>
 
                 <Input
-                  label="Code"
+                  label={t("Code")}
                   type="password"
                   name="token"
                   placeholder="******"
@@ -223,7 +231,9 @@ const ForgotPassword = () => {
                 />
 
                 {serverError2 ? (
-                  <p className="text-red">Something went wrong</p>
+                  <Text className="text-red">
+                    {t('Something went wrong')}
+                  </Text>
                 ) : (
                   <></>
                 )}
@@ -235,11 +245,15 @@ const ForgotPassword = () => {
                 >
                   {formik2.isSubmitting ? (
                     <>
-                      <span>Loading</span>
+                      <span>
+                        {t('Loading')}
+                      </span>
                       <LoadingDots className="enter-done" />
                     </>
                   ) : (
-                    <span>Continue</span>
+                    <span>
+                      {t('Continue')}
+                    </span>
                   )}
                 </button>
               </AuthCard>
@@ -250,21 +264,23 @@ const ForgotPassword = () => {
                 totalSteps={3}
                 onSubmit={formik3.handleSubmit}
               >
-                <p className="text-4 fw-medium">Input your new password.</p>
+                <Text className="text-4 fw-medium">
+                  {t('Input your new password.')}
+                </Text>
 
                 <Input
-                  label="New password"
+                  label={t("New password")}
                   type="password"
                   name="password"
                   placeholder="******"
                   value={formik3.values.password}
                   onChange={formik3.handleChange}
                   error={formik3.errors.password}
-                  tip="Your password must contain a number, a symbol, and a capital letter"
+                  tip={t("Your password must contain a number, a symbol, and a capital letter")}
                 />
 
                 <Input
-                  label="Confirm new password"
+                  label={t("Confirm new password")}
                   type="password"
                   name="passwordConfirm"
                   placeholder="******"
@@ -273,7 +289,7 @@ const ForgotPassword = () => {
                   error={formik3.errors.passwordConfirm}
                 />
 
-                {error ? <p className="text-red">{error}</p> : <></>}
+                {error ? <Text className="text-red">{error}</Text> : <></>}
 
                 <button
                   className="button-blue gap-0 text-4 mt-3"
@@ -282,12 +298,14 @@ const ForgotPassword = () => {
                 >
                   {formik2.isSubmitting ? (
                     <>
-                      <span>loading</span>
+                      <span>
+                        {t('Loading')}
+                      </span>
                       <LoadingDots className="enter-done" />
                     </>
                   ) : (
                     <span>
-                      {error === 'Code expired' ? 'Resend code' : 'Continue'}
+                      {error === 'Code expired' ? t('Resend code') : t('Continue')}
                     </span>
                   )}
                 </button>
@@ -300,16 +318,19 @@ const ForgotPassword = () => {
                   navigate('/login')
                 }}
               >
-                <p className="text-4 fw-medium">Password changed!</p>
+                <Text className="text-4 fw-medium">
+                  {t('Password changed!')}
+                </Text>
 
                 <button className="button-blue text-4 mt-3" type="submit">
-                  Go back to login
+                  {t('Go back to login')}
                 </button>
               </AuthCard>
             )}
           </section>
         </CSSTransition>
       </SwitchTransition>
+      <br></br>
     </>
   )
 }

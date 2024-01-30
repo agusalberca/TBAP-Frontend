@@ -17,7 +17,8 @@ import {
     Input,
     FormControl,
     FormLabel,
-    FormErrorMessage
+    FormErrorMessage,
+    Text
 } from '@chakra-ui/react' 
 
 import {
@@ -146,7 +147,7 @@ export const OrganizationInvitations: React.FC = withOrganizationProtection(() =
                                         ))
                                     ) : (
                                         <Tr>
-                                            <Td colSpan={4} textAlign="center">No invitations yet.</Td>
+                                            <Text textAlign="center">No invitations yet.</Text>
                                         </Tr>
                                     )}
                                 </Tbody>

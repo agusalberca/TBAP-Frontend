@@ -15,6 +15,7 @@ import {
 import imageESFlag from '../../assets/images/flags/es.webp';
 import imageUsFlag from '../../assets/images/flags/us.webp';
 import { LangCode, SupportedLang } from '../../types';
+import { useTranslation } from 'react-i18next';
 
 const imagesFlag: Record<LangCode, string> = {
   [LangCode.ES_ES]: imageESFlag,
@@ -36,12 +37,13 @@ export const LangModal: React.FC<LangModalProps> = ({
   defaultValue,
   supportedLanguages,
 }) => {
+  const { t } = useTranslation('Menu');
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>
-          Language Selection
+        {t('Language selection')}
           <Divider mt={1} />
         </ModalHeader>
         <ModalCloseButton />

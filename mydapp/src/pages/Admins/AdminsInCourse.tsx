@@ -18,7 +18,8 @@ import {
     FormLabel,
     FormErrorMessage,
     Divider,
-    Select
+    Select,
+    Text
 } from '@chakra-ui/react' 
 
 import {
@@ -31,7 +32,6 @@ import {
     ModalCloseButton,
   } from '@chakra-ui/react'
 
-import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useFormik } from 'formik';
@@ -44,7 +44,7 @@ import { addNewAdminToCourse, getAdminOfOrganizationApi } from '../../api/organi
 import { AdminInCourse } from '../../api/apiTypes';
 
 export const AdminsInCourse: React.FC = withAdminProtection(() => {
-    const { t } = useTranslation('PageUser');
+    const { t } = useTranslation('Course');
     const { token, adminCourseDetail, selectedOrganization } = useAppContext()
     const admins_in_course = adminCourseDetail.admins_in_course;
     
@@ -97,11 +97,11 @@ export const AdminsInCourse: React.FC = withAdminProtection(() => {
         
         <Container maxW="7xl" py={2} as={Stack} spacing={2}>
             <Heading as="h1" size="xl" textAlign="center">
-                Admins in course
+                {t('Admins in course')}
             </Heading>
             <Box>
                 <Button onClick={onOpenModal} colorScheme="blue">
-                    Add new admin
+                    {t('Add new admin')}
                 </Button>
             </Box>
             <Divider /> {/* Barra divisora */}
@@ -111,9 +111,9 @@ export const AdminsInCourse: React.FC = withAdminProtection(() => {
                         <Table variant='simple'>
                             <Thead>
                                 <Tr>
-                                    <Th>Email</Th>
-                                    <Th>Name</Th>
-                                    {/* <Th></Th> */}
+                                    {/* <Th>Email</Th> */}
+                                    <Th>{t('Email')}</Th>
+                                    <Th>{t('Name')}</Th>
                                 </Tr>
                             </Thead>
                             <Tbody>
@@ -142,13 +142,13 @@ export const AdminsInCourse: React.FC = withAdminProtection(() => {
                 <form onSubmit={formik.handleSubmit}>
                     <ModalOverlay />
                     <ModalContent>
-                    <ModalHeader>Add new admin</ModalHeader>
+                    <ModalHeader>{t('Add new admin')}</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
-                            <p>Choose an admin to add to the course {adminCourseDetail.name}</p>
+\                            <Text>{t('Choose an admin to add to the course')} {adminCourseDetail.name}</Text>
                             <br/>
                             <FormControl isInvalid={!!formik.errors.admin_id}>
-                                <FormLabel>Admin</FormLabel>
+                                <FormLabel>{t('Admin')}</FormLabel>
                                 <Select onChange={(e) => formik.setFieldValue('admin_id', e.target.value)}>
                                     {admin_in_organization && admin_in_organization.map((data, index) => (
                                         <option key={index} value={data.id}>{data.user.first_name + " " + data.user.last_name}</option>
@@ -161,9 +161,11 @@ export const AdminsInCourse: React.FC = withAdminProtection(() => {
 
                     <ModalFooter>
                         <Button variant='ghost' mr={3} onClick={onCloseModal}>
-                        Close
+                            {t('Cancel')}
                         </Button>
-                        <Button colorScheme='blue' type="submit">Add</Button>
+                        <Button colorScheme='blue' type="submit">
+                            {t('Add')}
+                        </Button>
                     </ModalFooter>
                     </ModalContent>
                 </form>

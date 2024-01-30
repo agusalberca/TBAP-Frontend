@@ -24,7 +24,7 @@ import { useTranslation } from 'react-i18next';
 const { REACT_APP_URL_BACK } = process.env;
 
 export const TokenBox: React.FC<UserToken> = (token_data) => {
-    const { t } = useTranslation('');
+    const { t } = useTranslation('Tokens');
     const navigate = useNavigate();
 
     const { token, setTokenDetailId } = useAppContext();
@@ -96,7 +96,7 @@ export const TokenBox: React.FC<UserToken> = (token_data) => {
                             colorScheme='gray'
                             onClick={goToDetail}
                             >
-                            {t('Token detail')}
+                            {t('Token details')}
                         </Button>
                     )}
                     </Center>
