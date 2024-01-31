@@ -18,7 +18,7 @@ import Invitations_ES_ES from './translations/es-ES/Invitations.json';
 import Tokens_ES_ES from './translations/es-ES/Tokens.json';
 import Login_ES_ES from './translations/es-ES/Login.json';
 import ForgotPassword_ES_ES from './translations/es-ES/ForgotPassword.json';
-
+import OrganizationsMenu_ES_ES from './translations/es-ES/OrganizationsMenu.json';
 
 export const resources = {
   'en-US': {
@@ -53,6 +53,7 @@ export const resources = {
     Tokens: Tokens_ES_ES,
     Login: Login_ES_ES,
     ForgotPassword: ForgotPassword_ES_ES,
+    OrganizationsMenu: OrganizationsMenu_ES_ES,
   },
   es: {
     Components: Components_ES_ES,
@@ -68,5 +69,6 @@ export const resources = {
     Tokens: Tokens_ES_ES,
     Login: Login_ES_ES,
     ForgotPassword: ForgotPassword_ES_ES,
+    OrganizationsMenu: OrganizationsMenu_ES_ES,
   },
 };

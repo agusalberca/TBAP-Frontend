@@ -340,11 +340,15 @@ export const UsersInCourse: React.FC = withAdminProtection(() => {
                             <>
                                 {responseMassiveEmails.Accepted.amount > 0 && (
                                     <div>
-                                        <h3><FontAwesomeIcon icon={faCheckCircle} color='green'/> 
-                                            {t('Users invitation sent successfully')} ({responseMassiveEmails.Accepted.amount})
-                                        </h3>
+                                        <div style={{display: 'flex', alignItems: 'center', fontSize:"1.7rem"}}>
+                                            <FontAwesomeIcon icon={faCheckCircle} color='green'/>
+                                            <Text marginLeft={1} fontWeight={500}>
+                                                {t('Success')}
+                                            </Text>
+                                        </div>
+
                                         {responseMassiveEmails.Accepted.emails.map((info, index) => (
-                                            <p key={index}>{info}</p>
+                                            <Text key={index} marginLeft={2}>{info}</Text>
                                         ))}
                                     </div>
                                 )}
@@ -352,25 +356,30 @@ export const UsersInCourse: React.FC = withAdminProtection(() => {
                                     <>
                                         {responseMassiveEmails.Denied.emails.already_sended_errors.length > 0 && (
                                             <>
-                                                <h3><FontAwesomeIcon icon={faTimesCircle} color='red'/>
-                                                    {t('Errors')} ({responseMassiveEmails.Denied.amount})
-                                                </h3>
+                                                <div style={{display: 'flex', alignItems: 'center', fontSize:"1.7rem"}}>
+                                                    <FontAwesomeIcon icon={faTimesCircle} color='red'/>
+                                                    <Text marginLeft={1} fontWeight={500}>
+                                                        {t('Errors')} ({responseMassiveEmails.Denied.amount})
+                                                    </Text>
+                                                </div>
+                                                <br/>
                                                 <div>
                                                     <h5>{t('Already Sent Errors')}:</h5>
                                                     {responseMassiveEmails.Denied.emails.already_sended_errors.map((info, index) => (
-                                                        <p key={index}>{info}</p>
+                                                        <Text key={index} marginLeft={2}>{info}</Text>
                                                     ))}
                                                 </div>
                                             </>
                                         )}
+                                        <br/>
                                         {responseMassiveEmails.Denied.emails.is_already_in_errors.length > 0 && (
                                             <>
-                                            <div>
-                                            <h5>{t('Is Already In Errors')}:</h5>
-                                            {responseMassiveEmails.Denied.emails.is_already_in_errors.map((info, index) => (
-                                                <p key={index}>{info}</p>
-                                            ))}
-                                        </div>
+                                                <div>
+                                                    <h5>{t('Is Already In Errors')}:</h5>
+                                                    {responseMassiveEmails.Denied.emails.is_already_in_errors.map((info, index) => (
+                                                        <Text key={index} marginLeft={2}>{info}</Text>
+                                                    ))}
+                                                </div>
                                             </>
                                         )}
                                     </>

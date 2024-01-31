@@ -37,7 +37,7 @@ import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
-import { useQuery, useMutation, useQueryClient } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 import useAppContext from '../../hooks/useAppContext';
 import { withAdminProtection } from '../../features/auth/hocs/withAdminProtection';
 import { addNewAdminToCourse, getAdminOfOrganizationApi } from '../../api/organizations';
@@ -145,7 +145,7 @@ export const AdminsInCourse: React.FC = withAdminProtection(() => {
                     <ModalHeader>{t('Add new admin')}</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
-\                            <Text>{t('Choose an admin to add to the course')} {adminCourseDetail.name}</Text>
+                            <Text>{t('Choose an admin to add to the course')} {adminCourseDetail.name}</Text>
                             <br/>
                             <FormControl isInvalid={!!formik.errors.admin_id}>
                                 <FormLabel>{t('Admin')}</FormLabel>

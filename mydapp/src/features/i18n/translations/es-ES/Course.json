@@ -11,11 +11,11 @@
     "Delete": "Borrar",
     "Close": "Cerrar",
     "Are you sure you want to delete this course?": "¿Está seguro de que desea borrar este curso?",
-    "No Courses": "Sin courses",
+    "No Courses": "Sin cursos",
     "Add new course": "Añadir nuevo curso",
     "Add new admin": "Añadir nuevo administrador",
     "Email": "Correo electrónico",
-    "Created at": "Creacion",
+    "Created at": "Creación",
     "Status": "Estado",
     "Name": "Nombre",
     "Admin": "Administrador",
@@ -35,5 +35,6 @@
     "Users invitation sent successfully": "Invitaciones de usuarios enviadas correctamente",
     "Errors": "Errores",
     "Already Sent Errors": "Error de 'ya enviados'",
-    "Is Already In Errors": "Error de 'ya está en el curso'"
+    "Is Already In Errors": "Error de 'ya está en el curso'",
+    "Choose an admin to add to the course": "Elija un administrador para añadir al curso"
 }

@@ -63,5 +63,7 @@
   "Address copied.": "Dirección copiada",
   "The address of your account has been copied to the clipboard.": "La dirección de tu cuenta ha sido copiada al portapapeles.",
   "401 Unauthorized": "401 No autorizado",
-  "You need to connect your wallet to see this page.": "Debes conectar tu monedero para ver esta página."
+  "You need to connect your wallet to see this page.": "Debes conectar tu monedero para ver esta página.",
+  "Register": "Registrarse",
+  "Login": "Iniciar sesión"
 }

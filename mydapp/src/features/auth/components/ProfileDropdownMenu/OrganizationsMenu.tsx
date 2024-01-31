@@ -33,7 +33,7 @@ import { API_URL } from '../../../../constants';
 
 export const OrganizationsMenu: React.FC = () => {
   const { t } = useTranslation('OrganizationsMenu');
-  const { token, adminOrganizations, userOrganizations, selectedOrganization, setSelectedOrganization } = useContext(AppContext)
+  const { token, adminOrganizations, selectedOrganization, setSelectedOrganization } = useContext(AppContext)
 
   const { isOpen: isOpenModal, onOpen: onOpenModal, onClose: onCloseModal } = useDisclosure();
 

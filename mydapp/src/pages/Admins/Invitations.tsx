@@ -112,7 +112,7 @@ export const AdminInvitations: React.FC = withOrganizationProtection(() => {
             </Heading>
             <Box>
                 <Button onClick={onOpenModal} colorScheme="blue">
-                    {t('Sent new invitation')}
+                    {t('Send new invitation')}
                 </Button>
             </Box>
             <Divider /> {/* Barra divisora */}

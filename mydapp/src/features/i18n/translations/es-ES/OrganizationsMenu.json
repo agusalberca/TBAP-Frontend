@@ -8,5 +8,17 @@
     "Accept": "Aceptar",
     "Decline": "Rechazar",
     "Invitations as User": "Invitaciones como Usuario",
-    "Close": "Cerrar"
+    "Close": "Cerrar",
+    "Send new invitation": "Enviar nueva invitación",
+    "Email": "Correo Electrónico",
+    "Sent": "Enviado",
+    "State": "Estado",
+    "Delete invitation": "Eliminar invitación",
+    "Cancel": "Cancelar",
+    "Delete": "Eliminar",
+    "Add new admin": "Agregar nuevo administrador",
+    "Add": "Agregar",
+    "Pending": "Pendiente",
+    "Accepted": "Aceptado",
+    "someone@gmail.com": "alguien@gmail.com"
 }
