@@ -24,7 +24,7 @@ const Login = () => {
 
   useEffect(() => {
     if (token) {
-      navigate('');
+      navigate('/');
     }
   }, [token]);
 
@@ -39,7 +39,7 @@ const Login = () => {
       password: Yup.string().required(t('Required')),
     }),
     onSubmit: async values => {
-      const response = await login(values)
+      const response = await login(values);
 
       if (response.non_field_errors)
         formik.setErrors({
@@ -58,28 +58,48 @@ const Login = () => {
     },
   });
 
+  const handleSSOLogin = () => {
+    window.open(
+      'https://localhost:8001/o/authorize?response_type=code&client_id=J0hf7AN6QysUWsB4riT59VZNaqc4yQoCquHRv2J3&redirect_uri=https://localhost:3000/recept-sso',
+      '_blank'
+    );
+  };
+
   return (
     <>
       <Helmet>
         <title>{t('TBAP: Login')}</title>
       </Helmet>
-      <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '75vh'}}>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '75vh',
+        }}
+      >
         <section className="d-flex flex-row gap-5">
-          <Card style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+          <Card
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
             <div style={{ margin: '2rem' }} className="d-flex flex-row gap-5">
               <div className="d-flex flex-column gap-3">
                 <AuthCard onSubmit={formik.handleSubmit}>
-                  <div className='innerAuthCard'>
+                  <div className="innerAuthCard">
                     <h1 className="text-1 fw-medium mb-2 ">{t('Login')}</h1>
 
                     <h5 className="text-5 m-1">
-                      {t('If you are logging in for the first time, enter your email and the password provided by us.')}
+                      {t(
+                        'If you are logging in for the first time, enter your email and the password provided by us.'
+                      )}
                     </h5>
 
                     <FormControl isInvalid={!!formik.errors.email}>
-                      <FormLabel>
-                        {t('Email')}
-                      </FormLabel>
+                      <FormLabel>{t('Email')}</FormLabel>
                       <Input
                         name="email"
                         type="email"
@@ -92,9 +112,7 @@ const Login = () => {
                     </FormControl>
 
                     <FormControl isInvalid={!!formik.errors.password}>
-                      <FormLabel>
-                        {t('Password')}
-                      </FormLabel>
+                      <FormLabel>{t('Password')}</FormLabel>
                       <Input
                         type="password"
                         name="password"
@@ -103,7 +121,9 @@ const Login = () => {
                         onChange={formik.handleChange}
                         autoComplete="current-password"
                       />
-                      <FormErrorMessage>{formik.errors.password}</FormErrorMessage>
+                      <FormErrorMessage>
+                        {formik.errors.password}
+                      </FormErrorMessage>
                     </FormControl>
                     <div style={{ display: 'flex', flexDirection: 'column' }}>
                       <button
@@ -113,15 +133,11 @@ const Login = () => {
                       >
                         {formik.isSubmitting ? (
                           <>
-                            <span>
-                              {t('Loading')}
-                            </span>
+                            <span>{t('Loading')}</span>
                             <LoadingDots className="enter-done" />
                           </>
                         ) : (
-                          <span>
-                            {t('Login')}
-                          </span>
+                          <span>{t('Login')}</span>
                         )}
                       </button>
 
@@ -132,29 +148,39 @@ const Login = () => {
                         </Link>
                       </span>
                     </div>
-
-                    
                   </div>
-                  
                 </AuthCard>
               </div>
 
-              <div style={{ borderLeft: '1px solid #ccc', height: '95%' }}></div>
-              
+              <div
+                style={{ borderLeft: '1px solid #ccc', height: '95%' }}
+              ></div>
+
               <div className="d-flex flex-column gap-3">
-                <AuthCard onSubmit={formik.handleSubmit}>
-                  <div style={{height:"400px"}} >
+                <AuthCard>
+                  <div style={{ height: '400px' }}>
                     <div className="border-right border-dark p-3 d-flex flex-column justify-content-center">
-                      <h1 className="text-1 fw-medium mb-2 ">{t('SSO Options')}</h1>
-                      <h5 className="text-5" style={{ margin:"10% 0 10% 0" }}>
-                        {t('You can also log in using your SSO credentials, if you have them.')}
+                      <h1 className="text-1 fw-medium mb-2 ">
+                        {t('SSO Options')}
+                      </h1>
+                      <h5 className="text-5" style={{ margin: '10% 0 10% 0' }}>
+                        {t(
+                          'You can also log in using your SSO credentials, if you have them.'
+                        )}
                       </h5>
-                      <Select className="mb-3" style={{ margin:"10% 0 10% 0" }}>
+                      <Select
+                        className="mb-3"
+                        style={{ margin: '10% 0 10% 0' }}
+                      >
                         <option value="sso1">SSO Option 1</option>
                         <option value="sso2">SSO Option 2</option>
                         <option value="sso3">SSO Option 3</option>
                       </Select>
-                      <button className="button-blue" style={{ margin:"14% 0 0 0" }}> 
+                      <button
+                        className="button-blue"
+                        style={{ margin: '14% 0 0 0' }}
+                        onClick={handleSSOLogin}
+                      >
                         {t('Log in with SSO')}
                       </button>
                     </div>
@@ -162,14 +188,11 @@ const Login = () => {
                 </AuthCard>
               </div>
             </div>
-
           </Card>
-        
         </section>
       </div>
-      
     </>
   );
-}
+};
 
 export default Login;

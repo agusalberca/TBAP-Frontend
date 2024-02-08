@@ -14,5 +14,5 @@ COPY . .
 # Expón el puerto 3000 (el puerto predeterminado para React)
 EXPOSE 3000
 
-# Comando para iniciar la aplicación con react-scripts
-CMD ["npm", "start"]
+# Comando para iniciar la aplicación con HTTPS
+CMD ["sh", "-c", "HTTPS=true SSL_CRT_FILE=cert.pem SSL_KEY_FILE=key.pem npm start"]

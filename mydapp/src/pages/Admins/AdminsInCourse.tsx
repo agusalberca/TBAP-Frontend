@@ -128,10 +128,7 @@ export const AdminsInCourse: React.FC = withAdminProtection(() => {
                     </TableContainer>
                 </Center>
             </Box>
-            <Divider /> {/* Barra divisora */}
-            <Box>
-                {/* Segunda tabla y botón */}
-            </Box>
+            {/* <Divider /> Barra divisora */}
         </Container>
 
 

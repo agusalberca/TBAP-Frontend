@@ -1,20 +1,16 @@
-import { Card, CardBody, CardFooter, Stack, Heading, Divider, Button, Image, Text, Center } from '@chakra-ui/react'
+import { Card, CardBody, Stack, Heading, Divider, Button} from '@chakra-ui/react'
 import React from 'react';
-import { AdminCourse, UserCourse } from '../../../api/apiTypes';
-import { format } from 'date-fns';
-import { es } from 'date-fns/locale'; // Para el idioma en español
-import { Link, useNavigate } from 'react-router-dom';
+import {UserCourse } from '../../../api/apiTypes';
+import { useNavigate } from 'react-router-dom';
 import useAppContext from '../../../hooks/useAppContext';
 import { useTranslation } from 'react-i18next';
-
-const { REACT_APP_URL_BACK } = process.env;
 
 
 
 export const UserCourseBox: React.FC<UserCourse> = (props) => {
     const { t } = useTranslation('Course');
 
-    const { userCourseDetail, setUserCourseDetail } = useAppContext();
+    const { setUserCourseDetail } = useAppContext();
     const navigate = useNavigate()
 
     const handleVerCurso = (props) => {

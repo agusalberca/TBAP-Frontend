@@ -15,14 +15,12 @@ import {
 import { IoIosLogOut } from '@react-icons/all-files/io/IoIosLogOut';
 import { CgProfile } from "@react-icons/all-files/cg/CgProfile";
 import { BiMedal } from "@react-icons/all-files/bi/BiMedal";
-import { VscOrganization } from "@react-icons/all-files/vsc/VscOrganization";
 
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { logout } from '../../../../api/auth';
 import { AppContext } from '../../../../context/AppContext';
-import { disconnectWallet } from '../../../wallet/models/account/actions';
 import { useActions } from '../../../wallet/hooks/useActions';
 
 import UserProfileComponent from '../../../../pages/User/components/UserProfileComponent';

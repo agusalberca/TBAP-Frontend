@@ -8,6 +8,7 @@ import { useWalletAuthentication } from '../features/wallet/hooks/useWalletAuthe
 import { MenuType, PageType } from './types';
 
 import Login from '../pages/auth/Login';
+import ReceptSSO from '../pages/auth/ReceptSSO';
 import Register from '../pages/auth/Register';
 import ForgotPassword from './auth/ForgotPassword';
 import { UserCoursesPage } from './Courses/UsersCourses';
@@ -24,21 +25,27 @@ const HomePage = React.lazy(() =>
 );
 
 const UserProfilePage = React.lazy(() =>
-  import(/* webpackChunkName: "UserProfilePage" */ './User/UserProfile').then(module => ({
-    default: module.UserProfilePage,
-  }))
+  import(/* webpackChunkName: "UserProfilePage" */ './User/UserProfile').then(
+    module => ({
+      default: module.UserProfilePage,
+    })
+  )
 );
 
 const TokenDetailPage = React.lazy(() =>
-  import(/* webpackChunkName: "UserTokensPage" */ './Tokens/TokenDetail').then(module => ({
-    default: module.TokenDetailPage,
-  }))
+  import(/* webpackChunkName: "UserTokensPage" */ './Tokens/TokenDetail').then(
+    module => ({
+      default: module.TokenDetailPage,
+    })
+  )
 );
 
 const UserTokensPage = React.lazy(() =>
-  import(/* webpackChunkName: "UserTokensPage" */ './User/UserTokens').then(module => ({
-    default: module.UserTokensPage,
-  }))
+  import(/* webpackChunkName: "UserTokensPage" */ './User/UserTokens').then(
+    module => ({
+      default: module.UserTokensPage,
+    })
+  )
 );
 
 const UserPage = React.lazy(() =>
@@ -48,14 +55,12 @@ const UserPage = React.lazy(() =>
 );
 
 const ClaimTokensPage = React.lazy(() =>
-  import(
-    /* webpackChunkName: "ClaimTokensPage" */ './Tokens/ClaimTokens'
-  ).then(module => ({
-    default: module.ClaimTokensPage,
-  }))
+  import(/* webpackChunkName: "ClaimTokensPage" */ './Tokens/ClaimTokens').then(
+    module => ({
+      default: module.ClaimTokensPage,
+    })
+  )
 );
-
-
 
 // ADD YOUR PAGE IMPORTS HERE
 
@@ -64,7 +69,7 @@ export const usePages = () => {
   const isWalletAuthenticated = useWalletAuthentication();
   const isBackendAuthenticated = useBackendAuthentication();
   // const isAuthenticated  = isWalletAuthenticated && isBackendAuthenticated;
-  const isAuthenticated  = isBackendAuthenticated;
+  const isAuthenticated = isBackendAuthenticated;
 
   let { isOrganization, isAdmin, isRegularUser } = useAppContext();
 
@@ -81,7 +86,7 @@ export const usePages = () => {
     isShownInMainMenu: false,
     isShownInSecondaryMenu: false,
     isProtected: false,
-    };
+  };
 
   // User Dashboard Page
   const User: RouteObject = {
@@ -108,7 +113,7 @@ export const usePages = () => {
     isShownInSecondaryMenu: isRegularUser,
     isProtected: true,
   };
-  
+
   // Token Detail Page
   const TokenDetail: PageType = {
     path: 'tokens/detail',
@@ -118,7 +123,7 @@ export const usePages = () => {
     isShownInSecondaryMenu: false,
     isProtected: true,
   };
-  
+
   const UserCourses: PageType = {
     path: 'user-courses',
     element: <UserCoursesPage />,
@@ -164,6 +169,15 @@ export const usePages = () => {
     isProtected: false,
   };
 
+  const ReceptSSOView: PageType = {
+    path: 'recept-sso',
+    element: <ReceptSSO />,
+    menuLabel: t('Recept', { ns: 'Login' }),
+    isShownInMainMenu: false,
+    isShownInSecondaryMenu: false,
+    isProtected: false,
+  };
+
   const ForgotPasswordView: PageType = {
     path: 'forgot-password',
     element: <ForgotPassword />,
@@ -172,7 +186,6 @@ export const usePages = () => {
     isShownInSecondaryMenu: false,
     isProtected: false,
   };
-
 
   // Organizations views
 
@@ -184,7 +197,6 @@ export const usePages = () => {
     isShownInSecondaryMenu: isOrganization,
     isProtected: true,
   };
-
 
   // Admin views
 
@@ -208,21 +220,22 @@ export const usePages = () => {
 
   // do not forget add your page routes into this array
   const Pages: PageType[] = [
-      RegisterView, 
-      LoginView, 
-      ForgotPasswordView,
-      UserProfile, 
-      
-      OrganizationInvitationsPage,
-      
-      // AdminInvitationsPage,
-      CourseDetailPage,
-      UserCourses,
-      AdminCourses, 
-      TokenDetail,
-      UserTokens,
-      ClaimTokens,
-    ];
+    RegisterView,
+    LoginView,
+    ReceptSSOView,
+    ForgotPasswordView,
+    UserProfile,
+
+    OrganizationInvitationsPage,
+
+    // AdminInvitationsPage,
+    CourseDetailPage,
+    UserCourses,
+    AdminCourses,
+    TokenDetail,
+    UserTokens,
+    ClaimTokens,
+  ];
 
   // DO NOT CHANGE THE REST
   const homeMenuItem: MenuType = {
@@ -267,7 +280,6 @@ export const usePages = () => {
     }),
   ];
 
-
   return React.useMemo(() => {
     return {
       Home,
@@ -277,5 +289,12 @@ export const usePages = () => {
       secondaryMenuItems,
       isHashRouter,
     };
-  }, [i18n.resolvedLanguage, isWalletAuthenticated, isBackendAuthenticated, isOrganization, isAdmin, isRegularUser]);
+  }, [
+    i18n.resolvedLanguage,
+    isWalletAuthenticated,
+    isBackendAuthenticated,
+    isOrganization,
+    isAdmin,
+    isRegularUser,
+  ]);
 };
