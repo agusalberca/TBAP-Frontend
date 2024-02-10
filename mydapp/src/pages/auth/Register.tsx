@@ -14,9 +14,11 @@ import {
   Input,
 } from '@chakra-ui/react';
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Button } from "@chakra-ui/react";
+import { useTranslation } from 'react-i18next';
 
 
 const SignUp = () => {
+  const { t } = useTranslation('SignUp');
   const { token } = useAppContext();
   const navigate = useNavigate();
 
@@ -86,20 +88,21 @@ const SignUp = () => {
   return (
     <>
       <Helmet>
-        <title>TBAP: Sign Up</title>
+        {/* <title>TBAP: Sign Up</title> */}
+        <title>{t("TBAP: Sign Up")}</title>
       </Helmet>
 
       <section className="d-flex flex-column justify-content-center align-items-center gap-5">
         <div style={{ margin: '2rem' }}>
           <AuthCard onSubmit={formik.handleSubmit} >
-            <h1 className="text-1 fw-medium mb-2 ">Sign up</h1>
+            <h1 className="text-1 fw-medium mb-2 ">{t("Sign up")}</h1>
 
             <FormControl isInvalid={!!formik.errors.email}>
-              <FormLabel>Email</FormLabel>
+              <FormLabel>{t("Email")}</FormLabel>
               <Input
-                name="email"
+                name={t("email")}
                 type="email"
-                placeholder="someone@email.com"
+                placeholder={t("someone@gmail.com")}
                 value={formik.values.email}
                 onChange={formik.handleChange}
                 autoComplete="email"
@@ -108,7 +111,7 @@ const SignUp = () => {
             </FormControl>
 
             <FormControl isInvalid={!!formik.errors.password}>
-              <FormLabel>Password</FormLabel>
+              <FormLabel>{t("Password")}</FormLabel>
               <Input
                 type="password"
                 name="password"
@@ -121,7 +124,7 @@ const SignUp = () => {
             </FormControl>
 
             <FormControl isInvalid={!!formik.errors.passwordConfirm}>
-              <FormLabel>Password Confirm</FormLabel>
+              <FormLabel>{t("Password Confirm")}</FormLabel>
               <Input
                 type="password"
                 name="passwordConfirm"
@@ -134,7 +137,7 @@ const SignUp = () => {
             </FormControl>
 
             <FormControl isInvalid={!!formik.errors.first_name}>
-              <FormLabel>First Name</FormLabel>
+              <FormLabel>{t("First Name")}</FormLabel>
               <Input
                 name="first_name"
                 type="text"
@@ -146,7 +149,7 @@ const SignUp = () => {
             </FormControl>
 
             <FormControl isInvalid={!!formik.errors.last_name}>
-              <FormLabel>Last Name</FormLabel>
+              <FormLabel>{t("Last Name")}</FormLabel>
               <Input
                 name="last_name"
                 type="text"
@@ -158,9 +161,10 @@ const SignUp = () => {
             </FormControl>
 
             <h5 className="text-5 m-1">
-              Already have an account?{' '}
+              {/* Already have an account?{' '} */}
+              {t("Already have an account?")}{' '}
               <Link className="fw-bold" to="/login">
-                Sign in
+                {t("Sign in")}
               </Link>
             </h5>
 
@@ -171,11 +175,11 @@ const SignUp = () => {
             >
               {formik.isSubmitting ? (
                 <>
-                  <span>Loading</span>
+                  <span>{t("Loading")}</span>
                   <LoadingDots className="enter-done" />
                 </>
               ) : (
-                <span>Sign up</span>
+                <span>{t("Sign up")}</span>
               )}
             </button>
           </AuthCard>
@@ -185,14 +189,14 @@ const SignUp = () => {
       <Modal isOpen={isModalOpen} onClose={closeModal}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Validación de correo electrónico</ModalHeader>
+          <ModalHeader> {t("Email validation")} </ModalHeader> 
           <ModalCloseButton />
           <ModalBody>
-            Se te ha enviado un correo electrónico a {formik.values.email} para validarte.
+            {t("An email has been sent to")} {formik.values.email} {t("to validate your account")}
           </ModalBody>
           <ModalFooter>
             <Button colorScheme="blue" onClick={closeModal}>
-              Cerrar
+              {t("Close")}
             </Button>
           </ModalFooter>
         </ModalContent>

@@ -207,7 +207,7 @@ export const AdminInvitations: React.FC = withOrganizationProtection(() => {
                                 <Input
                                 name="email"
                                 type="email"
-                                placeholder="someone@gmail.com"
+                                placeholder={t("someone@gmail.com")}
                                 value={formik.values.email}
                                 onChange={formik.handleChange}
                                 autoComplete="email"

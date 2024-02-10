@@ -258,7 +258,7 @@ export const UsersInCourse: React.FC = withAdminProtection(() => {
                             <Input
                             name="email"
                             type="email"
-                            placeholder="someone@gmail.com"
+                            placeholder={t("someone@gmail.com")}
                             value={formikSingular.values.email}
                             onChange={formikSingular.handleChange}
                             autoComplete="email"
