@@ -1,5 +1,5 @@
 import { deleteQuery, getQuery, patchQuery, postQuery } from './apiFunctions'
-import { UserToken, UserCourse, AdminCourse, UserInvitation } from './apiTypes'
+import { UserToken, UserCourse, AdminCourse, UserInvitation, TokenGroup } from './apiTypes'
 
 export const getUserCoursesApi = (token: string, params:{"organization_id": number}) => {
     return getQuery<UserCourse[]>({
@@ -21,7 +21,15 @@ export const getAdminCoursesApi = (token: string, params) => {
     })
 }
 
-
+export const getCourseTokenGroups = (token: string, params) => {
+    return getQuery<TokenGroup[]>({
+        path: '/blockchain/token-groups/',
+        token,
+        params,
+        callback: (data: TokenGroup[]) => 
+            data
+    })
+}
 
 export const getInvitationToJoinCourseAsUserApi = (token: string) => {
     return getQuery<UserInvitation[]>({

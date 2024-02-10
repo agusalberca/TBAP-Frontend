@@ -20,8 +20,9 @@ import { useTranslation } from "react-i18next";
 
 const CourseInformation = () => {
     const { t } = useTranslation('Course');
-    const { adminCourseDetail, token, getAdminCoursesAsync } = useAppContext();
+    const { adminCourseDetail, userCourseDetail, token, getAdminCoursesAsync } = useAppContext();
     const { isOpen: isOpenModal, onOpen: onOpenModal, onClose: onCloseModal } = useDisclosure();
+    const courseDetail = adminCourseDetail || userCourseDetail.course;
 
     const { data: canBeDeleted } = useQuery<boolean, Error>('canBeDeleted', async () => {
         const params = { course_id: adminCourseDetail.id };
@@ -31,7 +32,7 @@ const CourseInformation = () => {
     const navigate = useNavigate();
 
     const handleDeleteCourse = () => {
-        deleteCourseApi(token, { course_id: adminCourseDetail.id });
+        deleteCourseApi(token, { course_id: courseDetail.id });
         getAdminCoursesAsync();
         navigate('/admin-courses');
     }
@@ -41,13 +42,13 @@ const CourseInformation = () => {
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "68vh", padding: "20px", maxWidth: "800px", margin: "0 auto" }}>
                 <header>
                     <h1 style={{ textAlign: "center", marginBottom: "20px" }}>
-                        {adminCourseDetail?.name}
+                        {courseDetail?.name}
                     </h1>
                 </header>
 
                 <section>
                     <p style={{ lineHeight: "1.6" }}>
-                        {adminCourseDetail?.description}
+                        {courseDetail?.description}
                     </p>
                 </section>
             </div>
