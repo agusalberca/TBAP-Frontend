@@ -51,7 +51,6 @@ export const ReceptSSO = () => {
       if (accessToken) {
         try {
           const data = await getTokenBySSO({ accessToken: accessToken });
-          console.log('info', data);
           setToken(data.token);
           window.close();
         } catch (error) {
