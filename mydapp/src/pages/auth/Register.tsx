@@ -100,7 +100,7 @@ const SignUp = () => {
             <FormControl isInvalid={!!formik.errors.email}>
               <FormLabel>{t("Email")}</FormLabel>
               <Input
-                name={t("email")}
+                name="email"
                 type="email"
                 placeholder={t("someone@gmail.com")}
                 value={formik.values.email}
