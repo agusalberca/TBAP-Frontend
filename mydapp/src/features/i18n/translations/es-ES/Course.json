@@ -36,5 +36,6 @@
     "Errors": "Errores",
     "Already Sent Errors": "Error de 'ya enviados'",
     "Is Already In Errors": "Error de 'ya está en el curso'",
-    "Choose an admin to add to the course": "Elija un administrador para añadir al curso"
+    "Choose an admin to add to the course": "Elija un administrador para añadir al curso",
+    "someone@gmail.com": "alguien@gmail.com"
 }

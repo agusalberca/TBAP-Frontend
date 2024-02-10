@@ -17,6 +17,7 @@ import UserProfile_ES_ES from './translations/es-ES/UserProfile.json';
 import Invitations_ES_ES from './translations/es-ES/Invitations.json';
 import Tokens_ES_ES from './translations/es-ES/Tokens.json';
 import Login_ES_ES from './translations/es-ES/Login.json';
+import SignUp_ES_ES from './translations/es-ES/SignUp.json';
 import ForgotPassword_ES_ES from './translations/es-ES/ForgotPassword.json';
 import OrganizationsMenu_ES_ES from './translations/es-ES/OrganizationsMenu.json';
 
@@ -52,6 +53,7 @@ export const resources = {
     Invitations: Invitations_ES_ES,
     Tokens: Tokens_ES_ES,
     Login: Login_ES_ES,
+    SignUp: SignUp_ES_ES,
     ForgotPassword: ForgotPassword_ES_ES,
     OrganizationsMenu: OrganizationsMenu_ES_ES,
   },
@@ -68,6 +70,7 @@ export const resources = {
     Invitations: Invitations_ES_ES,
     Tokens: Tokens_ES_ES,
     Login: Login_ES_ES,
+    SignUp: SignUp_ES_ES,
     ForgotPassword: ForgotPassword_ES_ES,
     OrganizationsMenu: OrganizationsMenu_ES_ES,
   },
