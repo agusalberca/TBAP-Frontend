@@ -20,7 +20,7 @@ import { useTranslation } from "react-i18next";
 
 const CourseInformation = () => {
     const { t } = useTranslation('Course');
-    const { adminCourseDetail, userCourseDetail, token, getAdminCoursesAsync } = useAppContext();
+    const { adminCourseDetail, userCourseDetail, token, getAdminCoursesAsync, isAdmin, isOrganization } = useAppContext();
     const { isOpen: isOpenModal, onOpen: onOpenModal, onClose: onCloseModal } = useDisclosure();
     const courseDetail = adminCourseDetail || userCourseDetail.course;
 
@@ -53,24 +53,27 @@ const CourseInformation = () => {
                 </section>
             </div>
 
-            <div style={{ display: "flex", justifyContent: "center"}}>
-                {canBeDeleted ? (
-                    <Button
-                        onClick={onOpenModal}
-                        colorScheme="red"
-                        variant="link"
-                        _hover={{ textDecoration: 'underline', color: 'red.500' }}
-                    >
-                        {t('Delete course')}
-                    </Button>
-                ) : (
-                    <Tooltip label="This course can't be deleted because it has tokens assigned" aria-label="A tooltip">
-                        <Text color="gray.500" cursor="not-allowed" _hover={{ textDecoration: 'underline' }}>
+            { (isAdmin || isOrganization) && (
+            
+                <div style={{ display: "flex", justifyContent: "center"}}>
+                    {canBeDeleted ? (
+                        <Button
+                            onClick={onOpenModal}
+                            colorScheme="red"
+                            variant="link"
+                            _hover={{ textDecoration: 'underline', color: 'red.500' }}
+                        >
                             {t('Delete course')}
-                        </Text>
-                    </Tooltip>
-                )}
-            </div>
+                        </Button>
+                    ) : (
+                        <Tooltip label="This course can't be deleted because it has tokens assigned" aria-label="A tooltip">
+                            <Text color="gray.500" cursor="not-allowed" _hover={{ textDecoration: 'underline' }}>
+                                {t('Delete course')}
+                            </Text>
+                        </Tooltip>
+                    )}
+                </div>
+            )}
 
 
             {isOpenModal && (
