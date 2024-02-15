@@ -42,7 +42,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
   myTokensLink,
 }) => {
   const { t } = useTranslation('UserProfile');
-  const { token, setToken, user } = useContext(AppContext)
+  const { token, setToken, user, isRegularUser } = useContext(AppContext)
   const [showEditUserModal, setShowEditUserModal] = useState(false);
   const navigate = useNavigate()
 
@@ -106,9 +106,11 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
           <MenuItem icon={<CgProfile />} onClick={handleProfileClick}>
             {t('Profile')}
           </MenuItem>
-          <MenuItem icon={<BiMedal />} as={RouterLink} to={myTokensLink}>
-            {t('My Tokens')}
-          </MenuItem>
+          {isRegularUser && (
+            <MenuItem icon={<BiMedal />} as={RouterLink} to={myTokensLink}>
+              {t('My Tokens')}
+            </MenuItem>
+          )}
           <MenuDivider />
           <MenuItem icon={<IoIosLogOut />} onClick={() => { handleLogout(); }} >
             {t('LogOut')}
