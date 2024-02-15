@@ -5,6 +5,7 @@ import {
     CardFooter, 
     Center, 
     Divider, 
+    Flex, 
     Heading, 
     Image, 
     Stack, 
@@ -57,18 +58,21 @@ export const TokenBox: React.FC<UserToken> = (token_data) => {
 
     function goToDetail(){
         setTokenDetailId(token_data.id);
-        navigate('detail');
+        navigate('/tokens/detail', {replace:true});
     }
 
     return (
         <>
         <Card maxW='xs'>
-            <CardBody>
+            <CardBody textAlign="center">
+                <Center>
                 <Image
                     src={REACT_APP_URL_BACK + token_data.token_group.image}
                     boxSize='10rem'
-                    borderRadius='lg'
+                    objectFit='cover'
+                    borderRadius='full'
                     />
+                </Center>
                 <Stack mt='6' spacing='3'>
                     <Heading size='md'> {token_data.token_group.name}   </Heading>
                     <Text>  {token_data.token_group.description} </Text>
@@ -78,28 +82,26 @@ export const TokenBox: React.FC<UserToken> = (token_data) => {
                     </Text>
                 </Stack>
             </CardBody>
-            <Divider />
-                <CardFooter>
-                    <Center>
-                    {!token_data.is_claimed && (
-                        <Button
+            <Divider margin='0'/>
+                <CardFooter textAlign='center' alignSelf='center'>
+                        {!token_data.is_claimed && (
+                            <Button
                             variant='solid'
                             colorScheme='green'
                             onClick={claimTokenHandler}
                             >
-                            {t('Claim token')}
-                        </Button>
-                    )}
-                    {token_data.is_claimed && (
-                        <Button
+                                {t('Claim token')}
+                            </Button>
+                        )}
+                        {token_data.is_claimed && (
+                            <Button
                             variant='solid'
                             colorScheme='gray'
                             onClick={goToDetail}
                             >
-                            {t('Token details')}
-                        </Button>
-                    )}
-                    </Center>
+                                {t('Token details')}
+                            </Button>
+                        )}
                 </CardFooter>
         </Card>
         </>

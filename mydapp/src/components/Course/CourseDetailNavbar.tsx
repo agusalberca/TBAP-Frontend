@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Tabs, TabList, Tab, TabPanels, TabPanel } from "@chakra-ui/react";
+import { Tabs, TabList, Tab, TabPanels, TabPanel, Center } from "@chakra-ui/react";
 import { AdminsInCourse } from "../../pages/Admins/AdminsInCourse";
 import { UsersInCourse } from "../../pages/Admins/UsersInCourse";
 import { TokenGroupsInCourse } from "../../pages/Admins/TokenGroupsInCourse";
@@ -7,6 +7,9 @@ import useAppContext from "../../hooks/useAppContext";
 import { useNavigate } from "react-router-dom";
 import CourseInformation from "./CourseInformation";
 import { useTranslation } from "react-i18next";
+import { useQuery } from 'react-query';
+import { getUserTokensApi } from "../../api/tokens";
+import { TokenList } from "../Tokens/TokenList";
 
 const CourseDetail = () => {
     const { t } = useTranslation('Course');
@@ -17,7 +20,7 @@ const CourseDetail = () => {
         setSelected(index);
     };
 
-    const { adminCourseDetail, userCourseDetail, isRegularUser } = useAppContext();
+    const { adminCourseDetail, userCourseDetail, isRegularUser, token } = useAppContext();
     //This is needed because the context takes too long to load and an undesired redirection happens otherwise.
     useEffect(() => {
         if (isRegularUser === undefined || (isRegularUser && !userCourseDetail) || (!isRegularUser && !adminCourseDetail)) {
@@ -41,6 +44,12 @@ const CourseDetail = () => {
             }
         }
     }, [loading, isRegularUser, userCourseDetail, adminCourseDetail, navigate]);
+
+    var regularUserTokenData= {tokens:[]}
+    if (isRegularUser){
+        const {data} = useQuery('getUserTokensApi', () => getUserTokensApi(token))
+        regularUserTokenData.tokens = data ? data.data : []
+    }
 
     return (
         <Tabs index={selected} onChange={handleTabChange} isFitted variant='enclosed'>
@@ -74,8 +83,9 @@ const CourseDetail = () => {
                 
                 {isRegularUser && (
                     <TabPanel>
-                        <p>TODO: MyCourseTokens</p>
-                        {/* TODO: <MyCourseTokens /> */}
+                        <Center>
+                            <TokenList {...regularUserTokenData} />  
+                        </Center>
                     </TabPanel>
                 )}
             </TabPanels>
