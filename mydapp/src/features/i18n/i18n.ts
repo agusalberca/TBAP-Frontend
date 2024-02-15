@@ -26,6 +26,7 @@ i18n.use(LanguageDetector).use(initReactI18next).init({
   //supportedLngs: i18nConfig.supportedLanguages.map((l) => l.code),
   //nonExplicitSupportedLngs: true,
   returnEmptyString: false,
+  lng: 'en-US',
 });
 
 export default i18n;
