@@ -1,5 +1,16 @@
 import { deleteQuery, getQuery, patchQuery, postQuery } from './apiFunctions'
-import { UserToken, UserCourse, AdminCourse, UserInvitation, TokenGroup } from './apiTypes'
+import { UserToken, UserCourse, AdminCourse, UserInvitation, TokenGroup, Admin } from './apiTypes'
+
+
+export const createCourseApi = ( token: string, body: {name: string, description: string, organization_id: number}) => {
+    return postQuery<AdminCourse>({
+        path: '/admin/courses/',
+        token,
+        body,
+        callback: (data) => data.data
+    })
+}
+
 
 export const getUserCoursesApi = (token: string, params:{"organization_id": number}) => {
     return getQuery<UserCourse[]>({
