@@ -71,7 +71,7 @@ export const postClaimTokenApi = (token: string, body:{
 export const createTokenGroup = ( token: string, body: {
     name: string, 
     description: string, 
-    users: number[],
+    users: number[] | string,
     course_id: number,
 }) => {
     return postQuery<TokenGroup>({

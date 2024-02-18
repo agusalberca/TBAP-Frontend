@@ -73,7 +73,7 @@ export const TokenGroupsInCourse: React.FC = withAdminProtection(() => {
       name: '',
       description: '',
       course_id: adminCourseDetail?.id,
-      users: [],
+      users: 'all',
     },
     validateOnChange: false,
     validationSchema: Yup.object().shape({
@@ -81,7 +81,6 @@ export const TokenGroupsInCourse: React.FC = withAdminProtection(() => {
       description: Yup.string().required(t('Required')),
     }),
     onSubmit: async values => {
-      console.log('values', values);
       const response = await createTokenGroup(token, {
         ...values,
         course_id: adminCourseDetail?.id,
