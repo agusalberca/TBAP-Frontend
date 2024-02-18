@@ -29,7 +29,7 @@ export const ClaimTokensPage: React.FC = withWalletProtection(() => {
   const cancelRef = React.useRef()
   const { t } = useTranslation('ClaimTokensPage');
   const { token } = useAppContext()
-  const {data} = useQuery('getUserTokensApi', () => getUserTokensApi(token, false))
+  const {data} = useQuery('getUserTokensApi', () => getUserTokensApi(token, {'is_claimed': Boolean(false)}))
   const pending_signature = useQuery('getClaimTokenApi', () => getClaimTokenApi(token))
 
   const [alertOpen, setAlertOpen] = useState(false);

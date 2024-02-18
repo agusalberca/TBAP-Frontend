@@ -47,7 +47,7 @@ const CourseDetail = () => {
 
     var regularUserTokenData= {tokens:[]}
     if (isRegularUser){
-        const {data} = useQuery('getUserTokensApi', () => getUserTokensApi(token))
+        const { data } = useQuery('getUserTokensApi', () => getUserTokensApi(token, {'course_id': userCourseDetail.course.id}));
         regularUserTokenData.tokens = data ? data.data : []
     }
 

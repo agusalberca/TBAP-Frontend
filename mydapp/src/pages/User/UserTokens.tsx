@@ -17,7 +17,7 @@ export const UserTokensPage: React.FC = withBackendProtection(() => {
   const { token } = useAppContext()
 
   // TODO poner un useEffect para que se actualice la lista de tokens
-  const {data} = useQuery('getUserTokensApi', () => getUserTokensApi(token))
+  const {data} = useQuery('getUserTokensApi', () => getUserTokensApi(token, {'is_claimed': Boolean(true)}))
   const tokenDataList = {
     tokens: data ? data.data : []
   }
