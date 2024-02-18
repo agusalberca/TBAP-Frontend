@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 interface TokenGroupListProps {
     tokens: TokenGroup[]; // Rename the prop to 'tokens'
+    query: any;
   }
 
 export const TokenGroupList: React.FC<TokenGroupListProps> = (props) => {
@@ -15,9 +16,9 @@ export const TokenGroupList: React.FC<TokenGroupListProps> = (props) => {
         <HStack spacing='3'  >
             {
                 (props.tokens) && (props.tokens).length > 0
-                ? (props.tokens).map((token: TokenGroup) => (
+                ? (props.tokens).map((tokenGroup: TokenGroup) => (
                     
-                    <TokenGroupBox key={token.id} {...token}/>)) 
+                    <TokenGroupBox key={tokenGroup.id} token={tokenGroup} query={props.query} />)) 
                     : <h5 style={{ fontSize: "0.9rem", fontWeight:"500" }}>
                 {t('No tokens yet')}
               </h5>
