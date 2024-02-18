@@ -78,6 +78,7 @@ export interface TokenGroup {
   image: string;
   created_at: string;
   course_id: number;
+  deleteable: boolean;
 }
 
 export interface UserToken {

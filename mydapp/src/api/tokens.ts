@@ -1,5 +1,5 @@
-import { getQuery, patchQuery, postQuery } from './apiFunctions'
-import { AdminOrganization, Organization, PaginatedItem, tokenClaimSignature, UserTokenDetail } from './apiTypes'
+import { deleteQuery, getQuery, patchQuery, postQuery } from './apiFunctions'
+import { AdminOrganization, Organization, PaginatedItem, tokenClaimSignature, UserTokenDetail, TokenGroup } from './apiTypes'
 import { add_base_url, convert_epoch_to_date } from './utils';
 function capitalizeText(text: string): string {
     return (text && text[0].toUpperCase() + text.slice(1)) || text;
@@ -66,4 +66,25 @@ export const postClaimTokenApi = (token: string, body:{
         body,
     })
     return response
+}
+
+export const createTokenGroup = ( token: string, body: {
+    name: string, 
+    description: string, 
+    users: number[],
+    course_id: number,
+}) => {
+    return postQuery<TokenGroup>({
+        path: '/blockchain/token-groups/',
+        token,
+        body,
+        callback: (data) => data.data
+    })
+}
+
+export const deleteTokenGroupApi = (token: string, token_group_id: number) => {
+    return deleteQuery<TokenGroup>({
+        path: `/blockchain/token-groups/${token_group_id}/`,
+        token,
+    })
 }

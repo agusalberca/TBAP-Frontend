@@ -39,7 +39,6 @@ export const AdminCoursesPage: React.FC = withBackendProtection(() => {
   const { token, adminCourses, getAdminCoursesAsync, selectedOrganization } =
     useAppContext();
 
-  //   getAdminCoursesAsync();
   const courseDataList = { courses: adminCourses };
 
   const {
@@ -60,12 +59,10 @@ export const AdminCoursesPage: React.FC = withBackendProtection(() => {
       description: Yup.string().required(t('Required')),
     }),
     onSubmit: async values => {
-      console.log('selectedOrganization?.id', selectedOrganization?.id);
-      console.log('values', values);
-      const response = await createCourseApi(
-        token, 
-        {...values, organization_id: selectedOrganization?.id}
-    );
+      const response = await createCourseApi(token, {
+        ...values,
+        organization_id: selectedOrganization?.id,
+      });
       getAdminCoursesAsync();
       onCloseModal();
     },
