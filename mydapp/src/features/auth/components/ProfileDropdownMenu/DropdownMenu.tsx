@@ -66,10 +66,11 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
       if (res) {
         navigate('/login', { replace: true })
         setToken(null)
-        
       }
     } catch (error) {
       console.error(error)
+      navigate('/login', { replace: true })
+      setToken(null)
     }
   }
 
