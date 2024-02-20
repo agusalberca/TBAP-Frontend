@@ -26,6 +26,7 @@ const { REACT_APP_URL_BACK } = process.env;
 class TokenGroupProps {
   token: TokenGroup;
   query: any;
+  setSelectedTokenGroup: any;
 }
 
 export const TokenGroupBox: React.FC<TokenGroupProps> = token_data => {
@@ -41,8 +42,6 @@ export const TokenGroupBox: React.FC<TokenGroupProps> = token_data => {
   return (
     <>
       <Card width="15rem" height="25rem" overflow="hidden">
-        {' '}
-        {/* Ajustar dimensiones máximas */}
         {(isAdmin || isOrganization) && (
           <Menu>
             <MenuButton
@@ -56,7 +55,9 @@ export const TokenGroupBox: React.FC<TokenGroupProps> = token_data => {
               right="2"
             />
             <MenuList width="80px">
-              <MenuItem>Edit</MenuItem>
+              <MenuItem onClick={() => token_data.setSelectedTokenGroup(tokenGroup)}>
+                Edit
+              </MenuItem>
               {tokenGroup.deleteable ? (
                 <MenuItem onClick={deleteTokenGroup}> Delete </MenuItem>
               ) : (

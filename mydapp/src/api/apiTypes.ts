@@ -79,6 +79,14 @@ export interface TokenGroup {
   created_at: string;
   course_id: number;
   deleteable: boolean;
+  users?: {
+    id: number;
+    user_id: number;
+    email: string;
+    created_at: string;
+    is_claimed: boolean;
+  }[];
+  
 }
 
 export interface UserToken {
@@ -95,6 +103,7 @@ export interface UserToken {
   is_claimed: boolean;
   created_at: string;
 }
+
 
 export interface UserTokenDetail {
   db_token: {

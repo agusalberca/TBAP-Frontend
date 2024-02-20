@@ -82,9 +82,36 @@ export const createTokenGroup = ( token: string, body: {
     })
 }
 
+export const getTokenGroupDetail = (token: string, token_group_id: number) => {
+    return getQuery<TokenGroup>({
+        path: `/blockchain/token-groups/${token_group_id}/`,
+        token,
+    })
+}
+
 export const deleteTokenGroupApi = (token: string, token_group_id: number) => {
     return deleteQuery<TokenGroup>({
         path: `/blockchain/token-groups/${token_group_id}/`,
         token,
+    })
+}
+
+export const createUserTokenApi = (token: string, body: {
+    token_group: number,
+    user: number,
+}) => {
+    return postQuery<UserTokenDetail>({
+        path: '/blockchain/user-tokens/',
+        token,
+        body,
+        callback: (data) => data.data
+    })
+}
+
+export const deleteUserTokenApi = (token: string, user_token: number) => {
+    return deleteQuery<UserTokenDetail>({
+        path: `/blockchain/user-tokens/`,
+        token,
+        body: {"user_token": user_token},
     })
 }

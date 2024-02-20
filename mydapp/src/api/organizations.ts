@@ -40,18 +40,19 @@ export const getAdminOfOrganizationApi = (token: string, params: { organization_
     })
 
 }
-export const getUsersOfOrganizationApi = (token: string, params: { course_id: number, page: number }) => {
+export const getUsersOfCourseApi = (token: string, params: { course_id: number, page: number, per_page?: number }) => {
+    params.per_page = params.per_page || 6; 
     return getQuery<PaginatedItem>({
         path: '/admin/users-in-course/',
         token,
         params,
         callback: (data: PaginatedItem) =>
-        data.data instanceof Array
-            ? data
-            : { ...data, page: 1, total_items: 0, total_pages: 1, data: [] },
-    })
+            data.data instanceof Array
+                ? data
+                : { ...data, page: 1, total_items: 0, total_pages: 1, data: [] },
+    });
+};
 
-}
 
 export const addNewAdminToCourse = async (token, body: { 
     organization_id: string; 

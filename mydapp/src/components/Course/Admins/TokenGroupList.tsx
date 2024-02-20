@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 interface TokenGroupListProps {
     tokens: TokenGroup[]; // Rename the prop to 'tokens'
     query: any;
+    setSelectedTokenGroup: any;
   }
 
 export const TokenGroupList: React.FC<TokenGroupListProps> = (props) => {
@@ -18,7 +19,12 @@ export const TokenGroupList: React.FC<TokenGroupListProps> = (props) => {
                 (props.tokens) && (props.tokens).length > 0
                 ? (props.tokens).map((tokenGroup: TokenGroup) => (
                     
-                    <TokenGroupBox key={tokenGroup.id} token={tokenGroup} query={props.query} />)) 
+                    <TokenGroupBox 
+                        key={tokenGroup.id} 
+                        token={tokenGroup} 
+                        query={props.query} 
+                        setSelectedTokenGroup={props.setSelectedTokenGroup}
+                    />)) 
                     : <h5 style={{ fontSize: "0.9rem", fontWeight:"500" }}>
                 {t('No tokens yet')}
               </h5>
