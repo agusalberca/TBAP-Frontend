@@ -46,7 +46,7 @@ import { AdminInCourse } from '../../api/apiTypes';
 export const AdminsInCourse: React.FC = withAdminProtection(() => {
     const { t } = useTranslation('Course');
     const { token, adminCourseDetail, selectedOrganization } = useAppContext()
-    const admins_in_course = adminCourseDetail.admins_in_course;
+    const admins_in_course = adminCourseDetail?.admins_in_course;
     
     const queryClient = useQueryClient();
     const query_admin_in_organization = useQuery('getAdmisOfOrganization', () => {
@@ -117,7 +117,7 @@ export const AdminsInCourse: React.FC = withAdminProtection(() => {
                                 </Tr>
                             </Thead>
                             <Tbody>
-                                {admins_in_course.map((data, index) => (
+                                {admins_in_course?.map((data, index) => (
                                     <Tr key={index}>
                                         <Td>{data.user.email}</Td>
                                         <Td >{data.user.first_name} {data.user.last_name}</Td>
@@ -142,7 +142,7 @@ export const AdminsInCourse: React.FC = withAdminProtection(() => {
                     <ModalHeader>{t('Add new admin')}</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
-                            <Text>{t('Choose an admin to add to the course')} {adminCourseDetail.name}</Text>
+                            <Text>{t('Choose an admin to add to the course')} {adminCourseDetail?.name}</Text>
                             <br/>
                             <FormControl isInvalid={!!formik.errors.admin_id}>
                                 <FormLabel>{t('Admin')}</FormLabel>

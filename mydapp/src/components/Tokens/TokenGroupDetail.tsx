@@ -40,7 +40,7 @@ import {
 
 import { getUsersOfCourseApi } from '../../api/organizations';
 import useAppContext from '../../hooks/useAppContext';
-import { useQuery } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -57,8 +57,9 @@ export const TokenGroupDetail: React.FC<TokenGroupDetailProps> = ({
   setSelectedTokenGroup,
 }) => {
   const { t } = useTranslation('Tokens');
-  const { token, user: LoggedUser } = useAppContext();
+  const { token, user, adminCourseDetail } = useAppContext();
   const [isLoading, setIsLoading] = useState(true);
+  const queryClient = useQueryClient();
   const {
     isOpen: isOpenModalDelete,
     onOpen: onOpenModalDelete,
@@ -81,16 +82,15 @@ export const TokenGroupDetail: React.FC<TokenGroupDetailProps> = ({
     async () => await getTokenGroupDetail(token, tokenGroup.id)
   );
 
-  const query_users_of_course = useQuery(
-    'getUsersOfCourse',
-    () =>
-      tokenGroup.course_id &&
-      getUsersOfCourseApi(token, {
-        course_id: tokenGroup.course_id,
-        page: 1,
-        per_page: 9999,
-      })
-  );
+  const query_users_of_course = useQuery('getUsersOfCourse2', () => {
+    return getUsersOfCourseApi(token, {
+      course_id: adminCourseDetail.id,
+      page: 1,
+      per_page: 9999,
+      status: 'Accepted',
+    });
+  });
+
 
   useEffect(() => {
     setIsLoading(query.isLoading);
@@ -101,21 +101,66 @@ export const TokenGroupDetail: React.FC<TokenGroupDetailProps> = ({
 
   useEffect(() => {
     if (query_users_of_course.data) {
-      setUsersOfCourse(query_users_of_course.data.data);
+      const users_not_already_in_course =
+        query_users_of_course.data.data.filter(
+          user =>
+            !tokenDetail?.users.some(
+              tokenUser => tokenUser.user_id === user.user_id
+            )
+        );
+      setUsersOfCourse(users_not_already_in_course);
     }
-    console.log("usersOfCourse", usersOfCourse);
-  }, [query_users_of_course.data, query.data]);
+  }, [query_users_of_course.data]);
 
 
   const handleRemoveUser = id => {
     deleteUserTokenApi(token, id);
     query.refetch();
+    query_users_of_course.refetch();
+  
   };
 
   const handleDeleteToken = () => {
     deleteTokenGroupApi(token, tokenGroup.id);
     onCloseModalDelete();
     setSelectedTokenGroup(null);
+  };
+
+  const addUserButton = () => {
+    return (
+      <>
+        {usersOfCourse && usersOfCourse.length > 0 ? (
+          <Button
+            onClick={onOpenModalAddUser}
+            colorScheme="blue"
+            variant="link"
+            _hover={{
+              textDecoration: 'underline',
+              color: 'blue.500',
+            }}
+          >
+            {t('Add user')}
+          </Button>
+        ) : (
+          <Tooltip
+            label="There are no more users to add."
+            aria-label="A tooltip"
+          >
+            <Button
+              colorScheme="#808080"
+              variant="link"
+              _hover={{
+                textDecoration: 'underline',
+                color: 'gray',
+              }}
+              disabled
+            >
+              {t('Add user')}
+            </Button>
+          </Tooltip>
+        )}
+      </>
+    );
   };
 
   const formik = useFormik({
@@ -132,6 +177,8 @@ export const TokenGroupDetail: React.FC<TokenGroupDetailProps> = ({
         token_group: tokenGroup.id,
       });
       query.refetch();
+      query_users_of_course.refetch();
+      console.log("refeched")
       onCloseModalAddUser();
     },
   });
@@ -187,17 +234,7 @@ export const TokenGroupDetail: React.FC<TokenGroupDetailProps> = ({
                   tokenDetail.users.length === 0 && (
                     <Box mb="4">
                       <Text>{t('No authorized users yet')}</Text>
-                      <Button
-                        onClick={onOpenModalAddUser}
-                        colorScheme="blue"
-                        variant="link"
-                        _hover={{
-                          textDecoration: 'underline',
-                          color: 'blue.500',
-                        }}
-                      >
-                        {t('Add user')}
-                      </Button>
+                      {addUserButton()}
                     </Box>
                   )}
                 {tokenDetail &&
@@ -208,17 +245,7 @@ export const TokenGroupDetail: React.FC<TokenGroupDetailProps> = ({
                         <Heading as="h3" size="md" mb="2">
                           {t('Authorized Users')}
                         </Heading>
-                        <Button
-                          onClick={onOpenModalAddUser}
-                          colorScheme="blue"
-                          variant="link"
-                          _hover={{
-                            textDecoration: 'underline',
-                            color: 'blue.500',
-                          }}
-                        >
-                          {t('Add user')}
-                        </Button>
+                        {addUserButton()}
                       </Box>
                       <Box maxH="200px" overflowY="auto" mb="4">
                         <Table variant="simple" size="sm" maxH="200px">
@@ -231,7 +258,7 @@ export const TokenGroupDetail: React.FC<TokenGroupDetailProps> = ({
                             </Tr>
                           </Thead>
                           <Tbody>
-                            {tokenDetail.users.map(user => (
+                            {tokenDetail?.users.map(user => (
                               <Tr key={user.id}>
                                 <Td>{user.email}</Td>
                                 <Td>{user.is_claimed ? 'Yes' : 'No'}</Td>
@@ -331,26 +358,19 @@ export const TokenGroupDetail: React.FC<TokenGroupDetailProps> = ({
                     <select
                       id="user"
                       name="user"
-                      onChange={(e) => formik.handleChange(e)}
+                      onChange={e => formik.handleChange(e)}
                       onBlur={formik.handleBlur}
                       value={formik.values.user}
                     >
                       <option value={0} label={t('Select a user')} />
-                      {usersOfCourse &&
-                        usersOfCourse
-                          .filter(
-                            user =>
-                              !tokenDetail.users.some(
-                                tokenUser => tokenUser.user_id === user.id
-                              )
-                          )
-                          .map(user => (
-                            <option
-                              key={user.id}
-                              value={user.id}
-                              label={user.email}
-                            />
-                          ))}
+                      {usersOfCourse && 
+                        usersOfCourse.map(user => (
+                          <option
+                            key={user.id}
+                            value={user.user_id || 0}
+                            label={user.email}
+                          />
+                        ))}
                     </select>
 
                     {formik.touched.user &&

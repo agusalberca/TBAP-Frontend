@@ -41,7 +41,7 @@ import { TokenGroupDetail } from '../../components/Tokens/TokenGroupDetail';
 
 export const TokenGroupsInCourse: React.FC = withAdminProtection(() => {
   const { t } = useTranslation('Course');
-  const { token, adminCourseDetail, selectedOrganization } = useAppContext();
+  const { token, adminCourseDetail } = useAppContext();
 
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);

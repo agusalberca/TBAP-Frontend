@@ -22,10 +22,10 @@ const CourseInformation = () => {
     const { t } = useTranslation('Course');
     const { adminCourseDetail, userCourseDetail, token, getAdminCoursesAsync, isAdmin, isOrganization } = useAppContext();
     const { isOpen: isOpenModal, onOpen: onOpenModal, onClose: onCloseModal } = useDisclosure();
-    const courseDetail = adminCourseDetail || userCourseDetail.course;
+    const courseDetail = adminCourseDetail || userCourseDetail?.course;
 
     const { data: canBeDeleted } = useQuery<boolean, Error>('canBeDeleted', async () => {
-        const params = { course_id: adminCourseDetail.id };
+        const params = { course_id: adminCourseDetail?.id };
         const result = await canBeDeletedCourseApi(token, params);
         return result;
     });

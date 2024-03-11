@@ -10,20 +10,15 @@ import { getUser } from '../api/auth'
 import { getAdminOrganizationsApi, getUserOrganizationsApi, getUserTokensApi } from '../api/tokens'
 import {
   User,
-  UserComplete,
   UserCourse,
   UserProfile,
   UserToken,
   Organization,
   AdminCourse,
-  AdminOrganization,
 } from '../api/apiTypes'
 import { useQuery } from 'react-query'
 import { getAdminCoursesApi, getUserCoursesApi } from '../api/courses'
-import useTypedSelector from '../hooks/useTypedSelector'
-import { WalletState } from '../features/wallet/models/types/WalletState';
-import { useActions } from '../features/wallet/hooks/useActions'
-import { AccountType } from '../features/wallet/models/account/types/Account';
+
 
 interface AppContextInterface {
   firstCharge: boolean;

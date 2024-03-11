@@ -261,7 +261,7 @@ export const UsersInCourse: React.FC = withAdminProtection(() => {
             <ModalCloseButton />
             <ModalBody>
               <Text>
-                {t('Add a new user to the course')} {adminCourseDetail.name}
+                {t('Add a new user to the course')} {adminCourseDetail?.name}
               </Text>
               <br />
               <FormControl isInvalid={!!formikSingular.errors.email}>
@@ -301,7 +301,7 @@ export const UsersInCourse: React.FC = withAdminProtection(() => {
               <ModalCloseButton />
               <ModalBody>
                 <Text>
-                  {t('Add new users to the course')} {adminCourseDetail.name}
+                  {t('Add new users to the course')} {adminCourseDetail?.name}
                 </Text>
                 <br />
                 <FormControl isInvalid={!!formikMassive.errors.file}>
