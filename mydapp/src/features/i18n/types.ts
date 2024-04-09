@@ -1,5 +1,5 @@
 export enum LangCode {
-  TR_TR = 'tr-TR',
+  ES_ES = 'es-ES',
   EN_US = 'en-US',
 }
 

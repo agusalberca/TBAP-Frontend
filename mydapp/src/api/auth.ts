@@ -118,3 +118,11 @@ export const setUserWalletAddress = async (token: string, body: {
     body,
   })
 }
+
+
+export const getTokenBySSO = async ( body:any ) => {
+  return await postQuery<any>({
+      path: '/users/get-token-by-oauth/',
+      body,
+  })
+}

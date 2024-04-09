@@ -3,6 +3,7 @@ import {
     Container,
     Stack,
     Center,
+    Text
   } from '@chakra-ui/react';
   import { useTranslation } from 'react-i18next';
   import { withBackendProtection } from '../../features/auth/hocs/withBackendProtection';
@@ -11,9 +12,10 @@ import {
   import { UserCourseList } from '../../components/Course/Users/UserCourseList';
   import { requireAuth } from '../auth/AboutYou';
 
+
   export const UserCoursesPage: React.FC = withBackendProtection(() => {
     requireAuth();
-    const { t } = useTranslation('PageUser');
+    const { t } = useTranslation('Course');
     const { selectedOrganization, userCourses } = useAppContext();
     
     if (!selectedOrganization) {
@@ -21,11 +23,11 @@ import {
         <Box p={4}>
           <Container maxW="7xl" py={2} as={Stack} spacing={2}>
             <CommonHeader
-              title="Courses"
-              description="These are your courses"
+              title={t('Courses')}
+              description={t('These are your courses')}
               />
             <Box>
-              <p>You have no courses</p>
+              <Text>{t('You have no courses')}</Text>
             </Box>
           </Container>
         </Box>
@@ -40,8 +42,8 @@ import {
         <Box p={4}>
           <Container maxW="7xl" py={2} as={Stack} spacing={2}>
             <CommonHeader 
-              title="Courses"
-              description="These are your courses"
+              title={t('Courses')}
+              description={t('These are your courses')}
             />
             <Box>
               <Center>

@@ -1,5 +1,5 @@
-import { getQuery, patchQuery, postQuery } from './apiFunctions'
-import { UserToken, UserCourse, AdminCourse, UserInvitation } from './apiTypes'
+import { deleteQuery, getQuery, patchQuery, postQuery } from './apiFunctions'
+import { UserToken, UserCourse, AdminCourse, UserInvitation, TokenGroup } from './apiTypes'
 
 export const getUserCoursesApi = (token: string, params:{"organization_id": number}) => {
     return getQuery<UserCourse[]>({
@@ -21,6 +21,16 @@ export const getAdminCoursesApi = (token: string, params) => {
     })
 }
 
+export const getCourseTokenGroups = (token: string, params) => {
+    return getQuery<TokenGroup[]>({
+        path: '/blockchain/token-groups/',
+        token,
+        params,
+        callback: (data: TokenGroup[]) => 
+            data
+    })
+}
+
 export const getInvitationToJoinCourseAsUserApi = (token: string) => {
     return getQuery<UserInvitation[]>({
         path: '/regular_user/invitations-to-join-course-as-user/',
@@ -32,5 +42,32 @@ export const getInvitationToJoinOrganizationAsAdminApi = (token: string) => {
     return getQuery<UserInvitation[]>({
         path: '/admin/invitations-to-became-admin/',
         token
+    })
+}
+
+
+export const canBeDeletedCourseApi = async (token: string, params: any): Promise<boolean> => {
+    try {
+        const data = await getQuery({
+            path: '/admin/course-delete/',
+            token,
+            params,
+            callback: (response) => response?.deletable,
+        });
+
+        return Boolean(data);
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        return false;
+    }
+};
+
+export const deleteCourseApi = async (
+    token, body: {course_id: number}
+) => {
+    return await deleteQuery<any>({
+        path: '/admin/course-delete/',
+        token,
+        body,
     })
 }

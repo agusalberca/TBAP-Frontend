@@ -8,12 +8,12 @@ import { useWalletAuthentication } from '../features/wallet/hooks/useWalletAuthe
 import { MenuType, PageType } from './types';
 
 import Login from '../pages/auth/Login';
+import ReceptSSO from '../pages/auth/ReceptSSO';
 import Register from '../pages/auth/Register';
 import ForgotPassword from './auth/ForgotPassword';
 import { UserCoursesPage } from './Courses/UsersCourses';
 import { AdminCoursesPage } from './Courses/AdminCourses';
 import { OrganizationInvitations } from './Organization/Invitations';
-import { AdminInvitations } from './Admins/Invitations';
 import { useBackendAuthentication } from '../features/auth/hooks/useBackendAuthentication';
 import useAppContext from '../hooks/useAppContext';
 import CourseDetail from '../components/Course/CourseDetailNavbar';
@@ -25,21 +25,27 @@ const HomePage = React.lazy(() =>
 );
 
 const UserProfilePage = React.lazy(() =>
-  import(/* webpackChunkName: "UserProfilePage" */ './User/UserProfile').then(module => ({
-    default: module.UserProfilePage,
-  }))
+  import(/* webpackChunkName: "UserProfilePage" */ './User/UserProfile').then(
+    module => ({
+      default: module.UserProfilePage,
+    })
+  )
 );
 
 const TokenDetailPage = React.lazy(() =>
-  import(/* webpackChunkName: "UserTokensPage" */ './Tokens/TokenDetail').then(module => ({
-    default: module.TokenDetailPage,
-  }))
+  import(/* webpackChunkName: "UserTokensPage" */ './Tokens/TokenDetail').then(
+    module => ({
+      default: module.TokenDetailPage,
+    })
+  )
 );
 
 const UserTokensPage = React.lazy(() =>
-  import(/* webpackChunkName: "UserTokensPage" */ './User/UserTokens').then(module => ({
-    default: module.UserTokensPage,
-  }))
+  import(/* webpackChunkName: "UserTokensPage" */ './User/UserTokens').then(
+    module => ({
+      default: module.UserTokensPage,
+    })
+  )
 );
 
 const UserPage = React.lazy(() =>
@@ -49,14 +55,12 @@ const UserPage = React.lazy(() =>
 );
 
 const ClaimTokensPage = React.lazy(() =>
-  import(
-    /* webpackChunkName: "ClaimTokensPage" */ './Tokens/ClaimTokens'
-  ).then(module => ({
-    default: module.ClaimTokensPage,
-  }))
+  import(/* webpackChunkName: "ClaimTokensPage" */ './Tokens/ClaimTokens').then(
+    module => ({
+      default: module.ClaimTokensPage,
+    })
+  )
 );
-
-
 
 // ADD YOUR PAGE IMPORTS HERE
 
@@ -65,7 +69,7 @@ export const usePages = () => {
   const isWalletAuthenticated = useWalletAuthentication();
   const isBackendAuthenticated = useBackendAuthentication();
   // const isAuthenticated  = isWalletAuthenticated && isBackendAuthenticated;
-  const isAuthenticated  = isBackendAuthenticated;
+  const isAuthenticated = isBackendAuthenticated;
 
   let { isOrganization, isAdmin, isRegularUser } = useAppContext();
 
@@ -82,7 +86,7 @@ export const usePages = () => {
     isShownInMainMenu: false,
     isShownInSecondaryMenu: false,
     isProtected: false,
-    };
+  };
 
   // User Dashboard Page
   const User: RouteObject = {
@@ -94,7 +98,7 @@ export const usePages = () => {
   const UserProfile: PageType = {
     path: 'profile',
     element: <UserProfilePage />,
-    menuLabel: t('Profile', { ns: 'Menu' }),
+    menuLabel: t('Profile', { ns: 'UserProfile' }),
     isShownInMainMenu: false,
     isShownInSecondaryMenu: false,
     isProtected: false,
@@ -104,26 +108,26 @@ export const usePages = () => {
   const UserTokens: PageType = {
     path: 'tokens',
     element: <UserTokensPage />,
-    menuLabel: t('My Tokens', { ns: 'Menu' }),
+    menuLabel: t('My Tokens', { ns: 'UserTokens' }),
     isShownInMainMenu: isRegularUser,
     isShownInSecondaryMenu: isRegularUser,
     isProtected: true,
   };
-  
+
   // Token Detail Page
   const TokenDetail: PageType = {
     path: 'tokens/detail',
     element: <TokenDetailPage />,
-    menuLabel: t('Token Detail', { ns: 'Menu' }),
+    menuLabel: t('Token Detail', { ns: 'TokenDetail' }),
     isShownInMainMenu: false,
     isShownInSecondaryMenu: false,
     isProtected: true,
   };
-  
+
   const UserCourses: PageType = {
     path: 'user-courses',
     element: <UserCoursesPage />,
-    menuLabel: t('Courses', { ns: 'Menu' }),
+    menuLabel: t('Courses', { ns: 'Course' }),
     isShownInMainMenu: isRegularUser,
     isShownInSecondaryMenu: isRegularUser,
     isProtected: true,
@@ -132,15 +136,16 @@ export const usePages = () => {
   const AdminCourses: PageType = {
     path: 'admin-courses',
     element: <AdminCoursesPage />,
-    menuLabel: t('Courses', { ns: 'Menu' }),
+    menuLabel: t('Courses', { ns: 'Course' }),
     isShownInMainMenu: isAdmin || isOrganization,
     isShownInSecondaryMenu: isAdmin || isOrganization,
     isProtected: true,
   };
+
   const ClaimTokens: PageType = {
     path: 'tokens/claim',
     element: <ClaimTokensPage />,
-    menuLabel: t('Claim Tokens', { ns: 'Menu' }),
+    menuLabel: t('Claim Tokens', { ns: 'ClaimTokens' }),
     isShownInMainMenu: isRegularUser,
     isShownInSecondaryMenu: isRegularUser,
     isProtected: true,
@@ -149,7 +154,7 @@ export const usePages = () => {
   const RegisterView: PageType = {
     path: 'register',
     element: <Register />,
-    menuLabel: t('Register', { ns: 'Menu' }),
+    menuLabel: t('Register', { ns: 'Register' }),
     isShownInMainMenu: false,
     isShownInSecondaryMenu: false,
     isProtected: false,
@@ -158,7 +163,16 @@ export const usePages = () => {
   const LoginView: PageType = {
     path: 'login',
     element: <Login />,
-    menuLabel: t('Login', { ns: 'Menu' }),
+    menuLabel: t('Login', { ns: 'Login' }),
+    isShownInMainMenu: false,
+    isShownInSecondaryMenu: false,
+    isProtected: false,
+  };
+
+  const ReceptSSOView: PageType = {
+    path: 'recept-sso',
+    element: <ReceptSSO />,
+    menuLabel: t('Recept', { ns: 'Login' }),
     isShownInMainMenu: false,
     isShownInSecondaryMenu: false,
     isProtected: false,
@@ -167,24 +181,22 @@ export const usePages = () => {
   const ForgotPasswordView: PageType = {
     path: 'forgot-password',
     element: <ForgotPassword />,
-    menuLabel: t('Forgot Password', { ns: 'Menu' }),
+    menuLabel: t('Forgot Password', { ns: 'ForgotPassword' }),
     isShownInMainMenu: false,
     isShownInSecondaryMenu: false,
     isProtected: false,
   };
-
 
   // Organizations views
 
   const OrganizationInvitationsPage: PageType = {
     path: 'organzation-invitations',
     element: <OrganizationInvitations />,
-    menuLabel: t('Invitations', { ns: 'Menu' }),
+    menuLabel: t('Invitations', { ns: 'Invitations' }),
     isShownInMainMenu: isOrganization,
     isShownInSecondaryMenu: isOrganization,
     isProtected: true,
   };
-
 
   // Admin views
 
@@ -200,7 +212,7 @@ export const usePages = () => {
   const CourseDetailPage: PageType = {
     path: 'course/',
     element: <CourseDetail />,
-    menuLabel: t('course', { ns: 'Menu' }),
+    menuLabel: t('course', { ns: 'course' }),
     isShownInMainMenu: false,
     isShownInSecondaryMenu: false,
     isProtected: true,
@@ -208,21 +220,22 @@ export const usePages = () => {
 
   // do not forget add your page routes into this array
   const Pages: PageType[] = [
-      RegisterView, 
-      LoginView, 
-      ForgotPasswordView,
-      UserProfile, 
-      
-      OrganizationInvitationsPage,
-      
-      // AdminInvitationsPage,
-      CourseDetailPage,
-      UserCourses,
-      AdminCourses, 
-      TokenDetail,
-      UserTokens,
-      ClaimTokens,
-    ];
+    RegisterView,
+    LoginView,
+    ReceptSSOView,
+    ForgotPasswordView,
+    UserProfile,
+
+    OrganizationInvitationsPage,
+
+    // AdminInvitationsPage,
+    CourseDetailPage,
+    UserCourses,
+    AdminCourses,
+    TokenDetail,
+    UserTokens,
+    ClaimTokens,
+  ];
 
   // DO NOT CHANGE THE REST
   const homeMenuItem: MenuType = {
@@ -276,5 +289,12 @@ export const usePages = () => {
       secondaryMenuItems,
       isHashRouter,
     };
-  }, [i18n.resolvedLanguage, isWalletAuthenticated, isBackendAuthenticated, isOrganization, isAdmin, isRegularUser]);
+  }, [
+    i18n.resolvedLanguage,
+    isWalletAuthenticated,
+    isBackendAuthenticated,
+    isOrganization,
+    isAdmin,
+    isRegularUser,
+  ]);
 };

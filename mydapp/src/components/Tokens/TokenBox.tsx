@@ -9,7 +9,6 @@ import {
     Image, 
     Stack, 
     Text, 
-    useDisclosure 
   } from '@chakra-ui/react';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -20,10 +19,12 @@ import { UserToken } from '../../api/apiTypes';
 import { mintToken } from '../../api/blockchain';
 import { postClaimTokenApi } from '../../api/tokens';
 import { useToast } from '@chakra-ui/react'
+import { useTranslation } from 'react-i18next';
 
 const { REACT_APP_URL_BACK } = process.env;
 
 export const TokenBox: React.FC<UserToken> = (token_data) => {
+    const { t } = useTranslation('Tokens');
     const navigate = useNavigate();
 
     const { token, setTokenDetailId } = useAppContext();
@@ -86,7 +87,7 @@ export const TokenBox: React.FC<UserToken> = (token_data) => {
                             colorScheme='green'
                             onClick={claimTokenHandler}
                             >
-                            Claim token
+                            {t('Claim token')}
                         </Button>
                     )}
                     {token_data.is_claimed && (
@@ -95,7 +96,7 @@ export const TokenBox: React.FC<UserToken> = (token_data) => {
                             colorScheme='gray'
                             onClick={goToDetail}
                             >
-                            Token detail
+                            {t('Token details')}
                         </Button>
                     )}
                     </Center>

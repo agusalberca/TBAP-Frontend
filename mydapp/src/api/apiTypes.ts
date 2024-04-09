@@ -71,6 +71,15 @@ export interface AdminOrganization {
   user_organizations: Organization[];
 }
 
+export interface TokenGroup {
+  id: number;
+  name: string;
+  description: string;
+  image: string;
+  created_at: string;
+  course_id: number;
+}
+
 export interface UserToken {
   id: number;
   token_group: {

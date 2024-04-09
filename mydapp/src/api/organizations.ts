@@ -88,3 +88,4 @@ export const addNewUserMassivelyToCourse = async (token, body: {
         body,
     })
 }
+

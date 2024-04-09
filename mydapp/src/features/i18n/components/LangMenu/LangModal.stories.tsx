@@ -18,8 +18,8 @@ const meta: Meta<typeof LangModal> = {
         label: 'English (US)',
       },
       {
-        code: LangCode.TR_TR,
-        label: 'Türkçe',
+        code: LangCode.ES_ES,
+        label: 'Español',
       },
     ],
   },

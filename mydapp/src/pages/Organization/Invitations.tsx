@@ -17,7 +17,8 @@ import {
     Input,
     FormControl,
     FormLabel,
-    FormErrorMessage
+    FormErrorMessage,
+    Text
 } from '@chakra-ui/react' 
 
 import {
@@ -51,7 +52,7 @@ import { withOrganizationProtection } from '../../features/auth/hocs/withOrganiz
 import { deleteInvitationApi, getInvitationsApi, sentAdminInvitationEmail } from '../../api/organizations';
 
 export const OrganizationInvitations: React.FC = withOrganizationProtection(() => {
-    const { t } = useTranslation('PageUser');
+    const { t } = useTranslation('OrganizationsMenu');
     const { token } = useAppContext()
 
     const deleteInvitationMutation = useMutation((invitationId: number) => deleteInvitationApi(token, { invitation_id: invitationId }));
@@ -105,12 +106,13 @@ export const OrganizationInvitations: React.FC = withOrganizationProtection(() =
         <>
         
             <Container maxW="7xl" py={2} as={Stack} spacing={2}>
+                <br />
                 <Heading as="h1" size="xl" textAlign="center">
-                    Invitations
+                    {t('Invitations')}
                 </Heading>
                 <Box>
                     <Button onClick={onOpenModal} colorScheme="blue">
-                        Sent new invitation
+                        {t('Send new invitation')}
                     </Button>
                 </Box>
                 <Box >
@@ -119,9 +121,9 @@ export const OrganizationInvitations: React.FC = withOrganizationProtection(() =
                             <Table variant='simple'>
                                 <Thead>
                                     <Tr>
-                                        <Th>Email</Th>
-                                        <Th>Sent</Th>
-                                        <Th>State</Th>
+                                        <Th>{t('Email')}</Th>
+                                        <Th>{t('Sent')}</Th>
+                                        <Th>{t('State')}</Th>
                                     </Tr>
                                 </Thead>
                                 <Tbody>
@@ -130,7 +132,7 @@ export const OrganizationInvitations: React.FC = withOrganizationProtection(() =
                                             <Tr key={index}>
                                                 <Td>{data.email}</Td>
                                                 <Td>{new Date(data.created_at).toISOString().split('T')[0]}</Td>
-                                                <Td>{data.status}</Td>
+                                                <Td>{t(data.status)}</Td>
                                                 <Td>
                                                     {data.status.includes('Pending') ? (
                                                         <Button onClick={() => {onOpenAlert(); setDeleteInvitationId(data.id);}} colorScheme="red">
@@ -146,7 +148,9 @@ export const OrganizationInvitations: React.FC = withOrganizationProtection(() =
                                         ))
                                     ) : (
                                         <Tr>
-                                            <Td colSpan={4} textAlign="center">No invitations yet.</Td>
+                                            <Text textAlign="center">
+                                                {t('No invitations yet')}
+                                            </Text>
                                         </Tr>
                                     )}
                                 </Tbody>
@@ -165,19 +169,19 @@ export const OrganizationInvitations: React.FC = withOrganizationProtection(() =
             <AlertDialogOverlay>
             <AlertDialogContent>
                 <AlertDialogHeader fontSize='lg' fontWeight='bold'>
-                Delete invitation
+                {t('Delete invitation')}
                 </AlertDialogHeader>
 
                 <AlertDialogBody>
-                Do you want to delete this invitation? 
+                {t('Do you want to delete this invitation?')}
                 </AlertDialogBody>
 
                 <AlertDialogFooter>
                 <Button ref={cancelRef} onClick={onCloseAlert}>
-                    Cancel
+                    {t('Cancel')}
                 </Button>
                 <Button colorScheme='red' onClick={() => handleDeleteInvitation()} ml={3}>
-                    Delete
+                    {t('Delete')}
                 </Button>
                 </AlertDialogFooter>
             </AlertDialogContent>
@@ -188,16 +192,20 @@ export const OrganizationInvitations: React.FC = withOrganizationProtection(() =
                 <form onSubmit={formik.handleSubmit}>
                     <ModalOverlay />
                     <ModalContent>
-                    <ModalHeader>Add new admin</ModalHeader>
+                    <ModalHeader>
+                        {t('Add new admin')}
+                    </ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
                         
                             <FormControl isInvalid={!!formik.errors.email}>
-                                <FormLabel>Email</FormLabel>
+                                <FormLabel>
+                                    {t('Email')}
+                                </FormLabel>
                                 <Input
                                 name="email"
                                 type="email"
-                                placeholder="someone@gmail.com"
+                                placeholder={t("someone@gmail.com")}
                                 value={formik.values.email}
                                 onChange={formik.handleChange}
                                 autoComplete="email"
@@ -209,9 +217,11 @@ export const OrganizationInvitations: React.FC = withOrganizationProtection(() =
 
                     <ModalFooter>
                         <Button colorScheme='blue' mr={3} onClick={onCloseModal}>
-                        Close
+                        {t('Close')}
                         </Button>
-                        <Button variant='ghost' type="submit">Add</Button>
+                        <Button variant='ghost' type="submit">
+                            {t('Add')}
+                        </Button>
                     </ModalFooter>
                     </ModalContent>
                 </form>

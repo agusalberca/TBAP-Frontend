@@ -21,7 +21,8 @@ import {
     Select,
     Input,
     Flex,
-    Circle
+    Circle,
+    Text
 } from '@chakra-ui/react' 
 
 import {
@@ -53,7 +54,7 @@ import { faCheckCircle, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 
 
 export const UsersInCourse: React.FC = withAdminProtection(() => {
-    const { t } = useTranslation('PageUser');
+    const { t } = useTranslation('Course');
     const { token, adminCourseDetail, selectedOrganization } = useAppContext()
     
     const [page, setPage] = useState(1)
@@ -182,15 +183,15 @@ export const UsersInCourse: React.FC = withAdminProtection(() => {
         
         <Container maxW="7xl" py={2} as={Stack} spacing={2}>
             <Heading as="h1" size="xl" textAlign="center">
-                Users in course
+                {t('Users in course')}
             </Heading>
             <Box display="flex" justifyContent="space-around">
                 <Button onClick={onOpenModalSingular} colorScheme="blue">
-                    Add new user
+                    {t('Add new user')}
                 </Button>
 
                 <Button onClick={onOpenModalMassive} colorScheme="blue">
-                    Add massive users
+                    {t('Add massive users')}
                 </Button>
             </Box>
             <Divider /> {/* Barra divisora */}
@@ -201,9 +202,9 @@ export const UsersInCourse: React.FC = withAdminProtection(() => {
                         <Table variant='simple'>
                             <Thead>
                                 <Tr>
-                                    <Th>Email</Th>
-                                    <Th>Created at</Th>
-                                    <Th>Status</Th>
+                                    <Th>{t('Email')}</Th>
+                                    <Th>{t('Created at')}</Th>
+                                    <Th>{t('Status')}</Th>
                                 </Tr>
                             </Thead>
                             <Tbody>
@@ -220,7 +221,7 @@ export const UsersInCourse: React.FC = withAdminProtection(() => {
                     
                 </Center>
                 <br/>
-                {isLoading ? <p>Loading...</p> :
+                {isLoading ? <Text>{t('Loading')}...</Text> :
                     <TablePages 
                     data={users_in_course} 
                     page={data.page} 
@@ -233,7 +234,9 @@ export const UsersInCourse: React.FC = withAdminProtection(() => {
                 }
             </Box>
             ) : (
-                <p>There are no users in this course</p>
+                <Center>
+                    <Text>{t('There are no users in this course')}</Text>
+                </Center>
             )}
         </Container>
 
@@ -245,17 +248,17 @@ export const UsersInCourse: React.FC = withAdminProtection(() => {
             <form onSubmit={formikSingular.handleSubmit}>
                 <ModalOverlay />
                 <ModalContent>
-                <ModalHeader>Add new user to course</ModalHeader>
+                <ModalHeader>{t('Add new user to course')}</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
-                        <p>Add a new user to the course {adminCourseDetail.name}</p>
+                        <Text>{t('Add a new user to the course')} {adminCourseDetail.name}</Text>
                         <br/>
                         <FormControl isInvalid={!!formikSingular.errors.email}>
-                            <FormLabel>Email</FormLabel>
+                            <FormLabel>{t('Email')}</FormLabel>
                             <Input
                             name="email"
                             type="email"
-                            placeholder="someone@gmail.com"
+                            placeholder={t("someone@gmail.com")}
                             value={formikSingular.values.email}
                             onChange={formikSingular.handleChange}
                             autoComplete="email"
@@ -267,9 +270,11 @@ export const UsersInCourse: React.FC = withAdminProtection(() => {
 
                 <ModalFooter>
                     <Button variant='ghost' mr={3} onClick={onCloseModalSingular}>
-                    Close
+                        {t('Cancel')}
                     </Button>
-                    <Button colorScheme='blue' type="submit">Add</Button>
+                    <Button colorScheme='blue' type="submit">
+                        {t('Add')}
+                    </Button>
                 </ModalFooter>
                 </ModalContent>
             </form>
@@ -281,13 +286,19 @@ export const UsersInCourse: React.FC = withAdminProtection(() => {
                 <form onSubmit={formikMassive.handleSubmit}>
                     <ModalOverlay />
                     <ModalContent>
-                        <ModalHeader>Add a file with users</ModalHeader>
+                        <ModalHeader>
+                            {t('Add a file with users')}
+                        </ModalHeader>
                         <ModalCloseButton />
                         <ModalBody>
-                        <p>Add a new users to the course {adminCourseDetail.name}</p>
+                        <Text>
+                            {t('Add new users to the course')} {adminCourseDetail.name}
+                        </Text>
                         <br/>
                         <FormControl isInvalid={!!formikMassive.errors.file}>
-                            <FormLabel>Archivo</FormLabel>
+                            <FormLabel>
+                                {t('File')}
+                            </FormLabel>
                             <Input
                             name="file"
                             type="file"
@@ -300,8 +311,12 @@ export const UsersInCourse: React.FC = withAdminProtection(() => {
                         </FormControl>
                         </ModalBody>
                         <ModalFooter>
-                            <Button type="submit" colorScheme="blue" mr={3}>Submit</Button>
-                            <Button onClick={onCloseModalMassive}>Cancel</Button>
+                            <Button type="submit" colorScheme="blue" mr={3}>
+                                {t('Submit')}
+                            </Button>
+                            <Button onClick={onCloseModalMassive}>
+                                {t('Cancel')}
+                            </Button>
                         </ModalFooter>
                         <Flex justify="center" mt={4}>
                             <Circle size="16px" bg="gray.300" borderWidth="2px" borderColor="gray.600" position="relative" marginBottom={25} marginRight={5}>
@@ -316,16 +331,24 @@ export const UsersInCourse: React.FC = withAdminProtection(() => {
             {currentStep === 2 && (
                 <>
                     <ModalOverlay />
-                    <ModalHeader>Results</ModalHeader>
+                    <ModalHeader>
+                        {t('Results')}
+                    </ModalHeader>
                     <ModalContent>
                     <ModalBody style={{marginTop: "1rem"}}>
                         {responseMassiveEmails && (
                             <>
                                 {responseMassiveEmails.Accepted.amount > 0 && (
                                     <div>
-                                        <h3><FontAwesomeIcon icon={faCheckCircle} color='green'/> Users invitation sent successfully ({responseMassiveEmails.Accepted.amount})</h3>
+                                        <div style={{display: 'flex', alignItems: 'center', fontSize:"1.7rem"}}>
+                                            <FontAwesomeIcon icon={faCheckCircle} color='green'/>
+                                            <Text marginLeft={1} fontWeight={500}>
+                                                {t('Success')}
+                                            </Text>
+                                        </div>
+
                                         {responseMassiveEmails.Accepted.emails.map((info, index) => (
-                                            <p key={index}>{info}</p>
+                                            <Text key={index} marginLeft={2}>{info}</Text>
                                         ))}
                                     </div>
                                 )}
@@ -333,23 +356,30 @@ export const UsersInCourse: React.FC = withAdminProtection(() => {
                                     <>
                                         {responseMassiveEmails.Denied.emails.already_sended_errors.length > 0 && (
                                             <>
-                                                <h3><FontAwesomeIcon icon={faTimesCircle} color='red'/> Errors ({responseMassiveEmails.Denied.amount})</h3>
+                                                <div style={{display: 'flex', alignItems: 'center', fontSize:"1.7rem"}}>
+                                                    <FontAwesomeIcon icon={faTimesCircle} color='red'/>
+                                                    <Text marginLeft={1} fontWeight={500}>
+                                                        {t('Errors')} ({responseMassiveEmails.Denied.amount})
+                                                    </Text>
+                                                </div>
+                                                <br/>
                                                 <div>
-                                                    <h5>Already Sent Errors:</h5>
+                                                    <h5>{t('Already Sent Errors')}:</h5>
                                                     {responseMassiveEmails.Denied.emails.already_sended_errors.map((info, index) => (
-                                                        <p key={index}>{info}</p>
+                                                        <Text key={index} marginLeft={2}>{info}</Text>
                                                     ))}
                                                 </div>
                                             </>
                                         )}
+                                        <br/>
                                         {responseMassiveEmails.Denied.emails.is_already_in_errors.length > 0 && (
                                             <>
-                                            <div>
-                                            <h5>Is Already In Errors:</h5>
-                                            {responseMassiveEmails.Denied.emails.is_already_in_errors.map((info, index) => (
-                                                <p key={index}>{info}</p>
-                                            ))}
-                                        </div>
+                                                <div>
+                                                    <h5>{t('Is Already In Errors')}:</h5>
+                                                    {responseMassiveEmails.Denied.emails.is_already_in_errors.map((info, index) => (
+                                                        <Text key={index} marginLeft={2}>{info}</Text>
+                                                    ))}
+                                                </div>
                                             </>
                                         )}
                                     </>
@@ -367,7 +397,9 @@ export const UsersInCourse: React.FC = withAdminProtection(() => {
                     </ModalBody>
 
                         <ModalFooter>
-                            <Button onClick={handleCloseModalMassive}>Close</Button>
+                            <Button onClick={handleCloseModalMassive}>
+                                {t('Close')}
+                            </Button>
                         </ModalFooter>
                     </ModalContent>
                 </>
