@@ -8,6 +8,7 @@ import { GoerliTestChain } from './chains/goerliTest';
 import { HardhatChain } from './chains/hardhat';
 import { PolygonChain } from './chains/polygon';
 import { PolygonMumbaiChain } from './chains/polygonMumbai';
+import { PolygonAmoyChain } from './chains/polygonAmoy';
 import { Network } from './models/network/types/Network';
 
 export const SUPPORTED_NETWORKS: Network[] = [
@@ -17,11 +18,12 @@ export const SUPPORTED_NETWORKS: Network[] = [
   // EthereumMainnetChain,
   // AvalancheTestChain,
   // BSCTestChain,
-  PolygonMumbaiChain,
+  // PolygonMumbaiChain,
+  PolygonAmoyChain,
   // GoerliTestChain,
   // GanacheChain,
   // HardhatChain,
 ];
-export const DEFAULT_NETWORK = PolygonMumbaiChain;
+export const DEFAULT_NETWORK = PolygonAmoyChain;
 export const SIGN_TIMEOUT_IN_SEC = 60;
 export const SLOW_DOWN_IN_MS = 1000;

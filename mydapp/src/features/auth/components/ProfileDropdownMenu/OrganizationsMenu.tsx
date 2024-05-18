@@ -175,7 +175,7 @@ export const OrganizationsMenu: React.FC = () => {
                       borderRadius="md"
                       mb={4}
                     >
-                      <Text>{info.organization.name} - {info.organization.organization_name}</Text>
+                      <Text>{info.organization_name} organization</Text>
                       <Button
                         colorScheme="teal"
                         mr={2}

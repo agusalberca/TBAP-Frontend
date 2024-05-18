@@ -10,6 +10,7 @@ import imageAvalanche from '../../assets/images/chains/43114.webp';
 import imageGoerli from '../../assets/images/chains/5.webp';
 import imageBsc from '../../assets/images/chains/56.webp';
 import imagePolygonMumbai from '../../assets/images/chains/80001.webp';
+import imagePolygonAmoy from '../../assets/images/chains/137.webp';
 import imageBscTest from '../../assets/images/chains/97.webp';
 
 export interface NetworkLogoProps {
@@ -29,6 +30,7 @@ const imagesNetwork: Record<number, string> = {
   31337: imageHardhat,
   137: imagePolygon,
   80001: imagePolygonMumbai,
+  80002: imagePolygonAmoy,
 };
 
 export const NetworkLogo: React.FC<NetworkLogoProps> = ({

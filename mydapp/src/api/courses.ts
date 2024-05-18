@@ -1,5 +1,5 @@
 import { deleteQuery, getQuery, patchQuery, postQuery } from './apiFunctions'
-import { UserToken, UserCourse, AdminCourse, UserInvitation, TokenGroup, Admin } from './apiTypes'
+import { UserToken, UserCourse, AdminCourse, UserInvitation, OrganizationInvitation, TokenGroup, Admin } from './apiTypes'
 
 
 export const createCourseApi = ( token: string, body: {name: string, description: string, organization_id: number}) => {
@@ -50,7 +50,7 @@ export const getInvitationToJoinCourseAsUserApi = (token: string) => {
 }
 
 export const getInvitationToJoinOrganizationAsAdminApi = (token: string) => {
-    return getQuery<UserInvitation[]>({
+    return getQuery<OrganizationInvitation[]>({
         path: '/admin/invitations-to-became-admin/',
         token
     })

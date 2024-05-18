@@ -97,6 +97,7 @@ export const ClaimTokensPage: React.FC = withWalletProtection(() => {
             />
         <Box >
             <Center>
+              #HERE
                 <TokenList {...tokenDataList} />
             </Center>
         </Box>

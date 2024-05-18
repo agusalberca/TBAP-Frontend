@@ -104,7 +104,7 @@ export const TokenGroupDetail: React.FC<TokenGroupDetailProps> = ({
       const users_not_already_in_course =
         query_users_of_course.data.data.filter(
           user =>
-            !tokenDetail?.users.some(
+            !tokenDetail?.users?.some(
               tokenUser => tokenUser.user_id === user.user_id
             )
         );

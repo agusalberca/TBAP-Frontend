@@ -183,6 +183,7 @@ export interface OrganizationInvitation {
   status: string;
   created_at: string;
   organization: number;
+  organization_name: string;
 }
 
 

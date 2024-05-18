@@ -2,7 +2,7 @@ import { Box, Container, Stack, Center } from '@chakra-ui/react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { withBackendProtection } from '../../features/auth/hocs/withBackendProtection';
+import { withWalletProtection } from '../../features/wallet/hocs/withWalletProtection';
 
 import { CommonHeader } from '../../features/ui/components/CommonHeader';
 import { TokenList } from '../../components/Tokens/TokenList';
@@ -11,7 +11,7 @@ import { getUserTokensApi } from '../../api/tokens';
 import useAppContext from '../../hooks/useAppContext';
 import { requireAuth } from '../auth/AboutYou';
 
-export const UserTokensPage: React.FC = withBackendProtection(() => {
+export const UserTokensPage: React.FC = withWalletProtection(() => {
   requireAuth()
   const { t } = useTranslation('Tokens');
   const { token } = useAppContext()

@@ -16,7 +16,7 @@ import useAppContext from '../../hooks/useAppContext';
 import { requireAuth } from '../auth/AboutYou';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
-const { REACT_APP_NFT_CONTRACT_ADDRESS } = process.env;
+const { REACT_APP_NFT_CONTRACT_ADDRESS, REACT_APP_BC_EXPLORER_URL } = process.env;
 
 
 export const TokenDetailPage: React.FC = withBackendProtection(() => {
@@ -57,7 +57,7 @@ export const TokenDetailPage: React.FC = withBackendProtection(() => {
                     <Text py='3'>{tokenDetail.db_token.description}</Text>
                     <Text py='2'>{t('Token ID')}:
                         <Link 
-                        href={`https://mumbai.polygonscan.com/token/${REACT_APP_NFT_CONTRACT_ADDRESS}?a=${tokenDetail.blockchain_token.tokenId}`} 
+                        href={`${REACT_APP_BC_EXPLORER_URL}/token/${REACT_APP_NFT_CONTRACT_ADDRESS}?a=${tokenDetail.blockchain_token.tokenId}`} 
                         isExternal>
                         {tokenDetail.blockchain_token.tokenId} <FontAwesomeIcon icon={faArrowUpRightFromSquare} size="xs" /> 
                       </Link>
@@ -96,7 +96,7 @@ export const TokenDetailPage: React.FC = withBackendProtection(() => {
                     />
                     <CardBody>
                       <Link 
-                        href={`https://mumbai.polygonscan.com/address/${REACT_APP_NFT_CONTRACT_ADDRESS}?a=${tokenDetail.blockchain_token.tokenId}`} 
+                        href={`${REACT_APP_BC_EXPLORER_URL}/address/${REACT_APP_NFT_CONTRACT_ADDRESS}?a=${tokenDetail.blockchain_token.tokenId}`} 
                         isExternal>
                         {t('Verify Contract')} <FontAwesomeIcon icon={faArrowUpRightFromSquare} size="xs" /> 
                       </Link>
@@ -109,21 +109,21 @@ export const TokenDetailPage: React.FC = withBackendProtection(() => {
                 <CardBody>
                   <HStack> 
                     <FacebookShareButton 
-                      url={`https://mumbai.polygonscan.com/address/${REACT_APP_NFT_CONTRACT_ADDRESS}`} 
+                      url={`${REACT_APP_BC_EXPLORER_URL}/address/${REACT_APP_NFT_CONTRACT_ADDRESS}`} 
                       quote={tokenDetail.blockchain_token.title}>
                       <FacebookIcon size='2rem' round={true} />
                     </FacebookShareButton>
                     <TwitterShareButton 
-                      url={`https://mumbai.polygonscan.com/address/${REACT_APP_NFT_CONTRACT_ADDRESS}`} title={tokenDetail.blockchain_token.title}>
+                      url={`${REACT_APP_BC_EXPLORER_URL}/address/${REACT_APP_NFT_CONTRACT_ADDRESS}`} title={tokenDetail.blockchain_token.title}>
                       <TwitterIcon size='2rem' round={true} />
                     </TwitterShareButton>
-                    <LinkedinShareButton url={`https://mumbai.polygonscan.com/address/${REACT_APP_NFT_CONTRACT_ADDRESS}`}>
+                    <LinkedinShareButton url={`${REACT_APP_BC_EXPLORER_URL}/address/${REACT_APP_NFT_CONTRACT_ADDRESS}`}>
                       <LinkedinIcon size='2rem' round={true} />
                     </LinkedinShareButton>
-                    <TelegramShareButton url={`https://mumbai.polygonscan.com/address/${REACT_APP_NFT_CONTRACT_ADDRESS}`}>
+                    <TelegramShareButton url={`${REACT_APP_BC_EXPLORER_URL}/address/${REACT_APP_NFT_CONTRACT_ADDRESS}`}>
                       <TelegramIcon size='2rem' round={true} />
                     </TelegramShareButton>
-                    <WhatsappShareButton url={`https://mumbai.polygonscan.com/address/${REACT_APP_NFT_CONTRACT_ADDRESS}`}>
+                    <WhatsappShareButton url={`${REACT_APP_BC_EXPLORER_URL}/address/${REACT_APP_NFT_CONTRACT_ADDRESS}`}>
                       <WhatsappIcon size='2rem' round={true} />
                     </WhatsappShareButton>
                   </HStack>
