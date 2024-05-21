@@ -75,6 +75,7 @@ export const TokenGroupsInCourse: React.FC = withAdminProtection(() => {
       name: '',
       description: '',
       course_id: adminCourseDetail?.id,
+      image: '',
       users: 'all',
     },
     validateOnChange: false,
@@ -128,31 +129,42 @@ export const TokenGroupsInCourse: React.FC = withAdminProtection(() => {
                 <ModalHeader>{t('Add new token')}</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
-                  <FormControl isInvalid={!!formik.errors.name}>
-                    <FormLabel>{t('Token name')}</FormLabel>
-                    <Input
-                      name="name"
-                      type="text"
-                      placeholder={t('Name')}
-                      value={formik.values.name}
-                      onChange={formik.handleChange}
-                    />
-                    <FormErrorMessage>{formik.errors.name}</FormErrorMessage>
-                    <br />
-                    <br />
+                <FormControl isInvalid={!!formik.errors.name}>
+                  <FormLabel>{t('Token name')}</FormLabel>
+                  <Input
+                    name="name"
+                    type="text"
+                    placeholder={t('Name')}
+                    value={formik.values.name}
+                    onChange={formik.handleChange}
+                  />
+                  <FormErrorMessage>{formik.errors.name}</FormErrorMessage>
+                  <br />
+                  <br />
 
-                    <FormLabel>{t('Description')}</FormLabel>
-                    <Input
-                      name="description"
-                      type="text"
-                      placeholder={t('Description')}
-                      value={formik.values.description}
-                      onChange={formik.handleChange}
-                    />
-                    <FormErrorMessage>
-                      {formik.errors.description}
-                    </FormErrorMessage>
-                  </FormControl>
+                  <FormLabel>{t('Description')}</FormLabel>
+                  <Input
+                    name="description"
+                    type="text"
+                    placeholder={t('Description')}
+                    value={formik.values.description}
+                    onChange={formik.handleChange}
+                  />
+                  <FormErrorMessage>{formik.errors.description}</FormErrorMessage>
+                  <br />
+                  <br />
+
+                  <FormLabel>{t('Image')}</FormLabel>
+                  <Input
+                    name="image"
+                    type="file"
+                    accept="image/*"
+                    onChange={(event) => {
+                      formik.setFieldValue("image", event.currentTarget.files[0]);
+                    }}
+                  />
+                  <FormErrorMessage>{formik.errors.image}</FormErrorMessage>
+                </FormControl>
                 </ModalBody>
 
                 <ModalFooter>
