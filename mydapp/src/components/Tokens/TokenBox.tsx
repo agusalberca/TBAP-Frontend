@@ -1,5 +1,6 @@
 import {
-    Button, 
+    Button,
+    Box, 
     Card, 
     CardBody, 
     CardFooter, 
@@ -38,12 +39,25 @@ export const TokenBox: React.FC<UserToken> = (token_data) => {
                 throw new Error(signature_data.error);
             }
             await mintToken(
-                    signature_data.title, 
-                    signature_data.issuerId, 
-                    signature_data.nonce, 
-                    signature_data.uri, 
-                    signature_data.signature
+                        signature_data.title, 
+                        signature_data.issuerId, 
+                        signature_data.nonce, 
+                        signature_data.uri, 
+                        signature_data.signature
                     );
+            toast({
+                title: 'Exito',
+                description: (
+                    <Box>
+                    Tu token ha sido reclamado con éxito! 🎉
+                    <br />
+                    En breve podrás verlo en tu billetera de tokens.
+                    </Box>
+                ),
+                status: 'success',
+                duration: 10000, // Duration in milliseconds
+                isClosable: true,
+            });
         } catch (error) {
             console.error('Error claiming token:', error);
             toast({

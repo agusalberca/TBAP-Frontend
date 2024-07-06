@@ -41,7 +41,7 @@ export const getAdminOfOrganizationApi = (token: string, params: { organization_
 
 }
 export const getUsersOfCourseApi = (token: string, params: { course_id: number, page: number, per_page?: number, status?:string}) => {
-    params.status = params.status || "Pending";
+    params.status = params.status;
     params.per_page = params.per_page || 6; 
     return getQuery<PaginatedItem>({
         path: '/admin/users-in-course/',

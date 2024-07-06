@@ -25,8 +25,8 @@ export const getAdminOrganizationsApi = (token: string) => {
 export const getUserTokensApi = (token: string, params= null) => {
     return getQuery<PaginatedItem>({
         path: '/blockchain/user-tokens/',
+        token: token,
         params: params,
-        token,
         callback: (data: PaginatedItem) =>
             data.data instanceof Array
             ? data
